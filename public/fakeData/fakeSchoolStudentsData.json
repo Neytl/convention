@@ -1,0 +1,46 @@
+{
+    "tableName": "",
+    "tableType": "school_students",
+    "columnNames": [
+        "Name",
+        "Age",
+        "Group",
+        "Events"
+    ],
+    "tableData": [
+        {
+            "name": "Student 1",
+            "age": 7,
+            "group": "Corderitos",
+            "events": 0
+        },
+        {
+            "name": "Student 2",
+            "age": 6,
+            "group": "Ovejitas",
+            "events": 3
+        },
+        {
+            "name": "Student 3",
+            "age": 7,
+            "group": "Corderitos",
+            "events": 2
+        },
+        {
+            "name": "Student 4",
+            "age": 9,
+            "group": "Corderos",
+            "events": 1
+        }
+    ],
+    "stats": [
+        {
+            "title": "Students",
+            "value": 4
+        },
+        {
+            "title": "Events",
+            "value": 6
+        }
+    ]
+}

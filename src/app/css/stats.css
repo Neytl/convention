@@ -1,0 +1,10 @@
+
+#stats{
+    padding: 1em;
+    display: flex;
+    gap: 5em;
+}
+
+.stat > div {
+    display: flex;
+}

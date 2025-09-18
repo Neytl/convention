@@ -1,11 +1,11 @@
 import Nav from "convention/components/Nav";
 import Content from "convention/components/Content";
 
-export default function Home() {
+export default function AdminEventsPage() {
 return (
     <div id="page">
       <Nav />
-      <Content dataEndpoint="fakeAdminSchoolsData"/>
+      <Content dataEndpoint="fakeAdminEventsData"/>
     </div>
   );
 }

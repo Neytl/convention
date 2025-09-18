@@ -1,0 +1,25 @@
+
+#header {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  gap: .5em;
+  background-color: aqua;
+  width: 15em;
+}
+
+#user {
+  display: flex;
+  align-items: center;
+}
+
+#user span {
+  font-size: 1.5em;
+}
+
+#links {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding-top: 4em;
+}

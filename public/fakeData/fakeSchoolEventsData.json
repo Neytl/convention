@@ -1,0 +1,40 @@
+{
+    "tableName": "",
+    "tableType": "school_events",
+    "columnNames": [
+        "Name", 
+        "Age Group",
+        "Age",
+        "Team #"
+    ],
+    "tableData": [
+        {
+            "name": "Student 1",
+            "Age Group": "Corderitos",
+            "Age": 7,
+            "Team #": 0
+        },
+        {
+            "name": "Student 2",
+            "Age Group": "Corderitos",
+            "Age": 7,
+            "Team #": 0
+        },
+        {
+            "name": "Student 3",
+            "Age Group": "Corderitos",
+            "Age": 7,
+            "Team #": 0
+        }
+    ],
+    "stats": [
+        {
+            "title": "Events",
+            "value": 1
+        },
+        {
+            "title": "Participants",
+            "value": 3
+        }
+    ]
+}

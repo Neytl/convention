@@ -1,0 +1,32 @@
+{
+    "tableName": "",
+    "tableType": "admin_schools",
+    "columnNames": [
+        "School", 
+        "# Students"
+    ],
+    "tableData": [
+        {
+            "school": "Harmony School",
+            "num_students": 15
+        },
+        {
+            "school": "New School",
+            "num_students": 0
+        },
+        {
+            "school": "Hope Academy",
+            "num_students": 3
+        }
+    ],
+    "stats": [
+        {
+            "title": "Schools",
+            "value": 3
+        },
+        {
+            "title": "Students",
+            "value": 18
+        }
+    ]
+}

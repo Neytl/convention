@@ -1,0 +1,18 @@
+
+.table {
+  background-color: azure;
+  
+}
+
+.tableHeader, .tableEntryData  {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.tableEntryData {
+  padding: 1em 0;
+}
+
+.primaryTableEntryData {
+  display: flex;
+}
