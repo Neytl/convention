@@ -2,6 +2,7 @@
 import "convention/app/css/popup.css";
 import AddSchoolPopup from "./popupContent/AddSchoolPopup";
 import { clearSchoolPopup } from "./popupContent/AddSchoolPopup";
+import EditSchoolPopup from "./popupContent/EditSchoolPopup";
 import AddEventPopup from "./popupContent/AddEventPopup";
 import { clearEventPopup } from "./popupContent/AddEventPopup";
 import Image from "next/image";
@@ -35,6 +36,7 @@ export default function Popup() {
         </div>
         <div id="popupContent">
           <AddSchoolPopup />
+          <EditSchoolPopup />
           <AddEventPopup />
         </div>
       </div>
@@ -42,38 +44,43 @@ export default function Popup() {
   );
 }
 
-export const openTableButtonPopup = (tableType) => {
+export const openTableButtonPopup = (popupName) => {
   // Show the correct popup
   document
     .getElementById("popupContent")
     .childNodes.forEach((element) => element.classList.add("hidden"));
 
-  switch (tableType) {
-    case "admin_schools":
+  console.log(popupName);
+
+  switch (popupName) {
+    case "admin_schools_popup":
       document.getElementById("popupTitle").innerHTML = "New School";
       document.getElementById("popupHeaderIcon").srcset = "/images/school.png";
       clearSchoolPopup();
-      document.getElementById("addSchoolPopup").classList.remove("hidden");
-
       break;
-    case "admin_events":
+    case "edit_admin_schools_popup":
+      document.getElementById("popupTitle").innerHTML = "Edit School";
+      document.getElementById("popupHeaderIcon").srcset = "/images/school.png";
+      break;
+    case "admin_events_popup":
       document.getElementById("popupTitle").innerHTML = "New Event";
       document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
       clearEventPopup();
-      document.getElementById("addEventPopup").classList.remove("hidden");
       break;
-    case "school_events":
+    case "school_events_popup":
       document.getElementById("popupTitle").innerHTML = "Add Student";
       document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
-      document.getElementById("addSchoolPopup").classList.remove("hidden");
       break;
-    case "school_students":
+    case "school_students_popup":
+      document.getElementById("popupTitle").innerHTML = "Add Student";
+      document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
+      break;
     default:
-      document.getElementById("popupTitle").innerHTML = "Add Student";
-      document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
-      document.getElementById("addSchoolPopup").classList.remove("hidden");
-      break;
+      console.log("Error opening a popup!");
+      return;
   }
+
+  document.getElementById(popupName).classList.remove("hidden");
 
   // Show the popup
   document.getElementById("popupContainer").classList.remove("hidden");

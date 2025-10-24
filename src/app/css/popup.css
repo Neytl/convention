@@ -114,6 +114,10 @@
   gap: 0.3em;
 }
 
+.popupFields input.error {
+  border: 1px solid #921717;
+}
+
 /* Admin Events Popup */
 #teamSizeRow {
   display: flex;

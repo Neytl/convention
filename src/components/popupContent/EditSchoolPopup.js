@@ -1,9 +1,9 @@
 // import Image from "next/image";
 import TinyImage from "./TinyImage";
 
-export default function AddSchoolPopup() {
+export default function EditSchoolPopup() {
   return (
-    <div id="admin_schools_popup" className="hidden">
+    <div id="edit_admin_schools_popup" className="hidden">
       <form className="popupFields">
         <div>
           <div className="popupInputLabel">
@@ -11,7 +11,7 @@ export default function AddSchoolPopup() {
           </div>
           <input
             type="text"
-            id="schoolName"
+            id="editSchoolName"
             placeholder="School Name"
             onInput={clearError}
           />
@@ -21,34 +21,37 @@ export default function AddSchoolPopup() {
       <span className="popupMessage"></span>
 
       <div className="popupButtonContainer">
-        <div onClick={addNewSchool} className="submitPopupButton">
-          Add
+        <div
+          onClick={updateSchool}
+          className="submitPopupButton"
+          id="submitAdminSchool"
+        >
+          Update
         </div>
       </div>
     </div>
   );
 }
 
-export const clearSchoolPopup = () => {
-  document.getElementById("schoolName").value = "";
-};
-
 function clearError(event) {
   event.target.classList.remove("error");
 }
 
-function addNewSchool() {
+function updateSchool() {
+  let input = document.getElementById("editSchoolName");
+
   let body = {
-    schoolName: document.getElementById("schoolName").value,
+    schooID: input.dataset.schooID,
+    schoolName: input.value,
   };
 
   // Incomplete data
   if (!body.schoolName) {
-    document.getElementById("schoolName").classList.add("error");
+    document.getElementById("editSchoolName").classList.add("error");
     return;
   }
 
   // Make the request
-  console.log("Fetch Add School", body);
+  console.log("Fetch Update school", body);
   document.getElementById("popupContainer").classList.add("hidden");
 }

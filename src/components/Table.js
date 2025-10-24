@@ -94,7 +94,7 @@ function getTableTopper(tableType) {
       <div
         className="tableButton"
         onClick={() => {
-          openTableButtonPopup(tableType);
+          openTableButtonPopup(tableType + "_popup");
         }}
       >
         <span>{getTableButtonText(tableType)}</span>

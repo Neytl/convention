@@ -2,6 +2,7 @@ import Image from "next/image";
 import IconSpan from "./IconSpan";
 import TableEntryButton from "./TableEntryButton";
 import "convention/app/css/table.css";
+import { openTableButtonPopup } from "./Popup";
 
 export default function TableEntry({ entryIconSrc, dataEntries, tableType }) {
   let columnIndex = 0;
@@ -11,7 +12,7 @@ export default function TableEntry({ entryIconSrc, dataEntries, tableType }) {
   };
 
   return (
-    <div className="tableEntry closed">
+    <div className="tableEntry closed" id={"entry" + dataEntries[0]}>
       <div className="tableEntryData" onClick={onclickEntry}>
         <div className="primaryTableEntryData">
           <Image src={entryIconSrc} alt="" width={30} height={30} />
@@ -21,26 +22,57 @@ export default function TableEntry({ entryIconSrc, dataEntries, tableType }) {
           <span key={columnIndex++}>{dataValue}</span>
         ))}
       </div>
-      {lookupTableEntryDropdown(tableType)}
+      {lookupTableEntryDropdown(tableType, dataEntries)}
     </div>
   );
 }
 
-function lookupTableEntryDropdown(tableType) {
+function lookupTableEntryDropdown(tableType, data) {
   switch (tableType) {
     case "admin_schools":
-      return generateAdminSchoolEntryDropdown();
+      return generateAdminSchoolEntryDropdown(tableType, data);
     case "admin_events":
-      return generateAdminEventsEntryDropdown();
+      return generateAdminEventsEntryDropdown(tableType, data);
     case "school_events":
-      return generateSchoolEventsEntryDropdown();
+      return generateSchoolEventsEntryDropdown(tableType, data);
     case "school_students":
     default:
-      return generateSchoolStudentsEntryDropdown();
+      return generateSchoolStudentsEntryDropdown(tableType, data);
   }
 }
 
-function generateAdminSchoolEntryDropdown() {
+function generateAdminSchoolEntryDropdown(tableType, data) {
+  let printSchoolData = function () {
+    // TODO
+    console.log("Printing out '" + data[0] + "' school data...");
+  };
+
+  let editSchoolData = function () {
+    openTableButtonPopup("edit_" + tableType + "_popup");
+    console.log(data);
+    let input = document.getElementById("editSchoolName");
+    input.value = data[0];
+    input.dataset.schooID = data[0];
+    document.getElementById("submitAdminSchool").innerHTML = "Update";
+  };
+
+  let deleteSchool = function (event) {
+    if (confirm("Are you sure you want to delete '" + data[0] + "'?")) {
+      let body = {
+        schooID: data[0],
+      };
+      console.log("Fetch Delete School", body);
+
+      let elementToDelete = document.getElementById("entry" + data[0]);
+      elementToDelete.parentElement.removeChild(elementToDelete);
+    }
+  };
+
+  let viewStudents = function () {
+    // TODO - link to the right school
+    window.location.href = "./schoolStudents";
+  };
+
   return (
     <div className="tableEntryDropdown">
       <div className="schoolLoginInfo">
@@ -50,16 +82,32 @@ function generateAdminSchoolEntryDropdown() {
         <span>Password12345</span>
       </div>
       <div className="tableEntryDropdownButtons">
-        <TableEntryButton imageSrc="/images/print.png" text="Print" />
-        <TableEntryButton imageSrc="/images/edit.png" text="Edit" />
-        <TableEntryButton imageSrc="/images/delete.png" text="Delete" />
-        <TableEntryButton imageSrc="/images/account.png" text="Students" />
+        <TableEntryButton
+          imageSrc="/images/print.png"
+          text="Print"
+          onClick={printSchoolData}
+        />
+        <TableEntryButton
+          imageSrc="/images/edit.png"
+          text="Edit"
+          onClick={editSchoolData}
+        />
+        <TableEntryButton
+          imageSrc="/images/delete.png"
+          text="Delete"
+          onClick={deleteSchool}
+        />
+        <TableEntryButton
+          imageSrc="/images/account.png"
+          text="Students"
+          onClick={viewStudents}
+        />
       </div>
     </div>
   );
 }
 
-function generateAdminEventsEntryDropdown() {
+function generateAdminEventsEntryDropdown(tableType, data) {
   return (
     <div className="tableEntryDropdown">
       <div className="eventParticipants">
@@ -84,7 +132,7 @@ function generateAdminEventsEntryDropdown() {
   );
 }
 
-function generateSchoolEventsEntryDropdown() {
+function generateSchoolEventsEntryDropdown(tableType, data) {
   return (
     <div className="tableEntryDropdown">
       <div className="tableEntryDropdownButtons">
@@ -94,7 +142,7 @@ function generateSchoolEventsEntryDropdown() {
   );
 }
 
-function generateSchoolStudentsEntryDropdown() {
+function generateSchoolStudentsEntryDropdown(tableType, data) {
   return (
     <div className="tableEntryDropdown">
       <div className="eventParticipants">

@@ -3,14 +3,19 @@ import TinyImage from "./TinyImage";
 
 export default function AddEventPopup() {
   return (
-    <div id="addEventPopup" className="hidden">
+    <div id="admin_events_popup" className="hidden">
       <form className="popupFields">
         {/* Event Name */}
         <div>
           <div className="popupInputLabel">
             <label htmlFor="eventName">Name:</label>
           </div>
-          <input type="text" id="eventName" placeholder="Event Name" />
+          <input
+            onInput={clearError}
+            type="text"
+            id="eventName"
+            placeholder="Event Name"
+          />
         </div>
         {/* Team Size */}
         <div id="teamSizeRow">
@@ -54,7 +59,9 @@ export default function AddEventPopup() {
       <span className="popupMessage"></span>
 
       <div className="popupButtonContainer">
-        <div className="submitPopupButton">Add</div>
+        <div onClick={addNewEvent} className="submitPopupButton">
+          Add
+        </div>
       </div>
     </div>
   );
@@ -65,3 +72,26 @@ export const clearEventPopup = () => {
   document.getElementById("eventTeamSize").value = 4;
   document.getElementById("eventHasTeams").checked = false;
 };
+
+function clearError(event) {
+  event.target.classList.remove("error");
+}
+
+function addNewEvent() {
+  let body = {
+    eventName: document.getElementById("eventName").value,
+    eventHasTeams: document.getElementById("eventHasTeams").checked,
+    eventTeamSize: document.getElementById("eventTeamSize").value,
+    eventCategory: document.getElementById("eventCategory").value,
+  };
+
+  // Incomplete data
+  if (!body.eventName) {
+    document.getElementById("eventName").classList.add("error");
+    return;
+  }
+
+  // Make the request
+  console.log("Fetch Add Event", body);
+  document.getElementById("popupContainer").classList.add("hidden");
+}
