@@ -33,7 +33,8 @@ function lookupTableEntryDropdown(tableType, data) {
       return generateAdminSchoolEntryDropdown(tableType, data);
     case "admin_events":
       return generateAdminEventsEntryDropdown(tableType, data);
-    case "school_events":
+    case "school_event":
+    case "school_team_event":
       return generateSchoolEventsEntryDropdown(tableType, data);
     case "school_students":
     default:
@@ -233,10 +234,30 @@ function generateSchoolStudentsEntryDropdown(tableType, data) {
 }
 
 function generateSchoolEventsEntryDropdown(tableType, data) {
+  let removeStudent = function (event) {
+    let body = {
+      studentID: data[0],
+    };
+    console.log("Fetch Delete Student", body);
+
+    let elementToDelete = document.getElementById("entry" + data[0]);
+
+    if (elementToDelete.parentElement.children.length == 1) {
+      elementToDelete =
+        elementToDelete.parentElement.parentElement.parentElement;
+    }
+
+    elementToDelete.parentElement.removeChild(elementToDelete);
+  };
+
   return (
     <div className="tableEntryDropdown">
       <div className="tableEntryDropdownButtons">
-        <TableEntryButton imageSrc="/images/delete.png" text="Remove" />
+        <TableEntryButton
+          onClick={removeStudent}
+          imageSrc="/images/delete.png"
+          text="Remove"
+        />
       </div>
     </div>
   );

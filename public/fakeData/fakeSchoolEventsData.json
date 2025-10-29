@@ -1,40 +1,62 @@
 {
-    "tableName": "",
-    "tableType": "school_events",
-    "columnNames": [
-        "Name", 
-        "Age Group",
-        "Age",
-        "Team #"
-    ],
-    "tableData": [
+  "tables": [
+    {
+      "tableName": "Solo Instrument",
+      "tableType": "school_event",
+      "columnNames": ["Name", "Age Group", "Age"],
+      "tableData": [
         {
-            "name": "Student 1",
-            "Age Group": "Corderitos",
-            "Age": 7,
-            "Team #": 0
+          "name": "Student 1",
+          "Age Group": "Corderitos",
+          "Age": 7
         },
         {
-            "name": "Student 2",
-            "Age Group": "Corderitos",
-            "Age": 7,
-            "Team #": 0
+          "name": "Student 2",
+          "Age Group": "Corderitos",
+          "Age": 7
         },
         {
-            "name": "Student 3",
-            "Age Group": "Corderitos",
-            "Age": 7,
-            "Team #": 0
+          "name": "Student 3",
+          "Age Group": "Corderitos",
+          "Age": 7
         }
-    ],
-    "stats": [
+      ]
+    },
+    {
+      "tableName": "Soccer",
+      "tableType": "school_team_event",
+      "maxTeamSize": 8,
+      "columnNames": ["Name", "Age Group", "Age", "Team #"],
+      "tableData": [
         {
-            "title": "Events",
-            "value": 1
+          "name": "Student 1",
+          "Age Group": "Corderitos",
+          "Age": 7,
+          "Team #": "A"
         },
         {
-            "title": "Participants",
-            "value": 3
+          "name": "Student 2",
+          "Age Group": "Corderitos",
+          "Age": 7,
+          "Team #": "A"
+        },
+        {
+          "name": "Student 3",
+          "Age Group": "Corderitos",
+          "Age": 7,
+          "Team #": "B"
         }
-    ]
+      ]
+    }
+  ],
+  "stats": [
+    {
+      "title": "Events",
+      "value": 1
+    },
+    {
+      "title": "Participants",
+      "value": 3
+    }
+  ]
 }

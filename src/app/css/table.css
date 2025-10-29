@@ -151,3 +151,29 @@
   gap: 1em;
   grid-template-columns: 1fr 2em;
 }
+
+/* School Events */
+.tableEntryHeader,
+.tableEntryButtonContainer {
+  padding: 1em;
+}
+
+.tableEntryButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.tableEntryHeader {
+  background-color: #d82f2f;
+  color: white;
+  font-weight: bold;
+}
+
+.addTeamMemeberButton {
+  display: flex;
+  align-items: center;
+}
+
+.tableEntryButtonContainer:not(:last-child) {
+  padding-bottom: 2em;
+}
