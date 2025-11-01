@@ -1,23 +1,35 @@
-/* #header {
-  background-color: aqua;
-}
-.table {
-  background-color: azure;  
-}
-#content {
-  background-color: salmon;
-} */
-
 body {
   margin: 0;
   user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: #b6c2e5;
+  background: linear-gradient(
+    0deg,
+    rgba(182, 194, 229, 1) 0%,
+    rgba(230, 230, 250, 1) 100%
+  );
+}
+
+#split {
+  display: flex;
+  flex-grow: 1;
+  height: 1em;
 }
 
 #page {
   background-color: #f8f8f8;
-  width: 100vw;
-  min-height: 100vh;
+  width: 90vw;
+  max-width: 85em;
+  height: 90vh;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.5em #575757;
   display: flex;
+  flex-direction: column;
 }
 
 #content {
@@ -26,8 +38,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 3em;
+  overflow: auto;
 }
 
 .hidden {
   display: none !important;
+}
+
+.invert {
+  filter: invert(1);
 }

@@ -2,6 +2,8 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
+  left: 0;
+  top: 0;
   background-color: #000000bd;
   display: flex;
   align-items: center;
