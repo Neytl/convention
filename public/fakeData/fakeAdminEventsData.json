@@ -1,24 +1,51 @@
 {
   "tables": [
     {
-      "tableName": "",
+      "tableName": "Events",
       "tableType": "admin_events",
-      "columnNames": ["Event", "Participants", "Team Size"],
+      "columnNames": ["Event", "Participants", "Team Size", "Category"],
       "tableData": [
         {
-          "event": "Solo Instrument",
-          "participants": 10,
-          "teamSize": "-"
+          "eventName": "Solo Instrument",
+          "teamSize": "-",
+          "category": "Music",
+          "participants": [
+            {
+              "name": "Student 1",
+              "school": "Harmony School",
+              "ageGroup": "Corderitos",
+              "Age": "7",
+              "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
+            }
+          ]
         },
         {
-          "event": "4 x 100",
-          "participants": 16,
-          "teamSize": 4
+          "eventName": "4 x 100",
+          "teamSize": "4",
+          "category": "Sports",
+          "participants": [
+            {
+              "name": "Student 2",
+              "school": "Harmony School",
+              "ageGroup": "Corderitos",
+              "Age": "7",
+              "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
+            }
+          ]
         },
         {
-          "event": "Soccer",
-          "participants": 32,
-          "teamSize": 8
+          "eventName": "Soccer",
+          "teamSize": "8",
+          "category": "Sports",
+          "participants": [
+            {
+              "name": "Student 3",
+              "school": "Harmony School",
+              "ageGroup": "Corderitos",
+              "Age": "7",
+              "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
+            }
+          ]
         }
       ]
     }

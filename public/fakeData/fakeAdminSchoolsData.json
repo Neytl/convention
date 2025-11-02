@@ -1,21 +1,27 @@
 {
   "tables": [
     {
-      "tableName": "",
+      "tableName": "Schools",
       "tableType": "admin_schools",
       "columnNames": ["School", "# Students"],
       "tableData": [
         {
-          "school": "Harmony School",
-          "num_students": 15
+          "schoolName": "Harmony School",
+          "numStudents": 15,
+          "username": "Harmony School",
+          "password": "9435"
         },
         {
-          "school": "New School",
-          "num_students": 0
+          "schoolName": "New School",
+          "numStudents": 0,
+          "username": "New School",
+          "password": "3854"
         },
         {
-          "school": "Hope Academy",
-          "num_students": 3
+          "schoolName": "Hope Academy",
+          "numStudents": 3,
+          "username": "Hope Academy",
+          "password": "1945"
         }
       ]
     }

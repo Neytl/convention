@@ -1,7 +1,6 @@
 import "convention/app/css/table.css";
 import TableEntry from "./TableEntry";
 import { openTableButtonPopup } from "./Popup";
-import Image from "next/image";
 import IconSpan from "./IconSpan";
 
 export default function Table({
@@ -33,15 +32,17 @@ export default function Table({
 
   let entryIconSrc = getTableEntryIcon(tableType);
   let tableEntries;
+  let tableID = tableName + "Table";
 
   // Build the table entries
   if (tableType != "school_team_event") {
     tableEntries = tableData.map((entryData) => (
       <TableEntry
-        key={rowIndex++}
+        key={rowIndex}
         entryIconSrc={entryIconSrc}
-        dataEntries={Object.entries(entryData).map((a) => a[1])}
+        data={entryData}
         tableType={tableType}
+        rowIndex={rowIndex++}
       />
     ));
   } else {
@@ -75,10 +76,11 @@ export default function Table({
 
       tableEntries.push(
         <TableEntry
-          key={rowIndex++}
+          key={rowIndex}
           entryIconSrc={entryIconSrc}
           dataEntries={Object.entries(entryDataCopy).map((a) => a[1])}
           tableType={tableType}
+          rowIndex={rowIndex++}
         />
       );
     });
@@ -106,7 +108,7 @@ export default function Table({
   return (
     <div className={columns}>
       {getTableTopper(tableType, tableName)}
-      <div className="table">
+      <div className="table" id={tableID}>
         <div className="tableHeader">{tableHeader}</div>
         <div className="tableEntries">{tableEntries}</div>
       </div>
@@ -156,25 +158,10 @@ function getTableButtonText(tableType) {
   }
 }
 
-function getTableTopperText(tableType, tableName) {
-  switch (tableType) {
-    case "admin_schools":
-      return "Schools";
-    case "admin_events":
-      return "Events";
-    case "school_event":
-    case "school_team_event":
-      return tableName;
-    case "school_students":
-    default:
-      return "Students";
-  }
-}
-
 function getTableTopper(tableType, tableName) {
   return (
     <div className="tableTopper">
-      <span>{getTableTopperText(tableType, tableName)}</span>
+      <span>{tableName}</span>
       <div
         className="tableButton"
         onClick={() => {

@@ -4,9 +4,21 @@ import TableEntryButton from "./TableEntryButton";
 import "convention/app/css/table.css";
 import { openTableButtonPopup } from "./Popup";
 
-export default function TableEntry({ entryIconSrc, dataEntries, tableType }) {
-  let columnIndex = 0;
+export default function TableEntry({
+  entryIconSrc,
+  data,
+  tableType,
+  rowIndex,
+}) {
+  return (
+    <div className="tableEntry closed" id={"entry" + rowIndex}>
+      {lookupTableEntryData(tableType, data, entryIconSrc)}
+      {lookupTableEntryDropdown(tableType, data, rowIndex)}
+    </div>
+  );
+}
 
+function lookupTableEntryData(tableType, data, entryIconSrc) {
   const onclickEntry = (event) => {
     let target = event.target.closest(".tableEntry");
 
@@ -20,58 +32,98 @@ export default function TableEntry({ entryIconSrc, dataEntries, tableType }) {
     }
   };
 
-  return (
-    <div className="tableEntry closed" id={"entry" + dataEntries[0]}>
-      <div className="tableEntryData" onClick={onclickEntry}>
-        <div className="primaryTableEntryData">
-          <Image src={entryIconSrc} alt="" width={30} height={30} />
-          <span>{dataEntries[0]}</span>
-        </div>
-        {dataEntries.slice(1).map((dataValue) => (
-          <span key={columnIndex++}>{dataValue}</span>
-        ))}
-      </div>
-      {lookupTableEntryDropdown(tableType, dataEntries)}
-    </div>
-  );
-}
+  let columnIndex = 0;
 
-function lookupTableEntryDropdown(tableType, data) {
   switch (tableType) {
     case "admin_schools":
-      return generateAdminSchoolEntryDropdown(tableType, data);
+      return (
+        <div className="tableEntryData" onClick={onclickEntry}>
+          <div className="primaryTableEntryData">
+            <Image src={entryIconSrc} alt="" width={30} height={30} />
+            <span>{data.schoolName}</span>
+          </div>
+          <span key={columnIndex++}>{data.numStudents}</span>
+        </div>
+      );
     case "admin_events":
-      return generateAdminEventsEntryDropdown(tableType, data);
+      return (
+        <div className="tableEntryData" onClick={onclickEntry}>
+          <div className="primaryTableEntryData">
+            <Image src={entryIconSrc} alt="" width={30} height={30} />
+            <span>{data.eventName}</span>
+          </div>
+          <span key={columnIndex++}>{data.participants.length}</span>
+          <span key={columnIndex++}>{data.teamSize}</span>
+          <span key={columnIndex++}>{data.category}</span>
+        </div>
+      );
     case "school_event":
     case "school_team_event":
-      return generateSchoolEventsEntryDropdown(tableType, data);
     case "school_students":
     default:
-      return generateSchoolStudentsEntryDropdown(tableType, data);
+      let dataEntries = Object.entries(data).map((a) => a[1]);
+
+      return (
+        <div className="tableEntryData" onClick={onclickEntry}>
+          <div className="primaryTableEntryData">
+            <Image src={entryIconSrc} alt="" width={30} height={30} />
+            <span>{dataEntries[0]}</span>
+          </div>
+          {dataEntries.slice(1).map((dataValue) => (
+            <span key={columnIndex++}>{dataValue}</span>
+          ))}
+        </div>
+      );
   }
 }
 
-function generateAdminSchoolEntryDropdown(tableType, data) {
+function lookupTableEntryDropdown(tableType, data, rowIndex) {
+  let dataEntries = Object.entries(data).map((a) => a[1]);
+
+  switch (tableType) {
+    case "admin_schools":
+      return generateAdminSchoolEntryDropdown(tableType, data, rowIndex);
+    case "admin_events":
+      return generateAdminEventsEntryDropdown(tableType, data, rowIndex);
+    case "school_event":
+    case "school_team_event":
+      return generateSchoolEventsEntryDropdown(
+        tableType,
+        dataEntries,
+        rowIndex
+      );
+    case "school_students":
+    default:
+      return generateSchoolStudentsEntryDropdown(
+        tableType,
+        dataEntries,
+        rowIndex
+      );
+  }
+}
+
+function generateAdminSchoolEntryDropdown(tableType, data, rowIndex) {
   let printSchoolData = function () {
     // TODO
-    console.log("Printing out '" + data[0] + "' school data...");
+    console.log("Printing out '" + data.schoolName + "' school data...");
   };
 
   let editSchoolData = function () {
     openTableButtonPopup("edit_" + tableType + "_popup");
     let input = document.getElementById("editSchoolName");
-    input.value = data[0];
-    input.dataset.schooID = data[0];
+    input.value = data.schoolName;
+    input.dataset.schooID = data.schoolName;
   };
 
   let deleteSchool = function (event) {
-    if (confirm("Are you sure you want to delete '" + data[0] + "'?")) {
+    if (confirm("Are you sure you want to delete '" + data.schoolName + "'?")) {
       let body = {
-        schooID: data[0],
+        schoolName: data.schoolName,
       };
       console.log("Fetch Delete School", body);
 
-      let elementToDelete = document.getElementById("entry" + data[0]);
+      let elementToDelete = document.getElementById("entry" + rowIndex);
+      console.log("entry" + rowIndex, elementToDelete);
       elementToDelete.parentElement.removeChild(elementToDelete);
     }
   };
@@ -85,9 +137,9 @@ function generateAdminSchoolEntryDropdown(tableType, data) {
     <div className="tableEntryDropdown">
       <div className="schoolLoginInfo">
         <IconSpan imageSrc="/images/account.png" text="Username:" />
-        <span>New School</span>
+        <span>{data.username}</span>
         <IconSpan imageSrc="/images/password.png" text="Password:" />
-        <span>Password12345</span>
+        <span>{data.password}</span>
       </div>
       <div className="tableEntryDropdownButtons">
         <TableEntryButton
@@ -115,26 +167,28 @@ function generateAdminSchoolEntryDropdown(tableType, data) {
   );
 }
 
-function generateAdminEventsEntryDropdown(tableType, data) {
+function generateAdminEventsEntryDropdown(tableType, data, columnIndex) {
   let printEvent = function () {
     // TODO
-    console.log("Printing out '" + data[0] + "' event data...");
+    console.log("Printing out '" + data.eventName + "' event data...");
   };
 
   let editEvent = function () {
     openTableButtonPopup("edit_" + tableType + "_popup");
 
     let input = document.getElementById("editEventName");
-    input.value = data[0];
-    input.dataset.eventID = data[0];
+    input.value = data.eventName;
+    input.dataset.eventID = data.eventName;
 
-    if (data[2] != "-") {
+    if (data.teamSize != "-") {
       // Teams
       document.getElementById("editEventHasTeams").checked = true;
       document
         .getElementById("editTeamSizeContainer")
         .classList.remove("hidden");
-      document.getElementById("editEventTeamSize").value = parseInt(data[2]);
+      document.getElementById("editEventTeamSize").value = parseInt(
+        data.teamSize
+      );
     } else {
       document.getElementById("editEventHasTeams").checked = false;
       document.getElementById("editTeamSizeContainer").classList.add("hidden");
@@ -145,13 +199,13 @@ function generateAdminEventsEntryDropdown(tableType, data) {
   };
 
   let deleteEvent = function (event) {
-    if (confirm("Are you sure you want to delete '" + data[0] + "'?")) {
+    if (confirm("Are you sure you want to delete '" + data.eventName + "'?")) {
       let body = {
-        eventID: data[0],
+        eventName: data.eventName,
       };
       console.log("Fetch Delete Event", body);
 
-      let elementToDelete = document.getElementById("entry" + data[0]);
+      let elementToDelete = document.getElementById("entry" + columnIndex);
       elementToDelete.parentElement.removeChild(elementToDelete);
     }
   };
@@ -191,7 +245,7 @@ function generateAdminEventsEntryDropdown(tableType, data) {
   );
 }
 
-function generateSchoolStudentsEntryDropdown(tableType, data) {
+function generateSchoolStudentsEntryDropdown(tableType, data, columnIndex) {
   let editStudent = function () {
     openTableButtonPopup("edit_" + tableType + "_popup");
     console.log(data);
@@ -211,7 +265,7 @@ function generateSchoolStudentsEntryDropdown(tableType, data) {
       };
       console.log("Fetch Delete Student", body);
 
-      let elementToDelete = document.getElementById("entry" + data[0]);
+      let elementToDelete = document.getElementById("entry" + columnIndex);
       elementToDelete.parentElement.removeChild(elementToDelete);
     }
   };
@@ -242,14 +296,14 @@ function generateSchoolStudentsEntryDropdown(tableType, data) {
   );
 }
 
-function generateSchoolEventsEntryDropdown(tableType, data) {
+function generateSchoolEventsEntryDropdown(tableType, data, columnIndex) {
   let removeStudent = function (event) {
     let body = {
       studentID: data[0],
     };
     console.log("Fetch Delete Student", body);
 
-    let elementToDelete = document.getElementById("entry" + data[0]);
+    let elementToDelete = document.getElementById("entry" + columnIndex);
 
     if (elementToDelete.parentElement.children.length == 1) {
       elementToDelete =
