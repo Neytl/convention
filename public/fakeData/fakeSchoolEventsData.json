@@ -1,50 +1,62 @@
 {
   "tables": [
     {
-      "tableName": "Solo Instrument",
-      "tableType": "school_event",
-      "columnNames": ["Name", "Age Group", "Age"],
-      "tableData": [
-        {
-          "name": "Student 1",
-          "Age Group": "Corderitos",
-          "Age": 7
-        },
-        {
-          "name": "Student 2",
-          "Age Group": "Corderitos",
-          "Age": 7
-        },
-        {
-          "name": "Student 3",
-          "Age Group": "Corderitos",
-          "Age": 7
-        }
-      ]
-    },
-    {
       "tableName": "Soccer",
       "tableType": "school_team_event",
       "maxTeamSize": 8,
       "columnNames": ["Name", "Age Group", "Age", "Team #"],
       "tableData": [
         {
-          "name": "Student 1",
-          "Age Group": "Corderitos",
-          "Age": 7,
-          "Team #": "A"
+          "fullName": "Student 1",
+          "eventID": "eajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "ageGroup": "Corderitos",
+          "age": 7,
+          "team": "A"
         },
         {
-          "name": "Student 2",
-          "Age Group": "Corderitos",
-          "Age": 7,
-          "Team #": "A"
+          "fullName": "Student 2",
+          "eventID": "eajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "ageGroup": "Ovejitas",
+          "age": 9,
+          "team": "A"
         },
         {
-          "name": "Student 3",
-          "Age Group": "Corderitos",
-          "Age": 7,
-          "Team #": "B"
+          "fullName": "Student 3",
+          "eventID": "eajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "ageGroup": "Corderitos",
+          "age": 7,
+          "team": "B"
+        }
+      ]
+    },
+    {
+      "tableName": "Solo Instrument",
+      "tableType": "school_event",
+      "columnNames": ["Name", "Age Group", "Age"],
+      "tableData": [
+        {
+          "fullName": "Student 1",
+          "eventID": "ejhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "ageGroup": "Corderitos",
+          "age": 7
+        },
+        {
+          "fullName": "Student 2",
+          "eventID": "ewajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "ageGroup": "Corderitos",
+          "age": 7
+        },
+        {
+          "fullName": "Student 3",
+          "eventID": "eajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
+          "ageGroup": "Corderitos",
+          "age": 7
         }
       ]
     }
@@ -52,11 +64,11 @@
   "stats": [
     {
       "title": "Events",
-      "value": 1
+      "value": 2
     },
     {
       "title": "Participants",
-      "value": 3
+      "value": 6
     }
   ]
 }

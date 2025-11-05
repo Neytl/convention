@@ -71,26 +71,22 @@ function lookupTableEntryData(tableType, data, entryIconSrc) {
       );
     case "school_event":
     case "school_team_event":
-    default:
-      let dataEntries = Object.entries(data).map((a) => a[1]);
-
       return (
         <div className="tableEntryData" onClick={onclickEntry}>
           <div className="primaryTableEntryData">
             <Image src={entryIconSrc} alt="" width={30} height={30} />
-            <span>{dataEntries[0]}</span>
+            <span>{data.fullName}</span>
           </div>
-          {dataEntries.slice(1).map((dataValue) => (
-            <span key={columnIndex++}>{dataValue}</span>
-          ))}
+          <span key={columnIndex++}>{data.ageGroup}</span>
+          <span key={columnIndex++}>{data.age}</span>
         </div>
       );
+    default:
+      return <div></div>;
   }
 }
 
 function lookupTableEntryDropdown(tableType, data, rowIndex) {
-  let dataEntries = Object.entries(data).map((a) => a[1]);
-
   switch (tableType) {
     case "admin_schools":
       return generateAdminSchoolEntryDropdown(tableType, data, rowIndex);
@@ -98,11 +94,7 @@ function lookupTableEntryDropdown(tableType, data, rowIndex) {
       return generateAdminEventsEntryDropdown(tableType, data, rowIndex);
     case "school_event":
     case "school_team_event":
-      return generateSchoolEventsEntryDropdown(
-        tableType,
-        dataEntries,
-        rowIndex
-      );
+      return generateSchoolEventsEntryDropdown(tableType, data, rowIndex);
     case "school_students":
     default:
       return generateSchoolStudentsEntryDropdown(tableType, data, rowIndex);
@@ -378,9 +370,10 @@ function generateSchoolStudentsEntryDropdown(tableType, data, columnIndex) {
 function generateSchoolEventsEntryDropdown(tableType, data, columnIndex) {
   let removeStudent = function (event) {
     let body = {
-      studentID: data[0],
+      studentID: data.studentID,
+      eventID: data.eventID,
     };
-    console.log("Fetch Delete Student", body);
+    console.log("Fetch Delete Participant", body);
 
     let elementToDelete = document.getElementById("entry" + columnIndex);
 

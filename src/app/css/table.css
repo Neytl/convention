@@ -196,9 +196,12 @@
 }
 
 .tableEntryHeader {
-  background-color: #d82f2f;
-  color: white;
+  background-color: #4c6b5a;
+  color: #f8f8f8;
   font-weight: bold;
+  border-top: 0.5em solid #2e4136;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .addTeamMemeberButton {

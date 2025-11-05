@@ -2,6 +2,7 @@ import "convention/app/css/table.css";
 import TableEntry from "./TableEntry";
 import { openTableButtonPopup } from "./Popup";
 import IconSpan from "./IconSpan";
+import Image from "next/image";
 
 export default function Table({
   tableColumns,
@@ -48,46 +49,62 @@ export default function Table({
   } else {
     tableEntries = [];
     let currentTeam;
-    let teamData;
+    let teamName;
     let currentTeamSize = 0;
 
+    let fillInRemainingEntries = function (entriesList, entriesLeft) {
+      for (let i = entriesLeft; i > 0; i--) {
+        entriesList.push(
+          <div className="tableEntry">
+            <div className="tableEntryData">
+              <div>
+                <Image
+                  src={"/images/account.png"}
+                  alt=""
+                  width={30}
+                  height={30}
+                />
+                <Image src={"/images/add.png"} alt="" width={15} height={15} />
+              </div>
+            </div>
+          </div>
+        );
+      }
+    };
+
     tableData.forEach((entryData) => {
-      teamData = entryData["Team #"];
+      teamName = entryData.team;
 
       // New team
-      if (teamData != currentTeam) {
-        if (tableEntries.length != 0 && currentTeamSize < maxTeamSize) {
-          tableEntries.push(addToTeamButton(teamData));
+      if (teamName != currentTeam) {
+        if (!!currentTeam) {
+          fillInRemainingEntries(tableEntries, maxTeamSize - currentTeamSize);
         }
 
-        currentTeam = teamData;
+        currentTeam = teamName;
         tableEntries.push(
-          <div className="tableEntryHeader">{"Team " + teamData}</div>
+          <div className="tableEntryHeader">
+            <div>{"Team " + teamName}</div>
+            <div>{"Corederitos"}</div>
+          </div>
         );
-
         currentTeamSize = 0;
       }
 
       // Add the data entry
       currentTeamSize++;
-
-      let entryDataCopy = { ...entryData };
-      delete entryDataCopy["Team #"];
-
       tableEntries.push(
         <TableEntry
           key={rowIndex}
           entryIconSrc={entryIconSrc}
-          dataEntries={Object.entries(entryDataCopy).map((a) => a[1])}
+          data={entryData}
           tableType={tableType}
           rowIndex={rowIndex++}
         />
       );
     });
 
-    if (currentTeamSize < maxTeamSize) {
-      tableEntries.push(addToTeamButton(teamData));
-    }
+    fillInRemainingEntries(tableEntries, maxTeamSize - currentTeamSize);
   }
 
   // Build the table header
@@ -116,26 +133,14 @@ export default function Table({
   );
 }
 
-function addToTeamButton(teamNumber) {
-  return (
-    <div className="tableEntryButtonContainer">
-      <IconSpan
-        imageSrc="/images/add.png"
-        text="Participant"
-        specialClass="tableEntryButton"
-      />
-    </div>
-  );
-}
-
 function getTableEntryIcon(tableType) {
   switch (tableType) {
     case "admin_schools":
       return "/images/school.png";
     case "admin_events":
+      return "/images/event.png";
     case "school_event":
     case "school_team_event":
-      return "/images/event.png";
     case "school_students":
     default:
       return "/images/account.png";
