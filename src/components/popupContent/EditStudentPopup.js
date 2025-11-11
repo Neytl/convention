@@ -1,4 +1,4 @@
-export default function EditStudentPopup() {
+export default function EditStudentPopup({ updateDataEntry }) {
   return (
     <div id="edit_school_students_popup" className="hidden">
       <form className="popupFields">

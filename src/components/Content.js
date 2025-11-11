@@ -101,8 +101,59 @@ export default function Content({ dataEndpoint }) {
       });
   };
 
+  const updateDataEntry = (endpoint, primaryKey, payload) => {
+    // Make the request
+    console.log("Fetch update " + endpoint, payload);
+
+    fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!!response.status && response.status == 400) {
+          console.log("Bad request");
+          return null;
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (!data) return;
+        console.log(" = Response: ", data);
+
+        // Update the element - update the view data
+        let updatedData = structuredClone(viewData);
+        let tableData = updatedData.tables[0].tableData;
+        let primaryKeyValue = data[primaryKey];
+
+        for (let i = 0; i < tableData.length; i++) {
+          if (primaryKeyValue == tableData[i][primaryKey]) {
+            // Found the item to edit
+            let keys = Object.keys(data);
+            let dataEntry = tableData[i];
+
+            keys.forEach((responseKey) => {
+              let newValue = data[responseKey];
+              if (!!newValue && !Array.isArray(newValue))
+                dataEntry[responseKey] = newValue;
+            });
+
+            setViewData(updatedData);
+            break;
+          }
+        }
+      });
+
+    document.getElementById("popupContainer").classList.add("hidden");
+  };
+
   const popupEvents = {
     postNewData: postNewData,
+    updateDataEntry: updateDataEntry,
   };
 
   useEffect(() => {

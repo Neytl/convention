@@ -72,7 +72,9 @@ function lookupTableEntryData(tableType, data, entryIconSrc) {
             <span>{data.eventName}</span>
           </div>
           <span key={columnIndex++}>{data.participants.length}</span>
-          <span key={columnIndex++}>{data.maxTeamSize}</span>
+          <span key={columnIndex++}>
+            {data.isTeamEvent ? data.maxTeamSize : "-"}
+          </span>
           <span key={columnIndex++}>{data.category}</span>
         </div>
       );
@@ -108,19 +110,9 @@ function lookupTableEntryData(tableType, data, entryIconSrc) {
 function lookupTableEntryDropdown(tableType, data, rowIndex, deleteDataEntry) {
   switch (tableType) {
     case "admin_schools":
-      return generateAdminSchoolEntryDropdown(
-        tableType,
-        data,
-        rowIndex,
-        deleteDataEntry
-      );
+      return generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry);
     case "admin_events":
-      return generateAdminEventsEntryDropdown(
-        tableType,
-        data,
-        rowIndex,
-        deleteDataEntry
-      );
+      return generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry);
     case "school_event":
     case "school_team_event":
       return generateSchoolEventsEntryDropdown(
@@ -140,12 +132,7 @@ function lookupTableEntryDropdown(tableType, data, rowIndex, deleteDataEntry) {
   }
 }
 
-function generateAdminSchoolEntryDropdown(
-  tableType,
-  data,
-  rowIndex,
-  deleteDataEntry
-) {
+function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
   let printSchoolData = function () {
     // TODO
     console.log("Printing out '" + data.schoolName + "' school data...");
@@ -205,12 +192,7 @@ function generateAdminSchoolEntryDropdown(
   );
 }
 
-function generateAdminEventsEntryDropdown(
-  tableType,
-  data,
-  columnIndex,
-  deleteDataEntry
-) {
+function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
   let printEvent = function () {
     // TODO
     console.log("Printing out '" + data.eventName + "' event data...");
@@ -223,7 +205,7 @@ function generateAdminEventsEntryDropdown(
     input.value = data.eventName;
     input.dataset.eventID = data.eventID;
 
-    if (data.maxTeamSize != "-") {
+    if (data.isTeamEvent) {
       // Teams
       document.getElementById("editEventHasTeams").checked = true;
       document

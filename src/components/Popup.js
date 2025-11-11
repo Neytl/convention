@@ -40,11 +40,11 @@ export default function Popup({ events }) {
         </div>
         <div id="popupContent">
           <AddSchoolPopup postNewData={events.postNewData} />
-          <EditSchoolPopup />
+          <EditSchoolPopup updateDataEntry={events.updateDataEntry} />
           <AddEventPopup postNewData={events.postNewData} />
-          <EditEventPopup />
+          <EditEventPopup updateDataEntry={events.updateDataEntry} />
           <AddStudentPopup postNewData={events.postNewData} />
-          <EditStudentPopup />
+          <EditStudentPopup updateDataEntry={events.updateDataEntry} />
         </div>
       </div>
     </div>
