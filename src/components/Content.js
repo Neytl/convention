@@ -13,6 +13,7 @@ export default function Content({ dataEndpoint }) {
   });
 
   const [pathname, setPathname] = useState("");
+  const [schoolID, setSchoolID] = useState("");
 
   const closeTableEntries = () => {
     Array.from(
@@ -29,6 +30,7 @@ export default function Content({ dataEndpoint }) {
     closeTableEntries();
 
     // Make the request
+    if (endpoint == "student") payload.schoolID = schoolID;
     console.log("Fetch add " + endpoint, payload);
 
     fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
@@ -159,6 +161,10 @@ export default function Content({ dataEndpoint }) {
   useEffect(() => {
     if (!!viewData.stats) return;
     setPathname(window.location.pathname);
+    let queryStringSchoolID = new URLSearchParams(window.location.search).get(
+      "school"
+    );
+    setSchoolID(queryStringSchoolID);
 
     if (window.location.pathname == "/") {
       console.log("Loading from database...");
@@ -177,7 +183,8 @@ export default function Content({ dataEndpoint }) {
     } else if (window.location.pathname == "/schoolStudents") {
       console.log("Loading from database...");
       fetch(
-        "https://localhost:44398/api/MiniConvention/schoolStudentsPage/07e98351-dec7-403b-8ecb-e461f12ffdd4"
+        "https://localhost:44398/api/MiniConvention/schoolStudentsPage/" +
+          queryStringSchoolID
       )
         .then((response) => response.json())
         .then((data) => {

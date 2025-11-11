@@ -154,8 +154,7 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
   };
 
   let viewStudents = function () {
-    // TODO - link to the right school
-    window.location.href = "./schoolStudents";
+    window.location.href = "./schoolStudents?school=" + data.schoolID;
   };
 
   return (
@@ -337,33 +336,9 @@ function generateSchoolStudentsEntryDropdown(
 
   let deleteStudent = function (event) {
     if (confirm("Are you sure you want to delete '" + data.fullName + "'?")) {
-      let payload = {
+      deleteDataEntry("student", {
         studentID: data.studentID,
-      };
-
-      console.log("Fetch Delete Student", payload);
-      fetch("https://localhost:44398/api/MiniConvention/student", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: JSON.stringify(payload),
-      })
-        .then((response) => {
-          if (!!response.status && response.status == 400) {
-            console.log("Bad request");
-            return null;
-          }
-
-          return response.json();
-        })
-        .then((data) => {
-          if (!!data) console.log(" = Response: ", data);
-        });
-
-      let elementToDelete = document.getElementById("entry" + columnIndex);
-      elementToDelete.parentElement.removeChild(elementToDelete);
+      });
     }
   };
 
