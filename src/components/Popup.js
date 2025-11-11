@@ -22,6 +22,33 @@ export default function Popup({ events }) {
     document.getElementById("popupContainer").classList.add("hidden");
   };
 
+  const postNewData = (endpoint, payload) => {
+    console.log("Fetch add " + endpoint, payload);
+
+    fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!!response.status && response.status == 400) {
+          console.log("Bad request");
+          return null;
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (!data) return;
+        events.addDataEntry(data);
+      });
+
+    document.getElementById("popupContainer").classList.add("hidden");
+  };
+
   return (
     <div id="popupContainer" onClick={closePopup} className="hidden">
       <div id="popup">
@@ -39,7 +66,7 @@ export default function Popup({ events }) {
           <div id="popupTitle">Title</div>
         </div>
         <div id="popupContent">
-          <AddSchoolPopup addSchoolDataEntry={events.addSchoolDataEntry} />
+          <AddSchoolPopup postNewData={postNewData} />
           <EditSchoolPopup />
           <AddEventPopup />
           <EditEventPopup />

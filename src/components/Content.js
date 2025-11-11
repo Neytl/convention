@@ -13,23 +13,24 @@ export default function Content({ dataEndpoint }) {
 
   const [pathname, setPathname] = useState("");
 
-  const addSchoolDataEntry = (schoolData) => {
+  const addDataEntry = (data) => {
     let updatedData = structuredClone(viewData);
 
-    Array.from(document.getElementById("SchoolsTableEntries").children).forEach(
-      (element) => {
-        element.style = "";
-        element.classList.add("closed");
-      }
-    );
+    Array.from(
+      document.getElementById(viewData.tables[0].tableName + "TableEntries")
+        .children
+    ).forEach((element) => {
+      element.style = "";
+      element.classList.add("closed");
+    });
 
-    updatedData.tables[0].tableData.unshift(schoolData);
+    updatedData.tables[0].tableData.unshift(data);
     updatedData.stats[0].value++;
     setViewData(updatedData);
   };
 
   const popupEvents = {
-    addSchoolDataEntry: addSchoolDataEntry,
+    addDataEntry: addDataEntry,
   };
 
   useEffect(() => {

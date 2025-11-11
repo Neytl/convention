@@ -159,7 +159,7 @@ function generateAdminSchoolEntryDropdown(tableType, data, rowIndex) {
           if (!!data) console.log(" = Response: ", data);
         });
 
-      let elementToDelete = document.getElementById("entry" + rowIndex);
+      let elementToDelete = document.getElementById("entry" + data.schoolID);
       console.log("entry" + rowIndex, elementToDelete);
       elementToDelete.parentElement.removeChild(elementToDelete);
     }
