@@ -10,6 +10,8 @@ import { clearStudentPopup } from "./popupContent/AddStudentPopup";
 import EditStudentPopup from "./popupContent/EditStudentPopup";
 import Image from "next/image";
 import EditSchoolEventPopup from "./popupContent/EditSchoolEventPopup";
+import { setUpEditSchoolEventPopup } from "./popupContent/EditSchoolEventPopup";
+import AddSchoolEventPopup from "./popupContent/AddSchoolEventPopup";
 
 export default function Popup({ events }) {
   const closePopup = (event) => {
@@ -45,13 +47,19 @@ export default function Popup({ events }) {
           <AddStudentPopup postNewData={events.postNewData} />
           <EditStudentPopup updateDataEntry={events.updateDataEntry} />
           <EditSchoolEventPopup schoolData={events.schoolData} />
+          <AddSchoolEventPopup />
         </div>
       </div>
     </div>
   );
 }
 
-export const openTableButtonPopup = (popupName) => {
+export const openTableButtonPopup = (
+  popupName,
+  tableName,
+  tableData,
+  tableEventID
+) => {
   // Show the correct popup
   document
     .getElementById("popupContent")
@@ -87,12 +95,14 @@ export const openTableButtonPopup = (popupName) => {
       document.getElementById("popupTitle").innerHTML = "Edit Student";
       document.getElementById("popupHeaderIcon").srcset = "/images/account.png";
       break;
-    case "school_events_popup":
-      document.getElementById("popupTitle").innerHTML = "Add Student";
+    case "school_event_popup":
+      document.getElementById("popupTitle").innerHTML = tableName;
       document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
+      setUpEditSchoolEventPopup(tableData, tableEventID);
       break;
+    case "school_team_event_popup":
     default:
-      console.log("Error opening a popup!");
+      console.log("Error opening a popup!", popupName);
       return;
   }
 

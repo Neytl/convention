@@ -24,7 +24,11 @@ export default function EditSchoolEventPopup({ schoolData }) {
   students.forEach((student) => {
     if (student.ageGroup != currentAgeGroup) {
       currentAgeGroup = student.ageGroup;
-      popupElements.push(<div key={currentAgeGroup}>{currentAgeGroup}</div>);
+      popupElements.push(
+        <div className="ageGroupHeader" key={currentAgeGroup}>
+          {currentAgeGroup}
+        </div>
+      );
     }
 
     popupElements.push(
@@ -32,6 +36,9 @@ export default function EditSchoolEventPopup({ schoolData }) {
         key={student.studentID}
         className="selectableParticipant"
         id={"participant" + student.studentID}
+        onClick={() => {
+          toggleParticipant(student);
+        }}
       >
         <TinyImage imageSrc="/images/account.png" />
         <div>{student.fullName}</div>
@@ -40,25 +47,118 @@ export default function EditSchoolEventPopup({ schoolData }) {
   });
 
   return (
-    <div id="edit_school_event_popup" className="?hidden">
-      <form className="popupFields">{popupElements}</form>
+    <div id="school_event_popup" className="hidden">
+      <form className="popupFields" id="participantsConatiner">
+        {popupElements}
+      </form>
 
       <div className="popupButtonContainer">
-        <div onClick={() => {}} className="submitPopupButton">
-          Update
+        <div
+          onClick={() => {
+            updateParticipants(schoolData.schoolID);
+          }}
+          className="submitPopupButton"
+        >
+          Submit
         </div>
       </div>
     </div>
   );
 }
 
-export const clearEventPopup = () => {
-  document.getElementById("eventName").value = "";
-  document.getElementById("eventTeamSize").value = 4;
-  document.getElementById("eventHasTeams").checked = false;
-  document.getElementById("teamSizeContainer").classList.add("hidden");
+export const setUpEditSchoolEventPopup = (tableData, eventID, teamName) => {
+  // Uncheck all participants
+  Array.from(document.querySelectorAll(".selectableParticipant")).forEach(
+    (element) => {
+      element.classList.remove("selected");
+    }
+  );
+
+  document.getElementById("popupHeader").dataset.eventID = eventID;
+
+  // Generate the new participants list
+  sessionStorage.setItem(eventID, JSON.stringify(tableData));
+
+  tableData.forEach((participantData) => {
+    document
+      .getElementById("participant" + participantData.studentID)
+      .classList.add("selected");
+  });
 };
 
-function clearError(event) {
-  event.target.classList.remove("error");
+function toggleParticipant(studentData) {
+  let eventID = document.getElementById("popupHeader").dataset.eventID;
+  let teamName = "";
+  let currentStudentList = JSON.parse(
+    sessionStorage.getItem(eventID + teamName)
+  );
+
+  if (!currentStudentList) currentStudentList = [];
+
+  if (
+    document
+      .getElementById("participant" + studentData.studentID)
+      .classList.toggle("selected")
+  ) {
+    // Add to list
+    currentStudentList.push({
+      eventID: eventID,
+      studentID: studentData.studentID,
+    });
+  } else {
+    // Remove from list
+    const indexToRemove = currentStudentList.findIndex(
+      (participant) => participant.studentID == studentData.studentID
+    );
+    currentStudentList.splice(indexToRemove, 1);
+  }
+
+  sessionStorage.setItem(
+    eventID + teamName,
+    JSON.stringify(currentStudentList)
+  );
+}
+
+function updateParticipants(schoolID) {
+  // Generate the data
+  let eventID = document.getElementById("popupHeader").dataset.eventID;
+  let teamName = "";
+  let currentStudentList = JSON.parse(
+    sessionStorage.getItem(eventID + teamName)
+  );
+
+  let payload = {
+    participants: currentStudentList,
+  };
+
+  // Make the requset
+  console.log("Update participants", currentStudentList);
+  fetch(
+    "https://localhost:44398/api/MiniConvention/participants/" +
+      schoolID +
+      "/" +
+      eventID,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(payload),
+    }
+  )
+    .then((response) => {
+      if (!!response.status && response.status == 400) {
+        console.log("Bad request");
+        return null;
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      if (!data) return;
+      console.log(" = Response: ", data);
+    });
+
+  document.getElementById("popupContainer").classList.add("hidden");
 }

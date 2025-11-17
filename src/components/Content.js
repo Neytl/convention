@@ -332,6 +332,7 @@ export default function Content({ setPageSchoolData }) {
         tableName={table.tableName}
         maxTeamSize={table.maxTeamSize}
         deleteDataEntry={deleteDataEntry}
+        tableEventID={table.tableEventID}
       />
     );
   });
@@ -341,7 +342,10 @@ export default function Content({ setPageSchoolData }) {
       <Popup events={popupEvents} />
       <PageInfo pathname={pathname} />
       <Stats statsData={viewData.stats} />
-      <div id="tables" className="teamEvents">
+      <div
+        id="tables"
+        className={viewData.tables.length > 1 ? "teamEvents" : ""}
+      >
         {tablesContent}
       </div>
       <PageButton pathName={pathname} pageData={viewData.pageSchoolData} />

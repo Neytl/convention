@@ -4,8 +4,6 @@ import AdminSchoolLinks from "convention/components/AdminSchoolLinks";
 import AdminLinks from "convention/components/AdminLinks";
 
 export default function Nav({ pageSchoolData }) {
-  console.log("Page school data: ", pageSchoolData);
-
   return (
     <div id="header">
       <div id="links">

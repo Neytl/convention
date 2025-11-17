@@ -11,6 +11,7 @@ export default function Table({
   tableName,
   maxTeamSize,
   deleteDataEntry,
+  tableEventID,
 }) {
   if (!tableColumns) {
     return <div>Loading table data...</div>;
@@ -128,7 +129,7 @@ export default function Table({
   // Build the table
   return (
     <div className={columns}>
-      {getTableTopper(tableType, tableName)}
+      {getTableTopper(tableType, tableName, tableData, tableEventID)}
       <div className="table" id={tableID}>
         <div className="tableHeader">{tableHeader}</div>
         <div className="tableEntries" id={tableID + "Entries"}>
@@ -168,14 +169,19 @@ function getTableButtonText(tableType) {
   }
 }
 
-function getTableTopper(tableType, tableName) {
+function getTableTopper(tableType, tableName, tableData, tableEventID) {
   return (
     <div className="tableTopper">
       <span>{tableName}</span>
       <div
         className="tableButton"
         onClick={() => {
-          openTableButtonPopup(tableType + "_popup");
+          openTableButtonPopup(
+            tableType + "_popup",
+            tableName,
+            tableData,
+            tableEventID
+          );
         }}
       >
         <span>{getTableButtonText(tableType)}</span>
