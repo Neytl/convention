@@ -128,22 +128,15 @@ export const setUpEditSchoolEventPopup = (
   // Generate the new participants list
   if (eventData.isTeamEvent) {
     // Team event
-    let currentTeamName;
     let currentEventParticipants = 0;
     if (!teamToEdit && !addingTeam) teamToEdit = 1;
+    let numberOfTeamOptions = 1;
 
     tableData.forEach((participantData) => {
-      if (!participantData.team) {
-        participantData.team = "Team 1";
-        participantData.teamNumber = 1;
-      }
+      if (participantData.teamNumber > numberOfTeamOptions)
+        numberOfTeamOptions = participantData.teamNumber;
 
-      if (participantData.team != currentTeamName) {
-        currentTeamName = participantData.team;
-        currentTeamNumber++;
-      }
-
-      if (currentTeamNumber == teamToEdit) {
+      if (participantData.teamNumber == teamToEdit) {
         // Show participant
         currentEventParticipants++;
         document
@@ -159,11 +152,11 @@ export const setUpEditSchoolEventPopup = (
     let teamOptionsElements = document.getElementById("teamOptionsElements");
     teamOptionsElements.innerHTML = "";
     if (addingTeam) {
-      currentTeamNumber++;
-      teamToEdit = currentTeamNumber;
+      numberOfTeamOptions++;
+      teamToEdit = numberOfTeamOptions;
     }
 
-    for (let i = 1; i <= currentTeamNumber; i++) {
+    for (let i = 1; i <= numberOfTeamOptions; i++) {
       let child = document.createElement("div");
       child.innerHTML = "Team " + i;
       child.onclick = () => {
@@ -233,13 +226,22 @@ function toggleParticipant(studentData) {
     updateCurrentEventParticipantsAmount(+1);
 
     // Insert new participant into the correct team - keep sorted
-    // TODO
-    // for (let i = 0; i <)
-    currentStudentList.push({
+    let found = false;
+    let newParticipant = {
       eventID: eventID,
       studentID: studentData.studentID,
       teamNumber: teamNumber,
-    });
+    };
+
+    for (let i = 0; i < currentStudentList.length; i++) {
+      if (currentStudentList[i].teamNumber >= teamNumber) {
+        currentStudentList.splice(i, 0, newParticipant);
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) currentStudentList.push(newParticipant);
   } else {
     // Remove from list
     updateCurrentEventParticipantsAmount(-1);
