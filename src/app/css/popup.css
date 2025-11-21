@@ -299,3 +299,7 @@ input:checked + .slider:before {
   bottom: 1.5em;
   right: 2em;
 }
+
+.selectableParticipant.maxed {
+  background-color: #921717;
+}

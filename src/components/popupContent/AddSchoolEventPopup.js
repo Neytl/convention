@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import TinyImage from "./TinyImage";
 import { setUpEditSchoolEventPopup } from "./EditSchoolEventPopup";
 
-export default function AddSchoolEventPopup() {
+export default function AddSchoolEventPopup(pageTables) {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -39,7 +39,12 @@ export default function AddSchoolEventPopup() {
           if (!currentStudentList) currentStudentList = [];
 
           // Set up the edit event popup
-          setUpEditSchoolEventPopup(currentStudentList, event);
+          setUpEditSchoolEventPopup(
+            currentStudentList,
+            event,
+            null,
+            pageTables.pageTables
+          );
           document.getElementById("popupTitle").innerHTML = event.eventName;
 
           // Show the new popup

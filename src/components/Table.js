@@ -11,6 +11,7 @@ export default function Table({
   maxTeamSize,
   deleteDataEntry,
   tableObject,
+  pageTables,
 }) {
   if (!tableColumns) {
     return <div>Loading table data...</div>;
@@ -70,7 +71,8 @@ export default function Table({
                   tableName,
                   tableData,
                   tableObject,
-                  teamNumberToOpen
+                  teamNumberToOpen,
+                  pageTables
                 );
               }}
             >
@@ -151,7 +153,7 @@ export default function Table({
   // Build the table
   return (
     <div className={columns}>
-      {getTableTopper(tableType, tableName, tableData, tableObject)}
+      {getTableTopper(tableType, tableName, tableData, tableObject, pageTables)}
       <div className="table" id={tableID}>
         <div className="tableHeader">{tableHeader}</div>
         <div className="tableEntries" id={tableID + "Entries"}>
@@ -191,7 +193,13 @@ function getTableButtonText(tableType) {
   }
 }
 
-function getTableTopper(tableType, tableName, tableData, tableObject) {
+function getTableTopper(
+  tableType,
+  tableName,
+  tableData,
+  tableObject,
+  pageTables
+) {
   return (
     <div className="tableTopper">
       <span>{tableName}</span>
@@ -202,7 +210,9 @@ function getTableTopper(tableType, tableName, tableData, tableObject) {
             tableType + "_popup",
             tableName,
             tableData,
-            tableObject
+            tableObject,
+            null,
+            pageTables
           );
         }}
       >

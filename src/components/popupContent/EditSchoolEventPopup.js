@@ -18,6 +18,10 @@ export default function EditSchoolEventPopup({
       .then((response) => response.json())
       .then((data) => {
         setStudents(data);
+        sessionStorage.setItem(
+          "studentIDs",
+          JSON.stringify(data.map((student) => student.studentID))
+        );
       });
   }, [schoolData]);
 
@@ -88,7 +92,7 @@ export default function EditSchoolEventPopup({
 }
 
 function addTeam() {
-  setUpEditSchoolEventPopup(
+  setUpEditSchoolEventPopupInternal(
     JSON.parse(
       sessionStorage.getItem(sessionStorage.getItem("currentEventID"))
     ),
@@ -98,13 +102,14 @@ function addTeam() {
   );
 }
 
-export const setUpEditSchoolEventPopup = (
+const setUpEditSchoolEventPopupInternal = (
   tableData,
   eventData,
   teamToEdit,
   addingTeam
 ) => {
   let eventID = eventData.eventID;
+
   // Uncheck all participants
   Array.from(document.querySelectorAll(".selectableParticipant")).forEach(
     (element) => {
@@ -122,8 +127,6 @@ export const setUpEditSchoolEventPopup = (
   } else {
     document.getElementById("teamEventContainer").classList.add("hidden");
   }
-
-  let currentTeamNumber = 0;
 
   // Generate the new participants list
   if (eventData.isTeamEvent) {
@@ -160,7 +163,7 @@ export const setUpEditSchoolEventPopup = (
       let child = document.createElement("div");
       child.innerHTML = "Team " + i;
       child.onclick = () => {
-        setUpEditSchoolEventPopup(
+        setUpEditSchoolEventPopupInternal(
           JSON.parse(sessionStorage.getItem(eventID)),
           eventData,
           i
@@ -187,6 +190,50 @@ export const setUpEditSchoolEventPopup = (
   sessionStorage.setItem("currentEventID", eventID);
   sessionStorage.setItem("currentTeam", teamToEdit);
 };
+
+export const setUpEditSchoolEventPopup = (
+  tableData,
+  eventData,
+  teamToEdit,
+  pageTables
+) => {
+  setUpEditSchoolEventPopupInternal(tableData, eventData, teamToEdit);
+
+  // Check for maxed out students
+  Array.from(document.querySelectorAll(".selectableParticipant")).forEach(
+    (element) => {
+      element.classList.remove("maxed");
+    }
+  );
+
+  if (pageTables.length < MAX_EVENTS) return;
+  let studentIDs = JSON.parse(sessionStorage.getItem("studentIDs"));
+  let participantCounts = {};
+  studentIDs.forEach((studentID) => {
+    participantCounts[studentID] = 0;
+  });
+
+  pageTables.forEach((table) => {
+    let inCurrentEvent = eventData.eventID == table.tableEventID;
+
+    table.tableData.forEach((participant) => {
+      if (inCurrentEvent) {
+        // Participating in current event - no need to set as maxed out
+        participantCounts[participant.studentID] = -1000000;
+      } else {
+        participantCounts[participant.studentID]++;
+      }
+    });
+  });
+
+  studentIDs.forEach((studentID) => {
+    if (participantCounts[studentID] >= MAX_EVENTS) {
+      document.getElementById("participant" + studentID).classList.add("maxed");
+    }
+  });
+};
+
+const MAX_EVENTS = 1;
 
 function toggleParticipant(studentData) {
   let eventID = document.getElementById("popupHeader").dataset.eventID;

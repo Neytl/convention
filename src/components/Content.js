@@ -326,6 +326,7 @@ export default function Content({ setPageSchoolData }) {
     updateDataEntry: updateDataEntry,
     schoolData: viewData.pageSchoolData,
     updateEventParticipants: updateEventParticipants,
+    pageTables: viewData.tables,
   };
 
   useEffect(() => {
@@ -441,6 +442,7 @@ export default function Content({ setPageSchoolData }) {
         maxTeamSize={table.maxTeamSize}
         deleteDataEntry={deleteDataEntry}
         tableObject={table}
+        pageTables={viewData.tables}
       />
     );
   });

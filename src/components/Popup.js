@@ -50,7 +50,7 @@ export default function Popup({ events }) {
             schoolData={events.schoolData}
             updateEventParticipants={events.updateEventParticipants}
           />
-          <AddSchoolEventPopup />
+          <AddSchoolEventPopup pageTables={events.pageTables} />
         </div>
       </div>
     </div>
@@ -62,7 +62,8 @@ export const openTableButtonPopup = (
   tableName,
   tableData,
   tableObject,
-  teamToOpen
+  teamToOpen,
+  pageTables
 ) => {
   // Show the correct popup
   document
@@ -111,7 +112,8 @@ export const openTableButtonPopup = (
           isTeamEvent: tableObject.tableType == "school_team_event",
           maxTeamSize: tableObject.maxTeamSize,
         },
-        teamToOpen
+        teamToOpen,
+        pageTables
       );
       break;
     default:
