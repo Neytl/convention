@@ -48,7 +48,7 @@ export default function PageButton({ pathName, pageData }) {
                 );
 
               // Set up the new popup
-              document.getElementById("popupTitle").innerHTML = "Add Event";
+              document.getElementById("popupTitle").innerHTML = "Edit Events";
               document.getElementById("popupHeaderIcon").srcset =
                 "/images/Event.png";
 
@@ -63,7 +63,7 @@ export default function PageButton({ pathName, pageData }) {
             }}
           >
             <Image src={"/images/event.png"} alt="" width={20} height={20} />
-            <span>Add Event</span>
+            <span>Edit Events</span>
           </div>
         </div>
       );

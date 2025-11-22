@@ -1,6 +1,3 @@
-// import Image from "next/image";
-import TinyImage from "./TinyImage";
-
 export default function AddEventPopup({ postNewData }) {
   const onToggleCheckbox = (event) => {
     if (event.target.checked) {
