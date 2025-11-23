@@ -12,8 +12,21 @@ export default function SchoolPrintTable({ tableData }) {
 
   // Build the table entries
   let tableEntries = [];
+  let currentAgeGroup = "";
 
   tableData.tableData.forEach((studentData) => {
+    if (studentData.ageGroup != currentAgeGroup) {
+      currentAgeGroup = studentData.ageGroup;
+      tableEntries.push(
+        <div
+          key={currentAgeGroup}
+          className={"tableEntryHeader " + currentAgeGroup}
+        >
+          {currentAgeGroup}
+        </div>
+      );
+    }
+
     tableEntries.push(
       <StudentPrintEntry
         studentData={studentData}

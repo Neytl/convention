@@ -214,6 +214,19 @@
   gap: 1em;
 }
 
+.tableEntryHeader.Corderitos {
+  background-color: #4c4e6b;
+  border-top: 0.5em solid #37384d;
+}
+.tableEntryHeader.Ovejitas {
+  background-color: #6b4c6a;
+  border-top: 0.5em solid #4b354a;
+}
+.tableEntryHeader.Ovejas {
+  background-color: #4c6b5a;
+  border-top: 0.5em solid #2e4136;
+}
+
 .addTeamMemeberButton {
   display: flex;
   align-items: center;

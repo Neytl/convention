@@ -49,9 +49,20 @@
   display: grid;
   grid-template-columns: 12em 4em 1fr;
 }
-/* 
-.studentEvents {
+
+:root .tableEntryHeader {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5em;
-} */
+  gap: 0.3em;
+  padding: 0.5em;
+  padding-left: 5em;
+}
+
+.tableEntryHeader.Corderitos::after {
+  content: "(6-7)";
+}
+.tableEntryHeader.Ovejitas::after {
+  content: "(8-9)";
+}
+.tableEntryHeader.Ovejas::after {
+  content: "(10-12)";
+}

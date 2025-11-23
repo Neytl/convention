@@ -50,7 +50,9 @@ export default function PrintPage() {
   if (pageData.pathName == "/printSchools") {
     let tables = [];
     pageData.tables.forEach((tableData) => {
-      tables.push(<SchoolPrintTable tableData={tableData} />);
+      tables.push(
+        <SchoolPrintTable tableData={tableData} key={tableData.tableSchoolID} />
+      );
     });
 
     return <div id="pageContainer">{tables}</div>;
