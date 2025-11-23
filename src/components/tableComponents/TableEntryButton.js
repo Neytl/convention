@@ -1,4 +1,4 @@
-import IconSpan from "./IconSpan";
+import IconSpan from "../generalComponents/IconSpan";
 
 export default function TableEntryButton({ imageSrc, text, onClick }) {
   return (

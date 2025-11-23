@@ -1,17 +1,17 @@
 import "convention/app/css/popup.css";
-import AddSchoolPopup from "./popupContent/AddSchoolPopup";
-import { clearSchoolPopup } from "./popupContent/AddSchoolPopup";
-import EditSchoolPopup from "./popupContent/EditSchoolPopup";
-import AddEventPopup from "./popupContent/AddEventPopup";
-import { clearEventPopup } from "./popupContent/AddEventPopup";
-import EditAdminEventPopup from "./popupContent/EditAdminEventPopup";
-import AddStudentPopup from "./popupContent/AddStudentPopup";
-import { clearStudentPopup } from "./popupContent/AddStudentPopup";
-import EditStudentPopup from "./popupContent/EditStudentPopup";
+import AddSchoolPopup from "./AddSchoolPopup";
+import { clearSchoolPopup } from "./AddSchoolPopup";
+import EditSchoolPopup from "./EditSchoolPopup";
+import AddEventPopup from "./AddEventPopup";
+import { clearEventPopup } from "./AddEventPopup";
+import EditAdminEventPopup from "./EditAdminEventPopup";
+import AddStudentPopup from "./AddStudentPopup";
+import { clearStudentPopup } from "./AddStudentPopup";
+import EditStudentPopup from "./EditStudentPopup";
 import Image from "next/image";
-import EditSchoolEventPopup from "./popupContent/EditSchoolEventPopup";
-import { setUpEditSchoolEventPopup } from "./popupContent/EditSchoolEventPopup";
-import AddSchoolEventPopup from "./popupContent/AddSchoolEventPopup";
+import EditSchoolEventPopup from "./EditSchoolEventPopup";
+import { setUpEditSchoolEventPopup } from "./EditSchoolEventPopup";
+import AddSchoolEventPopup from "./AddSchoolEventPopup";
 
 export default function Popup({ events }) {
   const closePopup = (event) => {

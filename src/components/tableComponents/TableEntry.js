@@ -1,8 +1,8 @@
 import Image from "next/image";
-import IconSpan from "./IconSpan";
+import IconSpan from "../generalComponents/IconSpan";
 import TableEntryButton from "./TableEntryButton";
 import "convention/app/css/table.css";
-import { openTableButtonPopup } from "./Popup";
+import { openTableButtonPopup } from "../popupComponents/Popup";
 
 export default function TableEntry({
   entryIconSrc,

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import "convention/app/css/nav.css";
-import NavLink from "convention/components/NavLink";
+import NavLink from "convention/components/navComponents/NavLink";
 
 export default function AdminSchoolLinks({ schoolData }) {
   if (!schoolData) {

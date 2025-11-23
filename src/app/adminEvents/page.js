@@ -1,7 +1,7 @@
 "use client";
-import Nav from "convention/components/Nav";
-import Content from "convention/components/Content";
-import Topper from "convention/components/Topper";
+import Nav from "convention/components/navComponents/Nav";
+import Content from "convention/components/pageComponents/Content";
+import Topper from "convention/components/pageComponents/Topper";
 import { useState } from "react";
 
 export default function AdminEventsPage() {

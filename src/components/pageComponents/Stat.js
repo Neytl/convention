@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Stats({ imageSrc, title, value }) {
+export default function Stat({ imageSrc, title, value }) {
   return (
     <div className="stat">
       <span>{title}</span>

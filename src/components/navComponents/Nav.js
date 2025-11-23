@@ -1,7 +1,7 @@
 import "convention/app/css/nav.css";
-import NavLink from "convention/components/NavLink";
-import AdminSchoolLinks from "convention/components/AdminSchoolLinks";
-import AdminLinks from "convention/components/AdminLinks";
+import NavLink from "convention/components/navComponents/NavLink";
+import AdminSchoolLinks from "convention/components/navComponents/AdminSchoolLinks";
+import AdminLinks from "convention/components/navComponents/AdminLinks";
 
 export default function Nav({ pageSchoolData }) {
   return (

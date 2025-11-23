@@ -1,12 +1,11 @@
 "use client";
-import Stats from "convention/components/Stats";
-import Table from "convention/components/Table";
-import PageInfo from "convention/components/PageInfo";
-import Popup from "convention/components/Popup";
+import Stats from "convention/components/pageComponents/Stats";
+import Table from "convention/components/tableComponents/Table";
+import PageInfo from "convention/components/pageComponents/PageInfo";
+import Popup from "convention/components/popupComponents/Popup";
+import PageButton from "convention/components/pageComponents/PageButton";
 
 import { useState, useEffect } from "react";
-import TableEntry from "./TableEntry";
-import PageButton from "./PageButton";
 
 export default function Content({ setPageSchoolData }) {
   useEffect(() => {

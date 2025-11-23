@@ -1,6 +1,6 @@
 import "convention/app/css/table.css";
 import TableEntry from "./TableEntry";
-import { openTableButtonPopup } from "./Popup";
+import { openTableButtonPopup } from "../popupComponents/Popup";
 import Image from "next/image";
 
 export default function Table({

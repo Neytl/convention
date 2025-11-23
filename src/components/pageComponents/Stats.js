@@ -1,5 +1,5 @@
 import "convention/app/css/stats.css";
-import Stat from "convention/components/Stat";
+import Stat from "convention/components/pageComponents/Stat";
 
 export default function Stats({ statsData }) {
   if (!statsData) {
