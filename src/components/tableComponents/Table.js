@@ -13,10 +13,7 @@ export default function Table({
   tableObject,
   pageTables,
 }) {
-  if (!tableColumns) {
-    return <div>Loading table data...</div>;
-  }
-
+  if (tableData.length == 0) return 0;
   let rowIndex = 0;
   let numColumns = tableColumns.length;
 

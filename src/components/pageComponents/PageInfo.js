@@ -20,16 +20,16 @@ export default function PageInfo({ pathname }) {
 function getPageInfo(pathname) {
   switch (pathname) {
     case "/":
-      return "On this page, you can print out a specific school's information, as well as navigate to a school's database page. To register a student or add a student to an event, click the 'Students' button under that school.";
+      return "On this page, you can print out school registration information, as well as navigate to a school's database page. To register a student or add a student to an event, click on the school and hit the 'Students' or 'Events' button.";
     case "/adminEvents":
-      return "On this page, you can create an event for students to register to. To register a student to an event, you must first go to that student's school page and hit 'Events' in the navigation.";
+      return "On this page, you can print out events and their participants. You can also create an event for students to register to. To register a student to an event, you must go to that student's school page. All school pages are linked in the 'Schools' page.";
     case "/schoolStudents":
-      return "On this page, you can register students to your school. Click on a student in the table to see their events. To add a student to an event, click on 'Events' in the navigation.";
+      return "On this page, you can register students to your school. Click on a student in the table to see the events they are registered for. To add a student to an event, click on 'Events' in the navigation.";
     case "/schoolEvents":
       return (
-        "On this page, you can register a student to an event. To register a student for an event not yet on page, hit the 'New Event' button. Each student can only be registered to a miximum of " +
+        "On this page, you can register a student to an event. To register a student for an event, hit the 'Edit Events' button. Each student can only be registered to a maximum of " +
         maximumEvents +
-        " events. You can see a students total number of events in the students page."
+        " total events."
       );
     default:
       return "";

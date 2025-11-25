@@ -54,7 +54,7 @@ export default function PrintPage() {
         });
     } else if (window.location.pathname == "/printEvent") {
       let queryStringSchoolID = new URLSearchParams(window.location.search).get(
-        "school"
+        "event"
       );
 
       fetch(
@@ -117,9 +117,11 @@ export default function PrintPage() {
       </div>
     );
   } else if (window.location.pathname == "/printEvent") {
-    <div id="pageContainer">
-      <EventPrintTable tableData={pageData.table} />
-    </div>;
+    return (
+      <div id="pageContainer">
+        <EventPrintTable tableData={pageData.table} />
+      </div>
+    );
   }
 
   return <div>{"Hi :)"}</div>;

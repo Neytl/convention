@@ -101,20 +101,17 @@ function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
           <span key={columnIndex++}>{data.age}</span>
           <span key={columnIndex++}>{data.ageGroup}</span>
           <div className="deleteParticipantContainer">
-            <Image
+            <div
               className="deleteParticipantButton"
-              src="/images/delete.png"
-              alt=""
-              width="20"
-              height="20"
               onClick={() => {
                 deleteDataEntry("participant", {
                   studentID: data.studentID,
                   eventID: data.eventID,
-                  // teamNumber: data.teamNumber,
                 });
               }}
-            />
+            >
+              <Image src="/images/delete.png" alt="" width="20" height="20" />
+            </div>
           </div>
         </div>
       );
@@ -181,11 +178,13 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
         </div>
       </div>
       <div className="tableEntryDropdownButtons">
-        <TableEntryButton
-          imageSrc="/images/print.png"
-          text="Print"
-          onClick={printSchoolData}
-        />
+        {data.numStudents == 0 ? null : (
+          <TableEntryButton
+            imageSrc="/images/print.png"
+            text="Print"
+            onClick={printSchoolData}
+          />
+        )}
         <TableEntryButton
           imageSrc="/images/edit.png"
           text="Edit"
@@ -201,11 +200,13 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
           text="Students"
           onClick={viewStudents}
         />
-        <TableEntryButton
-          imageSrc="/images/event.png"
-          text="Events"
-          onClick={viewEvents}
-        />
+        {data.numStudents == 0 ? null : (
+          <TableEntryButton
+            imageSrc="/images/event.png"
+            text="Events"
+            onClick={viewEvents}
+          />
+        )}
       </div>
     </div>
   );
@@ -262,34 +263,37 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
       <div
         key={participant.studentID}
         id={participant.studentID + data.eventID}
+        className="participantDisplay"
       >
         <IconSpan
           imageSrc="/images/account.png"
           text={participant.fullName + " - " + participant.schoolName}
         />
-        <Image
+        <div
           className="deleteParticipantButton"
-          src="/images/delete.png"
-          alt=""
-          width="20"
-          height="20"
           onClick={() => {
             deleteParticipant(participant.studentID);
           }}
-        />
+        >
+          <Image src="/images/delete.png" alt="" width="20" height="20" />
+        </div>
       </div>
     );
   });
 
   return (
     <div className="tableEntryDropdown">
-      <div className="eventParticipants">{eventParticipantsElements}</div>
+      {eventParticipantsElements.length == 0 ? null : (
+        <div className="eventParticipants">{eventParticipantsElements}</div>
+      )}
       <div className="tableEntryDropdownButtons">
-        <TableEntryButton
-          onClick={printEvent}
-          imageSrc="/images/print.png"
-          text="Print"
-        />
+        {data.participants.length == 0 ? null : (
+          <TableEntryButton
+            onClick={printEvent}
+            imageSrc="/images/print.png"
+            text="Print"
+          />
+        )}
         <TableEntryButton
           onClick={editEvent}
           imageSrc="/images/edit.png"
@@ -337,25 +341,26 @@ function generateSchoolStudentsEntryDropdown(tableType, data, deleteDataEntry) {
       <div
         key={studentEvent.eventID}
         id={data.studentID + studentEvent.eventID}
+        className="participantDisplay"
       >
         <IconSpan imageSrc="/images/event.png" text={studentEvent.eventName} />
-        <Image
+        <div
           className="deleteParticipantButton"
-          src="/images/delete.png"
-          alt=""
-          width="20"
-          height="20"
           onClick={() => {
             deleteParticipant(studentEvent.eventID);
           }}
-        />
+        >
+          <Image src="/images/delete.png" alt="" width="20" height="20" />
+        </div>
       </div>
     );
   });
 
   return (
     <div className="tableEntryDropdown">
-      <div className="eventParticipants">{eventsElements}</div>
+      {data.events.length == 0 ? null : (
+        <div className="eventParticipants">{eventsElements}</div>
+      )}
       <div className="tableEntryDropdownButtons">
         <TableEntryButton
           onClick={editStudent}

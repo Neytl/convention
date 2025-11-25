@@ -24,7 +24,7 @@
 }
 .two-columns .tableHeader,
 .two-columns .tableEntryData {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
 }
 
 .three-columns {
@@ -40,7 +40,7 @@
 }
 .four-columns .tableHeader,
 .four-columns .tableEntryData {
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
 }
 
 .tableHeader {
@@ -186,11 +186,21 @@
   padding: 0.5em;
   cursor: pointer;
   border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .deleteParticipantButton:hover {
   background-color: #e6e6fa;
   box-shadow: 0 0 0.5em #979797;
+}
+
+.participantDisplay {
+  height: 2.25em;
+}
+.participantDisplay:not(:hover) .deleteParticipantButton {
+  display: none;
 }
 
 /* School Events */

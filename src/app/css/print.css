@@ -20,7 +20,11 @@
   background: white;
   width: auto;
   height: auto;
-  /* pointer-events: none; */
+  pointer-events: none;
+}
+
+:root body::after {
+  display: none;
 }
 
 #pageContainer {

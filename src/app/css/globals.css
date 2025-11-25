@@ -13,6 +13,23 @@ body {
     rgba(182, 194, 229, 1) 0%,
     rgba(230, 230, 250, 1) 100%
   );
+  background-image: url(../../../public/images/background.jpg);
+  background-size: cover;
+}
+
+body::after {
+  content: "";
+  background: linear-gradient(
+    0deg,
+    rgba(182, 194, 229, 1) 0%,
+    rgba(230, 230, 250, 1) 100%
+  );
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.2;
 }
 
 #split {
@@ -22,14 +39,17 @@ body {
 }
 
 #page {
+  /* opacity: 0; */
   background-color: #f8f8f8;
   width: 90vw;
   max-width: 85em;
   height: 90vh;
   border-radius: 0.5em;
-  box-shadow: 0 0 0.5em #575757;
+  /* box-shadow: 0 0 0.5em #575757; */
+  box-shadow: 0 0 0.5em #000000b8;
   display: flex;
   flex-direction: column;
+  z-index: 2;
 }
 
 #content {
