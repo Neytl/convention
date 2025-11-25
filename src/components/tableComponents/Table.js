@@ -4,7 +4,6 @@ import { openTableButtonPopup } from "../popupComponents/Popup";
 import Image from "next/image";
 
 export default function Table({
-  tableColumns,
   tableData,
   tableType,
   tableName,
@@ -15,19 +14,36 @@ export default function Table({
 }) {
   if (tableData.length == 0) return 0;
   let rowIndex = 0;
+
+  let tableColumns = ((tableType) => {
+    switch (tableType) {
+      case "admin_schools":
+        return ["School", "# Students"];
+      case "school_event":
+      case "school_team_event":
+        return ["Name", "Age", "Group"];
+      case "school_students":
+        return ["Name", "Age", "Group", "Events"];
+      case "admin_events":
+      default:
+        return ["Event", "Participants", "Team Size", "Category"];
+    }
+  })(tableType);
   let numColumns = tableColumns.length;
 
-  let columns = ((numColumns) => {
-    switch (numColumns) {
-      case 2:
+  let columns = ((tableType) => {
+    switch (tableType) {
+      case "admin_schools":
         return "two-columns";
-      case 3:
+      case "school_event":
+      case "school_team_event":
         return "three-columns";
-      case 4:
+      case "school_students":
+      case "admin_events":
       default:
         return "four-columns";
     }
-  })(numColumns);
+  })(tableType);
 
   let entryIconSrc = getTableEntryIcon(tableType);
   let tableEntries;

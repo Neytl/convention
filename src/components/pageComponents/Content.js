@@ -297,7 +297,6 @@ export default function Content({ setPageSchoolData }) {
     if (!found) {
       let currentEvent = JSON.parse(sessionStorage.getItem("currentEvent"));
       let newTable = {
-        columnNames: ["Name", "Age", "Age Group"],
         tableEventID: eventID,
         tableData: newParticipants,
         tableType: currentEvent.isTeamEvent
@@ -434,7 +433,6 @@ export default function Content({ setPageSchoolData }) {
     tablesContent.push(
       <Table
         key={table.tableName}
-        tableColumns={table.columnNames}
         tableData={table.tableData}
         tableType={table.tableType}
         tableName={table.tableName}
