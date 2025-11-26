@@ -215,8 +215,11 @@ input:checked + .slider:before {
   text-align: center;
   cursor: pointer;
   background-color: #e6e6fa;
-  border-radius: 0.5em;
+  border-radius: 0.2em;
   padding: 0.5em;
+}
+.selectableParticipant:hover {
+  outline: 3px solid #7381a4;
 }
 
 .selectableParticipant.selected {
@@ -283,10 +286,10 @@ input:checked + .slider:before {
   font-weight: bold;
   cursor: pointer;
   background-color: #d6d6d6;
-  border-radius: 0.5em;
+  border-radius: 0.2em;
   outline: none;
   width: 4.5em;
-  padding: 0.2em 0.5em;
+  padding: 0.4em 0.4em;
 }
 
 #teamOptionsElements .selected {
@@ -296,7 +299,7 @@ input:checked + .slider:before {
 
 #teamOptionsElements > div:hover,
 #addTeamButton:hover {
-  background-color: #c9d5dc;
+  outline: 3px solid #7381a4;
 }
 
 #participantsAmountContainer {
