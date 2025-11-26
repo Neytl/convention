@@ -7,6 +7,11 @@ export default function AddSchoolEventPopup(pageTables) {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
+    // Break out if fetch already in progress
+    if (!!sessionStorage.getItem("loadedEvents")) return;
+    sessionStorage.setItem("loadedEvents", true);
+
+    // Fetch the list of events
     fetch("https://localhost:44398/api/MiniConvention/events")
       .then((response) => response.json())
       .then((data) => {

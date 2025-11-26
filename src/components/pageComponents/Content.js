@@ -432,7 +432,7 @@ export default function Content({ setPageSchoolData }) {
   if (viewData.tables.length == 0) {
     return (
       <div id="content">
-        <Popup events={popupEvents} />
+        <Popup events={popupEvents} pathname={pathname} />
         <PageInfo pathname={pathname} />
         <Stats statsData={viewData.stats} />
         <div id="tables"></div>
