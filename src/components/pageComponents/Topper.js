@@ -9,18 +9,18 @@ export default function Topper() {
           src="/images/account.png"
           className="invert"
           alt="School"
-          width={15}
-          height={15}
+          width={20}
+          height={20}
         />
         <span>Admin</span>
       </div>
       <div id="tag">
         <Image
-          src="/images/event.png"
+          src="/images/logo.png"
           className="invert"
           alt="School"
-          width={30}
-          height={30}
+          width={42}
+          height={42}
         />
         <span>Mini-Convention 2026</span>
       </div>

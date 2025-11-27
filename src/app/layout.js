@@ -9,14 +9,15 @@ const openSans = Open_Sans({
 export const metadata = {
   title: "Mini Convention",
   description: "Mini Convention",
+  icons: {
+    icon: "/images/favicon.png",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${openSans.className}`}>
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

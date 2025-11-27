@@ -2,16 +2,16 @@ import Image from "next/image";
 import "convention/app/css/nav.css";
 import NavLink from "convention/components/navComponents/NavLink";
 
-export default function AdminSchoolLinks({ schoolData }) {
+export default function SchoolLinks({ schoolData }) {
   if (!schoolData) return null;
 
   return (
-    <div id="adminSchoolLinksContainer">
-      <div id="adminSchoolLinksHeader">
+    <div id="schoolLinksContainer">
+      <div id="schoolLinksHeader">
         <Image src="/images/school.png" alt="School" width={30} height={30} />
         <span>{schoolData.schoolName}</span>
       </div>
-      <div id="adminSchoolLinks">
+      <div id="schoolLinks">
         <NavLink
           name={"Students"}
           href={"/schoolStudents?school=" + schoolData.schoolID}

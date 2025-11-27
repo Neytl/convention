@@ -4,8 +4,6 @@
   flex-direction: column;
   gap: 0.5em;
   min-width: 15em;
-  background-color: #364954;
-  background-color: #122e49;
   color: #f8f8f8;
 }
 
@@ -22,9 +20,6 @@
 
 #topper {
   border-radius: 0.5em 0.5em 0 0;
-  background-color: #2a4c70;
-  background-color: #364954;
-  background-color: #122e49;
   color: #f8f8f8;
   display: flex;
   align-items: center;
@@ -48,11 +43,8 @@
 
 /* Links */
 #links {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
   flex-grow: 1;
-  padding-top: 2em;
+  padding-top: 1em;
 }
 
 .navLink {
@@ -69,8 +61,23 @@
   box-shadow: inset 0.3em 0 0 0 #819ae3;
 }
 
-/* Admin School Links */
-#adminSchoolLinksContainer {
+/* Admin Links */
+#adminLinksContainer {
+  display: flex;
+  gap: 2em;
+  flex-direction: column;
+}
+
+#adminLinksContainer .navLink span {
+  font-size: 1.3em;
+}
+#adminLinksContainer .navLink img {
+  width: 25px;
+  height: 25px;
+}
+
+/* School Links */
+#schoolLinksContainer {
   display: flex;
   gap: 1em;
   flex-direction: column;
@@ -79,21 +86,21 @@
   margin-top: 3em;
 }
 
-.adminPage #adminSchoolLinksContainer {
+.adminPage #schoolLinksContainer {
   /* box-shadow: none; */
 }
 
-#adminSchoolLinksHeader {
+#schoolLinksHeader {
   display: flex;
   align-items: center;
   gap: 0.3em;
   font-weight: bold;
 }
-#adminSchoolLinksHeader span {
+#schoolLinksHeader span {
   /* font-size: 1.2em; */
 }
 
-#adminSchoolLinks {
+#schoolLinks {
   display: flex;
   flex-direction: column;
   gap: 1em;
