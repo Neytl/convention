@@ -66,6 +66,7 @@
   display: flex;
   gap: 2em;
   flex-direction: column;
+  margin-bottom: 3em;
 }
 
 #adminLinksContainer .navLink span {
@@ -83,7 +84,6 @@
   flex-direction: column;
   padding: 0 1em;
   box-shadow: inset 0.3em 0 0 0 #819ae3;
-  margin-top: 3em;
 }
 
 .adminPage #schoolLinksContainer {

@@ -18,11 +18,14 @@
   align-items: center;
   flex-direction: column;
   gap: 1em;
+  padding: 1em;
+  min-width: 18em;
 }
 
 #loginContainer {
   width: 15em;
   align-items: center;
+  font-size: 1.1em;
 }
 
 .popupFields .formInputContainer {
@@ -53,18 +56,55 @@ input {
 }
 
 #loginContainer #loginButton {
+  border: none;
   cursor: pointer;
   user-select: none;
   justify-content: center;
   align-items: center;
-  margin-top: 0.3em;
   box-shadow: 0 0 0.5em -0.2em black;
   font-family: inherit;
   border-radius: 1.5em;
-  height: 2em;
-  width: 10em;
-  background-color: #e6e6fa;
+  height: 2.2em;
+  width: 6em;
+  background-color: #6097b5;
   color: black;
+  font-size: 1em;
+}
+
+#loginContainer #loginButton:hover {
+  background-color: #67bae7;
+}
+
+#errorMessageContainer {
+  width: 15em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.7em;
+  background-color: #b4766b;
+  color: #222;
+  padding: 0.5em;
+  border-radius: 0.3em;
+}
+
+#errorImage {
+  opacity: 0.6;
+}
+
+#errorMessage {
+  font-size: 0.8em;
+}
+
+#closeErrorMessageButton {
+  width: 1.5em;
+  height: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#closeErrorMessageButton:hover {
+  font-weight: bold;
 }
 
 /* Splash Art Split */
@@ -97,6 +137,20 @@ input {
   height: 100%;
 }
 
+#title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  font-size: 2em;
+  padding: 1em 1em 0 1em;
+}
+
+#subtitle {
+  padding-bottom: 6em;
+}
+
 #titleContainer span {
-  font-size: 3em;
+  font-size: 2em;
 }

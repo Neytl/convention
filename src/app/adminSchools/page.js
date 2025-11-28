@@ -5,14 +5,14 @@ import Topper from "convention/components/pageComponents/Topper";
 import { useState } from "react";
 
 export default function AdminSchoolsPage() {
-  const [pageSchoolData, setPageSchoolData] = useState(null);
+  const [pageSchoolData, setPageSchoolData] = useState({});
 
   return (
     <div id="page">
       <Topper />
       <div id="split">
         <Nav pageSchoolData={pageSchoolData} />
-        <Content setPageSchoolData={setPageSchoolData} />
+        <Content setPageSchoolData={setPageSchoolData} pathname="/" />
       </div>
     </div>
   );

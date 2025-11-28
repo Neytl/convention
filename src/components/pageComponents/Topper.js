@@ -1,7 +1,15 @@
 import Image from "next/image";
 import "convention/app/css/nav.css";
+import { useEffect, useState } from "react";
 
 export default function Topper() {
+  const [loggedInUser, setLoggedInUser] = useState({});
+
+  useEffect(() => {
+    if (!!loggedInUser.username) return;
+    setLoggedInUser(JSON.parse(localStorage.getItem("loggedInUser")));
+  }, [loggedInUser]);
+
   return (
     <div id="topper">
       <div id="user">
@@ -12,7 +20,7 @@ export default function Topper() {
           width={20}
           height={20}
         />
-        <span>Admin</span>
+        <span>{loggedInUser.username}</span>
       </div>
       <div id="tag">
         <Image

@@ -7,17 +7,14 @@ import PageButton from "convention/components/pageComponents/PageButton";
 
 import { useState, useEffect } from "react";
 
-export default function Content({ setPageSchoolData }) {
+export default function Content({ setPageSchoolData, pathname }) {
   useEffect(() => {
     sessionStorage.clear();
-    console.log("clear");
   }, []);
 
   const [viewData, setViewData] = useState({
     tables: [],
   });
-
-  const [pathname, setPathname] = useState("");
 
   const [schoolID, setSchoolID] = useState("");
 
@@ -368,13 +365,7 @@ export default function Content({ setPageSchoolData }) {
   useEffect(() => {
     if (!!viewData.stats) return;
 
-    // Pull data from the URL and try to pull the page's school data
-    setPathname(window.location.pathname);
-
-    if (
-      window.location.pathname == "/" ||
-      window.location.pathname == "/adminEvents"
-    ) {
+    if (pathname == "/" || pathname == "/adminEvents") {
       document.getElementById("page").classList.add("adminPage");
     }
 
@@ -402,19 +393,19 @@ export default function Content({ setPageSchoolData }) {
     // Request the page data from the database
     console.log("Loading from database...");
 
-    if (window.location.pathname == "/") {
+    if (pathname == "/") {
       fetch("https://localhost:44398/api/MiniConvention/adminSchoolsPage")
         .then((response) => response.json())
         .then((data) => {
           setViewData(data);
         });
-    } else if (window.location.pathname == "/adminEvents") {
+    } else if (pathname == "/adminEvents") {
       fetch("https://localhost:44398/api/MiniConvention/adminEventsPage")
         .then((response) => response.json())
         .then((data) => {
           setViewData(data);
         });
-    } else if (window.location.pathname == "/schoolStudents") {
+    } else if (pathname == "/schoolStudents") {
       fetch(
         "https://localhost:44398/api/MiniConvention/schoolStudentsPage/" +
           queryStringSchoolID
