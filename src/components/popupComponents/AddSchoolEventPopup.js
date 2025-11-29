@@ -2,6 +2,10 @@
 import { useEffect, useState } from "react";
 import TinyImage from "./TinyImage";
 import { setUpEditSchoolEventPopup } from "./EditSchoolEventPopup";
+import {
+  getLoggedInUserHeaders,
+  notAuthorized,
+} from "../pageComponents/Content";
 
 export default function AddSchoolEventPopup(pageTables) {
   const [events, setEvents] = useState([]);
@@ -12,9 +16,13 @@ export default function AddSchoolEventPopup(pageTables) {
     sessionStorage.setItem("loadedEvents", true);
 
     // Fetch the list of events
-    fetch("https://localhost:44398/api/MiniConvention/events")
+    fetch(
+      "https://localhost:44398/api/MiniConvention/events",
+      getLoggedInUserHeaders()
+    )
       .then((response) => response.json())
       .then((data) => {
+        if (notAuthorized(data)) return;
         setEvents(data);
       });
   }, []);

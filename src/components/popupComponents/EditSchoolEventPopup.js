@@ -1,6 +1,11 @@
 // import Image from "next/image";
 import { useEffect, useState } from "react";
 import TinyImage from "./TinyImage";
+import {
+  getLoggedInUserHeaders,
+  getLoggedInUserToken,
+  notAuthorized,
+} from "../pageComponents/Content";
 
 export default function EditSchoolEventPopup({
   schoolData,
@@ -13,10 +18,12 @@ export default function EditSchoolEventPopup({
 
     fetch(
       "https://localhost:44398/api/MiniConvention/students/" +
-        schoolData.schoolID
+        schoolData.schoolID,
+      getLoggedInUserHeaders()
     )
       .then((response) => response.json())
       .then((data) => {
+        if (notAuthorized(data)) return;
         setStudents(data);
         sessionStorage.setItem(
           "studentIDs",
@@ -353,7 +360,7 @@ function updateParticipants(schoolID, updateEventParticipants) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: getLoggedInUserToken(),
       },
       body: JSON.stringify(payload),
     }
@@ -368,6 +375,7 @@ function updateParticipants(schoolID, updateEventParticipants) {
     })
     .then((data) => {
       if (!data) return;
+      if (notAuthorized(data)) return;
       console.log(" = Response: ", data);
       updateEventParticipants(eventID, data);
     });

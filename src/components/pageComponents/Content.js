@@ -6,6 +6,7 @@ import Popup from "convention/components/popupComponents/Popup";
 import PageButton from "convention/components/pageComponents/PageButton";
 
 import { useState, useEffect } from "react";
+import { unauthorized } from "next/navigation";
 
 export default function Content({ setPageSchoolData, pathname }) {
   useEffect(() => {
@@ -58,7 +59,7 @@ export default function Content({ setPageSchoolData, pathname }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: getLoggedInUserToken(),
       },
       body: JSON.stringify(payload),
     })
@@ -72,6 +73,7 @@ export default function Content({ setPageSchoolData, pathname }) {
       })
       .then((data) => {
         if (!data) return;
+        if (notAuthorized(data)) return;
         let updatedData = structuredClone(viewData);
         updatedData.tables[0].tableData.unshift(data);
         updatedData.stats[0].value++;
@@ -183,7 +185,7 @@ export default function Content({ setPageSchoolData, pathname }) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: getLoggedInUserToken(),
       },
       body: JSON.stringify(payload),
     })
@@ -196,7 +198,9 @@ export default function Content({ setPageSchoolData, pathname }) {
         return response.json();
       })
       .then((data) => {
-        if (!!data) console.log(" = Response: ", data);
+        if (!data) return;
+        if (notAuthorized(response)) return;
+        console.log(" = Response: ", data);
       });
   };
 
@@ -245,32 +249,7 @@ export default function Content({ setPageSchoolData, pathname }) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => {
-        if (!!response.status && response.status == 400) {
-          console.log("Bad request");
-          return null;
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        if (!!data) console.log(" = Response: ", data);
-      });
-  };
-
-  const updateDataEntry = (endpoint, primaryKey, payload) => {
-    // Make the request
-    console.log("Fetch update " + endpoint, payload);
-
-    fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: getLoggedInUserToken(),
       },
       body: JSON.stringify(payload),
     })
@@ -284,6 +263,34 @@ export default function Content({ setPageSchoolData, pathname }) {
       })
       .then((data) => {
         if (!data) return;
+        if (notAuthorized(data)) return;
+        console.log(" = Response: ", data);
+      });
+  };
+
+  const updateDataEntry = (endpoint, primaryKey, payload) => {
+    // Make the request
+    console.log("Fetch update " + endpoint, payload);
+
+    fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: getLoggedInUserToken(),
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!!response.status && response.status == 400) {
+          console.log("Bad request");
+          return null;
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (!data) return;
+        if (notAuthorized(data)) return;
         console.log(" = Response: ", data);
 
         // Update the element - update the view data
@@ -364,6 +371,10 @@ export default function Content({ setPageSchoolData, pathname }) {
 
   useEffect(() => {
     if (!!viewData.stats) return;
+    if (!localStorage.getItem("loggedInUser")) {
+      window.location.href = "/";
+      return;
+    }
 
     if (pathname == "/" || pathname == "/adminEvents") {
       document.getElementById("page").classList.add("adminPage");
@@ -394,34 +405,56 @@ export default function Content({ setPageSchoolData, pathname }) {
     console.log("Loading from database...");
 
     if (pathname == "/") {
-      fetch("https://localhost:44398/api/MiniConvention/adminSchoolsPage")
-        .then((response) => response.json())
-        .then((data) => {
-          setViewData(data);
-        });
-    } else if (pathname == "/adminEvents") {
-      fetch("https://localhost:44398/api/MiniConvention/adminEventsPage")
-        .then((response) => response.json())
-        .then((data) => {
-          setViewData(data);
-        });
-    } else if (pathname == "/schoolStudents") {
       fetch(
-        "https://localhost:44398/api/MiniConvention/schoolStudentsPage/" +
-          queryStringSchoolID
+        "https://localhost:44398/api/MiniConvention/adminSchoolsPage",
+        getLoggedInUserHeaders()
       )
         .then((response) => response.json())
         .then((data) => {
+          if (notAuthorized(data)) return;
+          setViewData(data);
+        });
+    } else if (pathname == "/adminEvents") {
+      fetch(
+        "https://localhost:44398/api/MiniConvention/adminEventsPage",
+        getLoggedInUserHeaders()
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (notAuthorized(data)) return;
+          setViewData(data);
+        });
+    } else if (pathname == "/schoolStudents") {
+      if (!canLoggedInUserAccessSchool(queryStringSchoolID)) {
+        window.location.href = "/";
+        return;
+      }
+
+      fetch(
+        "https://localhost:44398/api/MiniConvention/schoolStudentsPage/" +
+          queryStringSchoolID,
+        getLoggedInUserHeaders()
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (notAuthorized(data)) return;
           setViewData(data);
           updateSchoolData(data.pageSchoolData);
         });
     } else {
+      if (!canLoggedInUserAccessSchool(queryStringSchoolID)) {
+        window.location.href = "/";
+        return;
+      }
+
       fetch(
         "https://localhost:44398/api/MiniConvention/schoolEventsPage/" +
-          queryStringSchoolID
+          queryStringSchoolID,
+        getLoggedInUserHeaders()
       )
         .then((response) => response.json())
         .then((data) => {
+          if (notAuthorized(data)) return;
           setViewData(data);
           updateSchoolData(data.pageSchoolData);
         });
@@ -484,3 +517,25 @@ export default function Content({ setPageSchoolData, pathname }) {
     </div>
   );
 }
+
+export const getLoggedInUserToken = () => {
+  return "Bearer " + JSON.parse(localStorage.getItem("loggedInUser")).token;
+};
+export const getLoggedInUserHeaders = () => {
+  return {
+    headers: {
+      Authorization: getLoggedInUserToken(),
+    },
+  };
+};
+const canLoggedInUserAccessSchool = (schoolID) => {
+  let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  return loggedInUser.adminAccess || loggedInUser.schoolID == schoolID;
+};
+export const notAuthorized = (response) => {
+  if (!!response.title) {
+    window.location.href = "/";
+    return true;
+  }
+  return false;
+};

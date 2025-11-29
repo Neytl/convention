@@ -16,6 +16,34 @@
   display: flex;
   align-items: center;
   gap: 0.3em;
+  position: relative;
+  height: 2.5em;
+  padding: 0;
+}
+
+#logoutButton {
+  cursor: pointer;
+  transition: all 0.5s;
+  border-radius: 0.5em;
+  position: absolute;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.72);
+  background-color: #bac0d5;
+  color: black;
+  padding: 0.5em 1em;
+  top: 1em;
+  white-space: pre;
+  left: 0;
+  z-index: 5;
+  opacity: 0;
+}
+
+#logoutButton:hover {
+  background-color: #9aaddf;
+}
+
+#user:hover #logoutButton {
+  top: 2.4em;
+  opacity: 1;
 }
 
 #topper {

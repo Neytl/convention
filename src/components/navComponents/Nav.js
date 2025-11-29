@@ -7,15 +7,23 @@ export default function Nav({ pageSchoolData }) {
   const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
-    if (!!loggedInUser.username) return;
+    if (!loggedInUser || !!loggedInUser.username) return;
     setLoggedInUser(JSON.parse(localStorage.getItem("loggedInUser")));
   }, [loggedInUser]);
+
+  if (!loggedInUser) return null;
 
   return (
     <div id="header">
       <div id="links">
-        {!loggedInUser.adminAccess ? null : <AdminLinks />}
-        <SchoolLinks schoolData={pageSchoolData} loggedInUser={loggedInUser} />
+        {!loggedInUser.adminAccess ? (
+          <SchoolLinks
+            schoolData={pageSchoolData}
+            loggedInUser={loggedInUser}
+          />
+        ) : (
+          <AdminLinks schoolData={pageSchoolData} loggedInUser={loggedInUser} />
+        )}
       </div>
     </div>
   );

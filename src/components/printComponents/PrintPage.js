@@ -3,18 +3,32 @@ import "convention/app/css/print.css";
 import { useState, useEffect } from "react";
 import SchoolPrintTable from "./SchoolPrintTable";
 import EventPrintTable from "./EventPrintTable";
+import {
+  getLoggedInUserHeaders,
+  notAuthorized,
+} from "../pageComponents/Content";
 
 export default function PrintPage() {
   const [pageData, setPageData] = useState(null);
 
   useEffect(() => {
+    if (!localStorage.getItem("loggedInUser")) {
+      window.location.href = "/";
+      return;
+    }
+
     console.log("loading...");
     let pathName = window.location.pathname;
 
     if (window.location.pathname == "/printSchools") {
-      fetch("https://localhost:44398/api/MiniConvention/schoolsTables")
+      fetch(
+        "https://localhost:44398/api/MiniConvention/schoolsTables",
+        getLoggedInUserHeaders()
+      )
         .then((response) => response.json())
         .then((data) => {
+          if (notAuthorized(data)) return;
+
           let pageData = {
             pathName: pathName,
             tables: data,
@@ -29,10 +43,13 @@ export default function PrintPage() {
 
       fetch(
         "https://localhost:44398/api/MiniConvention/schoolTable/" +
-          queryStringSchoolID
+          queryStringSchoolID,
+        getLoggedInUserHeaders()
       )
         .then((response) => response.json())
         .then((data) => {
+          if (notAuthorized(data)) return;
+
           let pageData = {
             pathName: pathName,
             table: data,
@@ -42,9 +59,14 @@ export default function PrintPage() {
           setPageData(pageData);
         });
     } else if (window.location.pathname == "/printEvents") {
-      fetch("https://localhost:44398/api/MiniConvention/eventsTables")
+      fetch(
+        "https://localhost:44398/api/MiniConvention/eventsTables",
+        getLoggedInUserHeaders()
+      )
         .then((response) => response.json())
         .then((data) => {
+          if (notAuthorized(data)) return;
+
           let pageData = {
             pathName: pathName,
             tables: data,
@@ -59,10 +81,13 @@ export default function PrintPage() {
 
       fetch(
         "https://localhost:44398/api/MiniConvention/eventTable/" +
-          queryStringSchoolID
+          queryStringSchoolID,
+        getLoggedInUserHeaders()
       )
         .then((response) => response.json())
         .then((data) => {
+          if (notAuthorized(data)) return;
+
           let pageData = {
             pathName: pathName,
             table: data,
