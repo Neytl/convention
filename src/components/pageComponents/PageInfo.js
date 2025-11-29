@@ -11,7 +11,9 @@ export default function PageInfo({ pathname }) {
 
   return (
     <div id="pageInfo">
-      <div id="timeLeft">{"Registration closes in " + daysLeft + " days."}</div>
+      <div id="timeLeft">
+        {"La inscripción cierra en " + daysLeft + " días."}
+      </div>
       <div id="pageSpecificInfo">{getPageInfo(pathname)}</div>
     </div>
   );
@@ -20,7 +22,8 @@ export default function PageInfo({ pathname }) {
 function getPageInfo(pathname) {
   switch (pathname) {
     case "/":
-      return "On this page, you can print out school registration information, as well as navigate to a school's database page. To register a student or add a student to an event, click on the school and hit the 'Students' or 'Events' button.";
+      return "En esta página, puede imprimir la información de inscripción escolar. También puede abrir la página de registro de cada escuela. Para inscribir a un alumno o registrarlo para un evento, haga clic en su escuela y seleccione el botón de 'Estudiantes' o 'Eventos'.";
+    // return "On this page, you can print out school registration information, as well as navigate to a school's database page. To register a student or add a student to an event, click on the school and hit the 'Students' or 'Events' button.";
     case "/adminEvents":
       return "On this page, you can print out events and their participants. You can also create an event for students to register to. To register a student to an event, you must go to that student's school page. All school pages are linked in the 'Schools' page.";
     case "/schoolStudents":

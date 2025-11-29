@@ -68,18 +68,18 @@ export default function EditSchoolEventPopup({
       <div id="teamEventContainer">
         <div id="teamOptionsContainer">
           <div id="teamOptionsElements">
-            <div className="selected">Team 1</div>
+            <div className="selected">Equipo 1</div>
           </div>
           <div key="addTeamButton" id="addTeamButton" onClick={addTeam}>
             <TinyImage imageSrc="add.png" />
-            <span>Team</span>
+            <span>Equipo</span>
           </div>
         </div>
         <div id="participantsAmountContainer">
           <span id="currentParticipantAmount">0</span>
           <span>{"/"}</span>
           <span id="currentMaxTeamSize">0</span>
-          <span> Participants</span>
+          <span> Participantes</span>
         </div>
       </div>
 
@@ -94,7 +94,7 @@ export default function EditSchoolEventPopup({
           }}
           className="submitPopupButton"
         >
-          Submit
+          Registrar
         </div>
       </div>
     </div>
@@ -171,7 +171,7 @@ const setUpEditSchoolEventPopupInternal = (
 
     for (let i = 1; i <= numberOfTeamOptions; i++) {
       let child = document.createElement("div");
-      child.innerHTML = "Team " + i;
+      child.innerHTML = "Equipo " + i;
       child.onclick = () => {
         setUpEditSchoolEventPopupInternal(
           JSON.parse(sessionStorage.getItem(eventID)),

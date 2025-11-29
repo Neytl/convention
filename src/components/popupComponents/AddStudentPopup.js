@@ -34,12 +34,12 @@ export default function AddStudentPopup({ postNewData }) {
       <form className="popupFields">
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="firstName">First Name:</label>
+            <label htmlFor="firstName">Nombres:</label>
           </div>
           <input
             type="text"
             id="firstName"
-            placeholder="First Name"
+            placeholder="Nombres"
             onInput={clearError}
             onKeyDown={onPopupInput}
             data-tab="A1"
@@ -47,12 +47,12 @@ export default function AddStudentPopup({ postNewData }) {
         </div>
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="lastName">Last Name:</label>
+            <label htmlFor="lastName">Apellidos:</label>
           </div>
           <input
             type="text"
             id="lastName"
-            placeholder="Last Name"
+            placeholder="Apellidos"
             onInput={clearError}
             onKeyDown={onPopupInput}
             data-tab="A2"
@@ -60,7 +60,7 @@ export default function AddStudentPopup({ postNewData }) {
         </div>
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="birthdate">Birthdate:</label>
+            <label htmlFor="birthdate">Fecha de nacimiento:</label>
           </div>
           <input
             type="text"
@@ -83,7 +83,7 @@ export default function AddStudentPopup({ postNewData }) {
           data-tab="A4"
           tabIndex={-1}
         >
-          Add
+          Registrar
         </div>
       </div>
     </div>

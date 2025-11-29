@@ -46,7 +46,7 @@ export default function Topper() {
           width={42}
           height={42}
         />
-        <span>Mini-Convention 2026</span>
+        <span>Mini-Convención 2026</span>
       </div>
     </div>
   );

@@ -20,14 +20,14 @@ export default function LoginPage() {
                   width={85}
                   height={85}
                 />
-                <span>Mini-Convention</span>
+                <span>Mini-Convención</span>
               </div>
-              <span id="subtitle">2026 Registration</span>
+              <span id="subtitle">Inscripción 2026</span>
             </div>
           </div>
         </div>
         <div id="loginSplit">
-          <div id="loginTitle">Sign In To Registration</div>
+          <div id="loginTitle">Iniciar Sesión Para Registrar Tu Escuela</div>
           <div id="errorMessageContainer" className="hidden">
             <Image
               id="errorImage"
@@ -36,7 +36,7 @@ export default function LoginPage() {
               width={25}
               height={25}
             />
-            <div id="errorMessage">The username or password is incorrect</div>
+            <div id="errorMessage"></div>
             <div
               id="closeErrorMessageButton"
               onClick={() => {
@@ -52,31 +52,19 @@ export default function LoginPage() {
             <div className="formInputContainer">
               <div className="inputLabel">
                 <TinyImage imageSrc={"account.png"} />
-                <label htmlFor="username">Username:</label>
+                <label htmlFor="username">Usuario:</label>
               </div>
-              <input
-                // onInput={clearError}
-                type="text"
-                id="username"
-                autoComplete="convention-username"
-                // placeholder="Username"
-                // onKeyDown={onPopupInput}
-                // data-tab="A1"
-              />
+              <input type="text" id="username" autoComplete="mini-convention" />
             </div>
             <div className="formInputContainer">
               <div className="inputLabel">
                 <TinyImage imageSrc={"password.png"} />
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password">Contraseña:</label>
               </div>
               <input
-                // onInput={clearError}
                 type="password"
                 id="password"
-                autoComplete="convention-password"
-                // placeholder="Password"
-                // onKeyDown={onPopupInput}
-                // data-tab="A1"
+                autoComplete="mini-convention"
               />
             </div>
             <button
@@ -85,7 +73,7 @@ export default function LoginPage() {
               className="button"
               onClick={login}
             >
-              Submit
+              Entrar
             </button>
           </form>
         </div>
@@ -106,12 +94,13 @@ const login = (event) => {
   };
 
   if (!payload.username || !payload.password) {
-    get("errorMessage").innerHTML = "The username or password is incorrect";
+    get("errorMessage").innerHTML =
+      "El nombre de usuario o la contraseña son incorrectos";
     get("errorMessageContainer").classList.remove("hidden");
     return;
   }
 
-  get("password").value = "";
+  // get("password").value = "";
 
   fetch("https://localhost:44398/api/Login", {
     method: "POST",
@@ -137,15 +126,14 @@ const login = (event) => {
       });
     } else if (response.status === 401) {
       // Unauthorized
-      get("errorMessage").innerHTML = "The username or password is incorrect";
+      get("errorMessage").innerHTML =
+        "El nombre de usuario o la contraseña son incorrectos";
       get("errorMessageContainer").classList.remove("hidden");
     } else if (response.status === 503) {
       // Service Unavailable
-      get("errorMessage").innerHTML = "The registration period is now closed.";
+      get("errorMessage").innerHTML =
+        "El periodo de inscripción ya está cerrado";
       get("errorMessageContainer").classList.remove("hidden");
     }
   });
 };
-
-//Escuela Grande
-//1234

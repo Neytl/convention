@@ -10,9 +10,13 @@ export default function AdminLinks({ schoolData, loggedInUser }) {
   return (
     <div id="links">
       <div id="adminLinksContainer">
-        <NavLink name={"Schools"} href={"/"} iconSrc={"/images/school.png"} />
         <NavLink
-          name={"All Events"}
+          name={"Escuelas"}
+          href={"/adminSchools"}
+          iconSrc={"/images/school.png"}
+        />
+        <NavLink
+          name={"Eventos"}
           href={"/adminEvents"}
           iconSrc={"/images/event.png"}
         />
@@ -30,13 +34,13 @@ export default function AdminLinks({ schoolData, loggedInUser }) {
           </div>
           <div id="schoolLinks">
             <NavLink
-              name={"Students"}
+              name={"Alumnos"}
               href={"/schoolStudents?school=" + schoolID}
               iconSrc={"/images/account.png"}
             />
             {schoolData.numStudents > 0 ? (
               <NavLink
-                name={"Events"}
+                name={"Eventos - Registro"}
                 href={"/schoolEvents?school=" + schoolID}
                 iconSrc={"/images/event.png"}
               />

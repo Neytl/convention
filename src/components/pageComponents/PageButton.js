@@ -15,7 +15,7 @@ export default function PageButton({ pathName, pageData }) {
             }}
           >
             <Image src={"/images/print.png"} alt="" width={20} height={20} />
-            <span>Registration</span>
+            <span>Inscipción</span>
           </div>
         </div>
       );
@@ -30,7 +30,7 @@ export default function PageButton({ pathName, pageData }) {
             }}
           >
             <Image src={"/images/print.png"} alt="" width={20} height={20} />
-            <span>Events</span>
+            <span>Eventos</span>
           </div>
         </div>
       );
@@ -49,7 +49,8 @@ export default function PageButton({ pathName, pageData }) {
                 );
 
               // Set up the new popup
-              document.getElementById("popupTitle").innerHTML = "Add Student";
+              document.getElementById("popupTitle").innerHTML =
+                "Registrar Alumno";
               document.getElementById("popupHeaderIcon").srcset =
                 "/images/account.png";
               clearStudentPopup();
@@ -64,7 +65,7 @@ export default function PageButton({ pathName, pageData }) {
             }}
           >
             <Image src={"/images/account.png"} alt="" width={20} height={20} />
-            <span>Add Student</span>
+            <span>Registrar Alumno</span>
           </div>
         </div>
       );
@@ -83,7 +84,8 @@ export default function PageButton({ pathName, pageData }) {
                 );
 
               // Set up the new popup
-              document.getElementById("popupTitle").innerHTML = "Edit Events";
+              document.getElementById("popupTitle").innerHTML =
+                "Editar Eventos";
               document.getElementById("popupHeaderIcon").srcset =
                 "/images/event.png";
 
@@ -98,7 +100,7 @@ export default function PageButton({ pathName, pageData }) {
             }}
           >
             <Image src={"/images/event.png"} alt="" width={20} height={20} />
-            <span>Edit Events</span>
+            <span>Editar Eventos</span>
           </div>
         </div>
       );

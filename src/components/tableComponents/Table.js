@@ -18,15 +18,15 @@ export default function Table({
   let tableColumns = ((tableType) => {
     switch (tableType) {
       case "admin_schools":
-        return ["School", "# Students"];
+        return ["Escuela", "Alumnos"];
       case "school_event":
       case "school_team_event":
-        return ["Name", "Age", "Group"];
+        return ["Nombre", "Edad", "Groupo"];
       case "school_students":
-        return ["Name", "Age", "Group", "Events"];
+        return ["Nombre", "Edad", "Groupo", "Eventos"];
       case "admin_events":
       default:
-        return ["Event", "Participants", "Team Size", "Category"];
+        return ["Evento", "Participantes", "Tamaño de Equipos", "Categoria"];
     }
   })(tableType);
   let numColumns = tableColumns.length;
@@ -194,15 +194,14 @@ function getTableEntryIcon(tableType) {
 function getTableButtonText(tableType) {
   switch (tableType) {
     case "admin_schools":
-      return "Add School";
+      return "Registrar Escuela";
     case "admin_events":
-      return "Add Event";
+      return "Registrar Evento";
     case "school_event":
     case "school_team_event":
-      return "Edit Event";
-    case "school_students":
+      return "Editar Evento";
     default:
-      return "Add Student";
+      return "???";
   }
 }
 
@@ -213,6 +212,12 @@ function getTableTopper(
   tableObject,
   pageTables
 ) {
+  if (tableType == "admin_schools") {
+    tableName = "Escuelas";
+  } else if (tableType == "admin_events") {
+    tableName = "Eventos";
+  }
+
   return (
     <div className="tableTopper">
       <span>{tableName}</span>

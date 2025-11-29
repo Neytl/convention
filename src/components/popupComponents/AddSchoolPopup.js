@@ -25,12 +25,12 @@ export default function AddSchoolPopup({ postNewData }) {
       <form className="popupFields">
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="schoolName">Name:</label>
+            <label htmlFor="schoolName">Nombre:</label>
           </div>
           <input
             type="text"
             id="schoolName"
-            placeholder="School Name"
+            placeholder="Nombre de escuela"
             onInput={clearError}
             onKeyDown={onPopupInput}
             data-tab="A1"
@@ -48,7 +48,7 @@ export default function AddSchoolPopup({ postNewData }) {
           data-tab="A2"
           tabIndex={-1}
         >
-          Add
+          Registrar
         </div>
       </div>
     </div>

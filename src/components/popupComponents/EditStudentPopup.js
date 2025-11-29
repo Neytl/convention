@@ -37,12 +37,12 @@ export default function EditStudentPopup({ updateDataEntry }) {
       <form className="popupFields">
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="editFirstName">First Name:</label>
+            <label htmlFor="editFirstName">Nombres:</label>
           </div>
           <input
             type="text"
             id="editFirstName"
-            placeholder="First Name"
+            placeholder="Nombres"
             onInput={clearError}
             onKeyDown={onPopupInput}
             data-tab="B1"
@@ -50,12 +50,12 @@ export default function EditStudentPopup({ updateDataEntry }) {
         </div>
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="editLastName">Last Name:</label>
+            <label htmlFor="editLastName">Apellidos:</label>
           </div>
           <input
             type="text"
             id="editLastName"
-            placeholder="Last Name"
+            placeholder="Apellidos"
             onInput={clearError}
             onKeyDown={onPopupInput}
             data-tab="B2"
@@ -63,7 +63,7 @@ export default function EditStudentPopup({ updateDataEntry }) {
         </div>
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="editBirthdate">Birthdate:</label>
+            <label htmlFor="editBirthdate">Fecha de nacimiento:</label>
           </div>
           <input
             type="text"
@@ -86,7 +86,7 @@ export default function EditStudentPopup({ updateDataEntry }) {
           data-tab="B4"
           tabIndex={-1}
         >
-          Update
+          Actualizar
         </div>
       </div>
     </div>

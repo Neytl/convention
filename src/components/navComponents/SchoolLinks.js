@@ -10,13 +10,13 @@ export default function SchoolLinks({ schoolData, loggedInUser }) {
     <div id="links">
       <div id="adminLinksContainer">
         <NavLink
-          name={"Students"}
+          name={"Alumnos"}
           href={"/schoolStudents?school=" + schoolID}
           iconSrc={"/images/account.png"}
         />
         {schoolData.numStudents > 0 ? (
           <NavLink
-            name={"Events"}
+            name={"Eventos"}
             href={"/schoolEvents?school=" + schoolID}
             iconSrc={"/images/event.png"}
           />

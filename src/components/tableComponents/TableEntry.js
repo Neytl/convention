@@ -171,9 +171,9 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
     <div className="tableEntryDropdown">
       <div className="loginInfoContainer">
         <div className="schoolLoginInfo">
-          <IconSpan imageSrc="/images/account.png" text="Username:" />
+          <IconSpan imageSrc="/images/account.png" text="Usuario:" />
           <span>{data.username}</span>
-          <IconSpan imageSrc="/images/password.png" text="Password:" />
+          <IconSpan imageSrc="/images/password.png" text="Contraseña:" />
           <span>{data.password}</span>
         </div>
       </div>
@@ -181,29 +181,29 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
         {data.numStudents == 0 ? null : (
           <TableEntryButton
             imageSrc="/images/print.png"
-            text="Print"
+            text="Imprimir"
             onClick={printSchoolData}
           />
         )}
         <TableEntryButton
           imageSrc="/images/edit.png"
-          text="Edit"
+          text="Escuela"
           onClick={editSchoolData}
         />
         <TableEntryButton
           imageSrc="/images/delete.png"
-          text="Delete"
+          text="Eliminar"
           onClick={deleteSchool}
         />
         <TableEntryButton
           imageSrc="/images/account.png"
-          text="Students"
+          text="Alumnos"
           onClick={viewStudents}
         />
         {data.numStudents == 0 ? null : (
           <TableEntryButton
             imageSrc="/images/event.png"
-            text="Events"
+            text="Eventos"
             onClick={viewEvents}
           />
         )}
@@ -291,18 +291,18 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
           <TableEntryButton
             onClick={printEvent}
             imageSrc="/images/print.png"
-            text="Print"
+            text="Imprimir"
           />
         )}
         <TableEntryButton
           onClick={editEvent}
           imageSrc="/images/edit.png"
-          text="Edit"
+          text="Evento"
         />
         <TableEntryButton
           onClick={deleteEvent}
           imageSrc="/images/delete.png"
-          text="Delete"
+          text="Eliminar"
         />
       </div>
     </div>
@@ -367,12 +367,12 @@ function generateSchoolStudentsEntryDropdown(tableType, data, deleteDataEntry) {
         <TableEntryButton
           onClick={editStudent}
           imageSrc="/images/edit.png"
-          text="Student"
+          text="Alumno"
         />
         <TableEntryButton
           onClick={deleteStudent}
           imageSrc="/images/delete.png"
-          text="Delete"
+          text="Eliminar"
         />
       </div>
     </div>

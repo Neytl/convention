@@ -33,13 +33,13 @@ export default function AddEventPopup({ postNewData }) {
         {/* Event Name */}
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="eventName">Name:</label>
+            <label htmlFor="eventName">Nombre:</label>
           </div>
           <input
             onInput={clearError}
             type="text"
             id="eventName"
-            placeholder="Event Name"
+            placeholder="Nombre del evento"
             onKeyDown={onPopupInput}
             data-tab="A1"
           />
@@ -48,7 +48,7 @@ export default function AddEventPopup({ postNewData }) {
         <div id="teamSizeRow">
           <div id="eventHasTeamsButton">
             <div className="popupInputLabel">
-              <label htmlFor="eventHasTeams">Teams?</label>
+              <label htmlFor="eventHasTeams">Equipos?</label>
             </div>
             <label className="sliderContainer" htmlFor="eventHasTeams">
               <input
@@ -66,7 +66,7 @@ export default function AddEventPopup({ postNewData }) {
           </div>
           <div id="teamSizeContainer">
             <div className="popupInputLabel">
-              <label htmlFor="eventTeamSize">Size:</label>
+              <label htmlFor="eventTeamSize">Tamaño:</label>
             </div>
             <input
               type="number"
@@ -82,7 +82,7 @@ export default function AddEventPopup({ postNewData }) {
         {/* Category */}
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="eventCategory">Category:</label>
+            <label htmlFor="eventCategory">Categoria:</label>
           </div>
           <select
             id="eventCategory"
@@ -109,7 +109,7 @@ export default function AddEventPopup({ postNewData }) {
           data-tab="A5"
           tabIndex={-1}
         >
-          Add
+          Registrar
         </div>
       </div>
     </div>

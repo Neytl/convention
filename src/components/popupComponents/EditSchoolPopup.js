@@ -24,12 +24,12 @@ export default function EditSchoolPopup({ updateDataEntry }) {
       <form className="popupFields">
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="schoolName">Name:</label>
+            <label htmlFor="schoolName">Nombre:</label>
           </div>
           <input
             type="text"
             id="editSchoolName"
-            placeholder="School Name"
+            placeholder="Nombre de escuela"
             onInput={clearError}
             onKeyDown={onPopupInput}
             data-tab="B1"
@@ -48,7 +48,7 @@ export default function EditSchoolPopup({ updateDataEntry }) {
           data-tab="B2"
           tabIndex={-1}
         >
-          Update
+          Actualizar
         </div>
       </div>
     </div>

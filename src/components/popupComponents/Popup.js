@@ -166,34 +166,38 @@ export const openTableButtonPopup = (
     .getElementById("popupContent")
     .childNodes.forEach((element) => element.classList.add("hidden"));
 
+  document.querySelectorAll(".error").forEach((element) => {
+    element.classList.remove("error");
+  });
+
   console.log(popupName);
 
   switch (popupName) {
     case "admin_schools_popup":
-      document.getElementById("popupTitle").innerHTML = "New School";
+      document.getElementById("popupTitle").innerHTML = "Registrar Escuela";
       document.getElementById("popupHeaderIcon").srcset = "/images/school.png";
       clearSchoolPopup();
       break;
     case "edit_admin_schools_popup":
-      document.getElementById("popupTitle").innerHTML = "Edit School";
+      document.getElementById("popupTitle").innerHTML = "Editar Escuela";
       document.getElementById("popupHeaderIcon").srcset = "/images/school.png";
       break;
     case "admin_events_popup":
-      document.getElementById("popupTitle").innerHTML = "New Event";
+      document.getElementById("popupTitle").innerHTML = "Registrar Evento";
       document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
       clearEventPopup();
       break;
     case "edit_admin_events_popup":
-      document.getElementById("popupTitle").innerHTML = "Edit Event";
+      document.getElementById("popupTitle").innerHTML = "Editar Evento";
       document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
       break;
     case "school_students_popup":
-      document.getElementById("popupTitle").innerHTML = "Add Student";
+      document.getElementById("popupTitle").innerHTML = "Registrar Alumno";
       document.getElementById("popupHeaderIcon").srcset = "/images/account.png";
       clearStudentPopup();
       break;
     case "edit_school_students_popup":
-      document.getElementById("popupTitle").innerHTML = "Edit Student";
+      document.getElementById("popupTitle").innerHTML = "Editar Alumno";
       document.getElementById("popupHeaderIcon").srcset = "/images/account.png";
       break;
     case "school_event_popup":

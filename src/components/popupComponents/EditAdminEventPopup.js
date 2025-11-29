@@ -36,7 +36,7 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
         {/* Event Name */}
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="editEventName">Name:</label>
+            <label htmlFor="editEventName">Nombre:</label>
           </div>
           <input
             onInput={clearError}
@@ -51,7 +51,7 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
         <div id="teamSizeRow">
           <div id="editEventHasTeamsButton">
             <div className="popupInputLabel">
-              <label htmlFor="eventHasTeams">Teams?</label>
+              <label htmlFor="eventHasTeams">Equipos?</label>
             </div>
             <label className="sliderContainer" htmlFor="editEventHasTeams">
               <input
@@ -69,7 +69,7 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
           </div>
           <div id="editTeamSizeContainer">
             <div className="popupInputLabel">
-              <label htmlFor="eventTeamSize">Size:</label>
+              <label htmlFor="eventTeamSize">Tamaño:</label>
             </div>
             <input
               type="number"
@@ -85,7 +85,7 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
         {/* Category */}
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="editEventCategory">Category:</label>
+            <label htmlFor="editEventCategory">Categoria:</label>
           </div>
           <select
             id="editEventCategory"
@@ -112,7 +112,7 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
           data-tab="B5"
           tabIndex={-1}
         >
-          Update
+          Actualizar
         </div>
       </div>
     </div>

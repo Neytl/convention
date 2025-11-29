@@ -12,7 +12,7 @@ export default function Stats({ statsData }) {
         <Stat
           key={stat.title}
           imageSrc={lookupIcon(stat.title)}
-          title={stat.title}
+          title={lookupTitle(stat.title)}
           value={stat.value}
         />
       ))}
@@ -32,5 +32,20 @@ function lookupIcon(statType) {
       return "/images/event.png";
     default:
       return "/images/???.png";
+  }
+}
+
+function lookupTitle(statType) {
+  switch (statType) {
+    case "Schools":
+      return "Escuelas";
+    case "Students":
+      return "Alumnos";
+    case "Participants":
+      return "Participantes";
+    case "Events":
+      return "Eventos";
+    default:
+      return "???";
   }
 }
