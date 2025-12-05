@@ -3,6 +3,7 @@ import IconSpan from "../generalComponents/IconSpan";
 import TableEntryButton from "./TableEntryButton";
 import "convention/app/css/table.css";
 import { openTableButtonPopup } from "../popupComponents/Popup";
+import ParticipantIcon from "./ParticipantIcon";
 
 export default function TableEntry({
   entryIconSrc,
@@ -140,31 +141,56 @@ function lookupTableEntryDropdown(tableType, data, deleteDataEntry) {
 }
 
 function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
-  let printSchoolData = function () {
+  const printSchoolData = function () {
     window.open("./printSchool?school=" + data.schoolID, "_blank");
   };
 
-  let editSchoolData = function () {
+  const editSchoolData = function () {
     openTableButtonPopup("edit_" + tableType + "_popup");
     let input = document.getElementById("editSchoolName");
     input.value = data.schoolName;
     input.dataset.schoolID = data.schoolID;
   };
 
-  let deleteSchool = function (event) {
-    if (confirm("Are you sure you want to delete '" + data.schoolName + "'?")) {
+  const deleteSchool = function (event) {
+    if (
+      confirm(
+        "¿Estás seguro de que quieres eliminar la escuela '" +
+          data.schoolName +
+          "' del registro?"
+      )
+    ) {
       deleteDataEntry("school", {
         schoolID: data.schoolID,
       });
     }
   };
 
-  let viewStudents = function () {
+  const viewStudents = function () {
     window.location.href = "./schoolStudents?school=" + data.schoolID;
   };
 
-  let viewEvents = function () {
+  const viewEvents = function () {
     window.location.href = "./schoolEvents?school=" + data.schoolID;
+  };
+
+  const copyText = () => {
+    let image = document.getElementById("copy" + data.schoolID);
+    if (image.classList.contains("checked")) return;
+    image.classList.add("checked");
+
+    // Copy the text
+    let text = "Usuario:     " + data.schoolName + "\r\n";
+    text += "Contraseña:  " + data.password;
+    navigator.clipboard.writeText(text);
+
+    // Show to the user
+    image.srcset = "/images/checkmark.png";
+
+    setTimeout(() => {
+      image.srcset = "/images/copy.png";
+      image.classList.remove("checked");
+    }, 1000);
   };
 
   return (
@@ -175,6 +201,19 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
           <span>{data.username}</span>
           <IconSpan imageSrc="/images/password.png" text="Contraseña:" />
           <span>{data.password}</span>
+        </div>
+        <div
+          className="tableEntryButton copyUserInfoButton"
+          title="Copiar Información"
+          onClick={copyText}
+        >
+          <Image
+            id={"copy" + data.schoolID}
+            src={"/images/copy.png"}
+            alt="Copiar"
+            width={20}
+            height={20}
+          />
         </div>
       </div>
       <div className="tableEntryDropdownButtons">
@@ -213,11 +252,11 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
 }
 
 function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
-  let printEvent = function () {
+  const printEvent = function () {
     window.open("./printEvent?event=" + data.eventID, "_blank");
   };
 
-  let editEvent = function () {
+  const editEvent = function () {
     openTableButtonPopup("edit_" + tableType + "_popup");
 
     let input = document.getElementById("editEventName");
@@ -241,20 +280,26 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
     document.getElementById("editEventCategory").value = data.category;
   };
 
-  let deleteEvent = function (event) {
-    if (confirm("Are you sure you want to delete '" + data.eventName + "'?")) {
+  const deleteEvent = function (event) {
+    if (
+      confirm(
+        "¿Estás seguro de que quieres eliminar el evento '" +
+          data.eventName +
+          "' del registro?"
+      )
+    ) {
       deleteDataEntry("event", {
         eventID: data.eventID,
       });
     }
   };
 
-  let deleteParticipant = function (participantToDelete) {
+  const deleteParticipant = function (participantToDelete) {
     if (
       confirm(
-        "Are you sure you want to delete '" +
+        "¿Estás seguro de que quieres eliminar '" +
           participantToDelete.fullName +
-          "'?"
+          "' de este evento?"
       )
     ) {
       deleteDataEntry("participant", {
@@ -265,17 +310,22 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
   };
 
   let eventParticipantsElements = [];
+  let index = 0;
 
   data.participants.forEach((participant) => {
+    index++;
+
     eventParticipantsElements.push(
       <div
         key={participant.studentID}
         id={participant.studentID + data.eventID}
         className="participantDisplay"
       >
-        <IconSpan
-          imageSrc="/images/account.png"
-          text={participant.fullName + " - " + participant.schoolName}
+        <ParticipantIcon
+          index={index}
+          schoolName={participant.schoolName}
+          fullName={participant.fullName}
+          age={participant.age}
         />
         <div
           className="deleteParticipantButton"
@@ -329,35 +379,60 @@ function generateSchoolStudentsEntryDropdown(tableType, data, deleteDataEntry) {
     ).toLocaleDateString("es-MX");
   };
 
-  let deleteStudent = function (event) {
-    if (confirm("Are you sure you want to delete '" + data.fullName + "'?")) {
+  const deleteStudent = function (event) {
+    if (
+      confirm(
+        "¿Estás seguro de que quieres eliminar el alumno '" +
+          data.fullName +
+          "' del registro?"
+      )
+    ) {
       deleteDataEntry("student", {
         studentID: data.studentID,
       });
     }
   };
 
-  let deleteParticipant = function (eventToDelete) {
-    deleteDataEntry("participant", {
-      studentID: data.studentID,
-      eventID: eventToDelete,
-    });
+  const deleteParticipant = function (eventToDelete) {
+    if (
+      confirm(
+        "¿Estás seguro de que quieres eliminar '" +
+          data.fullName +
+          "' del evento '" +
+          eventToDelete.eventName +
+          "'?"
+      )
+    ) {
+      deleteDataEntry("participant", {
+        studentID: data.studentID,
+        eventID: eventToDelete.eventID,
+      });
+    }
   };
 
   let eventsElements = [];
+  let index = 0;
 
   data.events.forEach((studentEvent) => {
+    index++;
+
     eventsElements.push(
       <div
         key={studentEvent.eventID}
         id={data.studentID + studentEvent.eventID}
         className="participantDisplay"
       >
-        <IconSpan imageSrc="/images/event.png" text={studentEvent.eventName} />
+        <div className="eventListEntry">
+          <span>{index + "."}</span>
+          <IconSpan
+            imageSrc="/images/event.png"
+            text={studentEvent.eventName}
+          />
+        </div>
         <div
           className="deleteParticipantButton"
           onClick={() => {
-            deleteParticipant(studentEvent.eventID);
+            deleteParticipant(studentEvent);
           }}
         >
           <Image src="/images/delete.png" alt="" width="20" height="20" />

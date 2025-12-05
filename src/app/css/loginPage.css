@@ -38,6 +38,9 @@
 #loginTitle {
   font-size: 1.2em;
   font-weight: bold;
+  text-align: center;
+  width: 15em;
+  padding: 0 1em;
 }
 
 #loginContainer img {

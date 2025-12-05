@@ -1,6 +1,7 @@
 .table {
   border-radius: 0.3em;
-  box-shadow: #979797 0 0 0.5em 0px;
+  /* box-shadow: #979797 0 0 0.5em 0px; */
+  box-shadow: #6d5f8c 0 0 0.6em 0px;
   margin-bottom: 2.5em;
 }
 
@@ -120,7 +121,10 @@
   flex-direction: column;
   gap: 2em;
   background-color: #f8f8f8;
-  box-shadow: inset 0.3em 0 #b9bec6;
+  box-shadow: inset 0 0 0.3em 0 #b9bec6;
+  border-left: solid #b6c2e5 0.3em;
+  /* border-left: solid #ada5be 0.3em; */
+  /* border-right: solid #b6c2e5 0.3em; */
 }
 
 .iconSpan {
@@ -153,9 +157,6 @@
 }
 
 /* - Admin Schools - */
-.schoolLoginInfo span {
-  user-select: all;
-}
 
 .schoolLoginInfo {
   display: grid;
@@ -169,26 +170,43 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 2em;
+}
+
+.tableEntryButton.copyUserInfoButton {
+  display: flex;
+  padding: 0.5em;
+  width: auto;
 }
 
 /* Admin Events */
 .eventParticipants {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.8em;
 }
 
 .eventParticipants > div {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .eventParticipants > div:hover {
   text-decoration: underline;
 }
 
+.participantIcon {
+  display: grid;
+  grid-template-columns: 1.8em 1fr 15em;
+  width: -webkit-fill-available;
+  align-items: center;
+}
+
 .deleteParticipantButton {
+  position: absolute;
+  right: 0;
   padding: 0.5em;
   cursor: pointer;
   border-radius: 100%;
@@ -207,6 +225,17 @@
 }
 .participantDisplay:not(:hover) .deleteParticipantButton {
   display: none;
+}
+
+.faded {
+  opacity: 0.5;
+}
+
+/* School Students */
+.eventListEntry {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
 }
 
 /* School Events */
