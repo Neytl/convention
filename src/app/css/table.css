@@ -215,6 +215,10 @@
   align-items: center;
 }
 
+.schoolEvents .deleteParticipantButton {
+  position: relative;
+}
+
 .deleteParticipantButton:hover {
   background-color: #e6e6fa;
   box-shadow: 0 0 0.5em #979797;
@@ -286,10 +290,10 @@
   content: "(6-7)";
 }
 .Ovejitas:not(.schoolEventTable)::after {
-  content: "(8-9)";
+  content: "(8-10)";
 }
 .Ovejas:not(.schoolEventTable)::after {
-  content: "(10-12)";
+  content: "(11-12)";
 }
 
 .Corderitos.schoolEventTable > div:last-child::after {
@@ -297,11 +301,11 @@
   padding-left: 0.3em;
 }
 .Ovejitas.schoolEventTable > div:last-child::after {
-  content: "(8-9)";
+  content: "(8-10)";
   padding-left: 0.3em;
 }
 .Ovejas.schoolEventTable > div:last-child::after {
-  content: "(10-12)";
+  content: "(11-12)";
   padding-left: 0.3em;
 }
 

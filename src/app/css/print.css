@@ -22,10 +22,14 @@
   .tableEntryHeader {
     break-after: avoid;
   }
+
+  #printButton {
+    display: none;
+  }
 }
 
 :root body {
-  /* pointer-events: none; */
+  pointer-events: none;
   background: white;
   width: auto;
   height: auto;
@@ -46,7 +50,15 @@
 
 :root #stats {
   justify-content: center;
-  padding-bottom: 3em;
+  padding-bottom: 1.5em;
+  font-size: 0.9em;
+}
+
+#printButton {
+  pointer-events: all;
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
 }
 
 /* School Students Printouts */
@@ -54,9 +66,13 @@
   font-size: 2em;
   border-top: solid black 1px;
   border-bottom: solid black 1px;
-  padding: 0.5em 0;
+  padding: 0.3em 0;
   text-align: center;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2em;
 }
 
 .schoolPrintTable .tableHeader,
@@ -70,6 +86,9 @@
   font-size: 1.5em;
   font-weight: bold;
   padding-left: 1em;
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
 }
 
 .soloEventPrintTable .tableHeader,
@@ -95,7 +114,7 @@
   font-size: 2em;
   border-top: solid black 1px;
   border-bottom: solid black 1px;
-  padding: 0.5em 0;
+  padding: 0.3em 0;
   text-align: center;
   font-weight: bold;
 }
@@ -148,4 +167,32 @@
 }
 .eventTeamEntry:last-child .teamEventParticipant {
   border-radius: 0 0 0.3em 0;
+}
+
+/* Event Columns */
+#pageContainer.eventsPrintPage {
+  max-width: 55em;
+}
+.eventsPrintPage .printTableContainer {
+  font-size: 0.9em;
+}
+
+.eventsPrintPage .soloEventPrintTable .tableHeader,
+.eventsPrintPage .soloEventPrintTable .tableEntryData {
+  grid-template-columns: 3fr 2fr;
+}
+
+.printEventsColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+}
+.printEventsColumns > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.eventsPrintPage .tableEntryData {
+  height: 46px;
 }

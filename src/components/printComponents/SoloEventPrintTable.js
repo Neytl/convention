@@ -1,5 +1,6 @@
 import "convention/app/css/print.css";
 import SoloEventPrintEntry from "./SoloEventPrintEntry";
+import Image from "next/image";
 
 export default function SoloEventPrintTable({ tableData }) {
   // Build the table entries
@@ -30,7 +31,10 @@ export default function SoloEventPrintTable({ tableData }) {
   // Bulid the table
   return (
     <div className="printTableContainer">
-      <div className="eventPrintHeader">{tableData.tableName}</div>
+      <div className="eventPrintHeader">
+        <Image src={"/images/event.png"} alt="" width={25} height={25} />
+        {tableData.tableName}
+      </div>
       <div className="soloEventPrintTable">
         <div className="tableHeader">
           <span>Nombre</span>

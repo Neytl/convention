@@ -7,6 +7,7 @@ import {
   getLoggedInUserHeaders,
   notAuthorized,
 } from "../pageComponents/Content";
+import PrintButton from "./PrintButton";
 
 export default function PrintPage() {
   const [pageData, setPageData] = useState(null);
@@ -109,21 +110,67 @@ export default function PrintPage() {
       );
     });
 
-    return <div id="pageContainer">{tables}</div>;
+    return (
+      <div id="pageContainer">
+        {tables}
+        <PrintButton />
+      </div>
+    );
   } else if (pageData.pathName == "/printSchool") {
     return (
       <div id="pageContainer">
         <SchoolPrintTable tableData={pageData.table} />
+        <PrintButton />
       </div>
     );
   } else if (window.location.pathname == "/printEvents") {
     let tables = [];
+    let sectionTables = [];
     let currentCategory = "";
+
+    const buildSectionColumns = (sectionTables) => {
+      if (sectionTables.length == 0) return;
+
+      // Get the total height
+      let totalHeight = 0;
+      sectionTables.forEach((sectionTable) => {
+        totalHeight += parseInt(sectionTable.key.split("$")[0]);
+      });
+
+      totalHeight -= 2;
+      let runningHeight = 0;
+      let columnOne = [];
+      let columnTwo = [];
+      let split = false;
+      sectionTables.forEach((sectionTable) => {
+        if (split) {
+          columnTwo.push(sectionTable);
+        } else {
+          runningHeight += parseInt(sectionTable.key.split("$")[0]);
+          if (runningHeight > totalHeight / 2) split = true;
+          columnOne.push(sectionTable);
+        }
+      });
+
+      return (
+        <div key={currentCategory + "headerer"} className="printEventsColumns">
+          <div>{columnOne}</div>
+          <div>{columnTwo}</div>
+        </div>
+      );
+    };
+
     pageData.tables.forEach((tableData) => {
       if (tableData.tableData.length == 0) return;
-      if (tableData.tableCategory != currentCategory) {
-        currentCategory = tableData.tableCategory;
 
+      // Look for a new section
+      if (tableData.tableCategory != currentCategory) {
+        // Biuld the section columns
+        tables.push(buildSectionColumns(sectionTables, currentCategory));
+
+        // Add the new section header
+        currentCategory = tableData.tableCategory;
+        sectionTables = [];
         tables.push(
           <div className="eventCategoryPrint Header" key={currentCategory}>
             {currentCategory}
@@ -131,23 +178,31 @@ export default function PrintPage() {
         );
       }
 
-      tables.push(
-        <EventPrintTable tableData={tableData} key={tableData.tableEventID} />
+      let height = tableData.tableData.length + 2;
+      sectionTables.push(
+        <EventPrintTable
+          tableData={tableData}
+          key={height + "$" + tableData.tableEventID}
+        />
       );
     });
+
+    tables.push(buildSectionColumns(sectionTables, currentCategory));
 
     return (
       <div id="pageContainer" className="eventsPrintPage">
         {tables}
+        <PrintButton />
       </div>
     );
   } else if (window.location.pathname == "/printEvent") {
     return (
       <div id="pageContainer">
         <EventPrintTable tableData={pageData.table} />
+        <PrintButton />
       </div>
     );
   }
 
-  return <div>{"Hi :)"}</div>;
+  return <div>Cargando...</div>;
 }

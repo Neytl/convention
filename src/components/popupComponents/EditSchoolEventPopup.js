@@ -339,7 +339,7 @@ function toggleParticipant(studentData) {
     const indexToRemove = currentStudentList.findIndex(
       (participant) =>
         participant.studentID == studentData.studentID &&
-        participant.teamNumber == teamNumber
+        (!teamNumber || participant.teamNumber == teamNumber)
     );
 
     currentStudentList.splice(indexToRemove, 1);

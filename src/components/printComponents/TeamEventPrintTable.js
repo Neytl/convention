@@ -118,7 +118,10 @@ export default function TeamEventPrintTable({ tableData }) {
   // Bulid the table
   return (
     <div className="printTableContainer">
-      <div className="eventPrintHeader">{tableData.tableName}</div>
+      <div className="eventPrintHeader">
+        <Image src={"/images/event.png"} alt="" width={25} height={25} />
+        {tableData.tableName}
+      </div>
       <div className="teamEventPrintTable">
         <div className="tableHeader">
           <span>Escuela</span>

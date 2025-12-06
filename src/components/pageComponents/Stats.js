@@ -42,7 +42,7 @@ function lookupTitle(statType) {
     case "Students":
       return "Alumnos";
     case "Participants":
-      return "Participantes";
+      return "Participaciones";
     case "Events":
       return "Eventos";
     default:

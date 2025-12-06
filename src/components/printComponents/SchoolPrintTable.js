@@ -2,6 +2,7 @@ import "convention/app/css/print.css";
 import "convention/app/css/table.css";
 import StudentPrintEntry from "./StudentPrintEntry";
 import Stats from "../pageComponents/Stats";
+import Image from "next/image";
 
 export default function SchoolPrintTable({ tableData }) {
   // Empty table
@@ -19,7 +20,7 @@ export default function SchoolPrintTable({ tableData }) {
       tableEntries.push(
         <div
           key={currentAgeGroup}
-          className={"tableEntryHeader " + currentAgeGroup}
+          className={"tableEntryHeader ageGroupTableHeader " + currentAgeGroup}
         >
           {currentAgeGroup}
         </div>
@@ -37,7 +38,10 @@ export default function SchoolPrintTable({ tableData }) {
   // Bulid the table
   return (
     <div className="printTableContainer">
-      <div className="schoolHeader">{tableData.tableName}</div>
+      <div className="schoolHeader">
+        <Image src={"/images/school.png"} alt="" width={35} height={35} />
+        {tableData.tableName}
+      </div>
       <Stats statsData={tableData.printStats} />
       <div className="schoolPrintTable">
         <div className="tableHeader">
