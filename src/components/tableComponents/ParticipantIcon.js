@@ -5,11 +5,13 @@ import Image from "next/image";
 export default function ParticipantIcon({ index, schoolName, fullName, age }) {
   return (
     <div className="participantIcon">
-      <span>{index + "."}</span>
+      <span className="listNumber">{index + "."}</span>
       <div className="iconSpan">
         <Image src={"/images/account.png"} alt="" width={20} height={20} />
-        <span>{fullName}</span>
-        <span className="faded">{"(" + age + ")"}</span>
+        <span>
+          <span>{fullName}</span>
+          <span className="faded">{"(" + age + ")"}</span>
+        </span>
       </div>
       <IconSpan imageSrc="/images/school.png" text={schoolName} />
     </div>

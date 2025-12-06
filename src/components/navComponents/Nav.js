@@ -15,7 +15,7 @@ export default function Nav({ pageSchoolData, pathname }) {
 
   return (
     <div id="header">
-      <div id="links">
+      <div id="linksContainer">
         {!loggedInUser.adminAccess ? (
           <SchoolLinks
             schoolData={pageSchoolData}

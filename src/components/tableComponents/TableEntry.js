@@ -425,7 +425,7 @@ function generateSchoolStudentsEntryDropdown(tableType, data, deleteDataEntry) {
         className="participantDisplay"
       >
         <div className="eventListEntry">
-          <span>{index + "."}</span>
+          <span className="listNumber">{index + "."}</span>
           <IconSpan
             imageSrc="/images/event.png"
             text={studentEvent.eventName}

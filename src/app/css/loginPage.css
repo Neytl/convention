@@ -157,3 +157,34 @@ input {
 #titleContainer span {
   font-size: 2em;
 }
+
+/* Mobile Styles */
+@media only screen and (min-height: 450px) {
+  /* Small devices */
+  @media (max-width: 750px) {
+    #titleContainer,
+    #splashArt {
+      border-radius: 0;
+    }
+    #loginSplashConatiner {
+      min-height: 40vh;
+    }
+    #split {
+      display: flex;
+    }
+    #titleContainer #subtitle {
+      padding-bottom: 3em;
+    }
+    #loginSplit {
+      flex-grow: 1;
+    }
+  }
+  @media (max-width: 850px) {
+    #title {
+      font-size: 1.5em;
+    }
+    #titleContainer #subtitle {
+      font-size: 1.5em;
+    }
+  }
+}

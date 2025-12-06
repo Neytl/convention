@@ -70,9 +70,12 @@
 }
 
 /* Links */
-#links {
+#linksContainer {
   flex-grow: 1;
-  padding-top: 1em;
+}
+
+#links {
+  padding: 1em 0;
 }
 
 .navLink {
@@ -97,7 +100,10 @@
   display: flex;
   gap: 2em;
   flex-direction: column;
-  margin-bottom: 3em;
+}
+
+#schoolLinksContainer {
+  margin-top: 3em;
 }
 
 #adminLinksContainer .navLink span {
