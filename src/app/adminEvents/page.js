@@ -11,7 +11,7 @@ export default function AdminEventsPage() {
     <div id="page">
       <Topper />
       <div id="split">
-        <Nav pageSchoolData={pageSchoolData} />
+        <Nav pageSchoolData={pageSchoolData} pathname="/adminEvents" />
         <Content
           setPageSchoolData={setPageSchoolData}
           pathname="/adminEvents"

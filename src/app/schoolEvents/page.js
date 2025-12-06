@@ -11,7 +11,7 @@ export default function SchoolEventsPage() {
     <div id="page">
       <Topper />
       <div id="split">
-        <Nav pageSchoolData={pageSchoolData} />
+        <Nav pageSchoolData={pageSchoolData} pathname="/schoolEvents" />
         <Content
           setPageSchoolData={setPageSchoolData}
           pathname="/schoolEvents"

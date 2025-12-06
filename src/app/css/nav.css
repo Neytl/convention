@@ -85,7 +85,10 @@
   text-decoration: none;
 }
 
-.navLink:hover {
+#links:not(:hover) .navLink.currentPage,
+.navLink:hover,
+#schoolLinksContainer:hover,
+#links:not(:hover) #schoolLinksContainer.currentPage {
   box-shadow: inset 0.3em 0 0 0 #819ae3;
 }
 
@@ -111,7 +114,8 @@
   gap: 1em;
   flex-direction: column;
   padding: 0 1em;
-  box-shadow: inset 0.3em 0 0 0 #819ae3;
+  transition: all 0.3s ease;
+  box-shadow: inset 0.3em 0 0 0 #819ae340;
 }
 
 .adminPage #schoolLinksContainer {

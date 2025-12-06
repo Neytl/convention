@@ -11,7 +11,7 @@ export default function AdminSchoolsPage() {
     <div id="page">
       <Topper />
       <div id="split">
-        <Nav pageSchoolData={pageSchoolData} />
+        <Nav pageSchoolData={pageSchoolData} pathname="/" />
         <Content setPageSchoolData={setPageSchoolData} pathname="/" />
       </div>
     </div>

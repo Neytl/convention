@@ -11,7 +11,7 @@ export default function SchoolStudentsPage() {
     <div id="page">
       <Topper />
       <div id="split">
-        <Nav pageSchoolData={pageSchoolData} />
+        <Nav pageSchoolData={pageSchoolData} pathname="/schoolStudents" />
         <Content
           setPageSchoolData={setPageSchoolData}
           pathname="/schoolStudents"

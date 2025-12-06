@@ -3,7 +3,7 @@ import SchoolLinks from "convention/components/navComponents/SchoolLinks";
 import AdminLinks from "convention/components/navComponents/AdminLinks";
 import { useEffect, useState } from "react";
 
-export default function Nav({ pageSchoolData }) {
+export default function Nav({ pageSchoolData, pathname }) {
   const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
@@ -20,9 +20,14 @@ export default function Nav({ pageSchoolData }) {
           <SchoolLinks
             schoolData={pageSchoolData}
             loggedInUser={loggedInUser}
+            pathname={pathname}
           />
         ) : (
-          <AdminLinks schoolData={pageSchoolData} loggedInUser={loggedInUser} />
+          <AdminLinks
+            schoolData={pageSchoolData}
+            loggedInUser={loggedInUser}
+            pathname={pathname}
+          />
         )}
       </div>
     </div>
