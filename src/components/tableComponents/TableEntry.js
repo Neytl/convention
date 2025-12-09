@@ -144,7 +144,7 @@ function lookupTableEntryDropdown(tableType, data, deleteDataEntry) {
 
 function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
   const printSchoolData = function () {
-    window.open("./printSchool?school=" + data.schoolID, "_blank");
+    window.open("./imprimirEscuela?school=" + data.schoolID, "_blank");
   };
 
   const editSchoolData = function () {
@@ -169,11 +169,11 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
   };
 
   const viewStudents = function () {
-    window.location.href = "./schoolStudents?school=" + data.schoolID;
+    window.location.href = "./alumnos?school=" + data.schoolID;
   };
 
   const viewEvents = function () {
-    window.location.href = "./schoolEvents?school=" + data.schoolID;
+    window.location.href = "./eventos?school=" + data.schoolID;
   };
 
   const copyText = () => {
@@ -255,7 +255,7 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
 
 function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
   const printEvent = function () {
-    window.open("./printEvent?event=" + data.eventID, "_blank");
+    window.open("./imprimirEvento?event=" + data.eventID, "_blank");
   };
 
   const editEvent = function () {

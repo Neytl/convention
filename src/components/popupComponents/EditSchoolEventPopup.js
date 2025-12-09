@@ -17,7 +17,7 @@ export default function EditSchoolEventPopup({
     if (!schoolData || students.length > 0) return;
 
     fetch(
-      "https://localhost:44398/api/MiniConvention/students/" +
+      "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/students/" +
         schoolData.schoolID,
       getLoggedInUserHeaders()
     )
@@ -363,7 +363,7 @@ function updateParticipants(schoolID, updateEventParticipants) {
   // Make the requset
   console.log("Fetch update participants", currentStudentList);
   fetch(
-    "https://localhost:44398/api/MiniConvention/participants/" +
+    "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/participants/" +
       schoolID +
       "/" +
       eventID,

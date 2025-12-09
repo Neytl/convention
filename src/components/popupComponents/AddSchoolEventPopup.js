@@ -17,7 +17,7 @@ export default function AddSchoolEventPopup(pageTables) {
 
     // Fetch the list of events
     fetch(
-      "https://localhost:44398/api/MiniConvention/events",
+      "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/events",
       getLoggedInUserHeaders()
     )
       .then((response) => response.json())

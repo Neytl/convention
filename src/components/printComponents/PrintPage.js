@@ -23,7 +23,7 @@ export default function PrintPage() {
 
     if (window.location.pathname == "/printSchools") {
       fetch(
-        "https://localhost:44398/api/MiniConvention/schoolsTables",
+        "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/schoolsTables",
         getLoggedInUserHeaders()
       )
         .then((response) => response.json())
@@ -43,7 +43,7 @@ export default function PrintPage() {
       );
 
       fetch(
-        "https://localhost:44398/api/MiniConvention/schoolTable/" +
+        "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/schoolTable/" +
           queryStringSchoolID,
         getLoggedInUserHeaders()
       )
@@ -61,7 +61,7 @@ export default function PrintPage() {
         });
     } else if (window.location.pathname == "/printEvents") {
       fetch(
-        "https://localhost:44398/api/MiniConvention/eventsTables",
+        "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/eventsTables",
         getLoggedInUserHeaders()
       )
         .then((response) => response.json())
@@ -81,7 +81,7 @@ export default function PrintPage() {
       );
 
       fetch(
-        "https://localhost:44398/api/MiniConvention/eventTable/" +
+        "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/eventTable/" +
           queryStringSchoolID,
         getLoggedInUserHeaders()
       )

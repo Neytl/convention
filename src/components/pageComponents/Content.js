@@ -59,14 +59,18 @@ export default function Content({
 
     console.log("Fetch add " + endpoint, payload);
 
-    fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: getLoggedInUserToken(),
-      },
-      body: JSON.stringify(payload),
-    })
+    fetch(
+      "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/" +
+        endpoint,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getLoggedInUserToken(),
+        },
+        body: JSON.stringify(payload),
+      }
+    )
       .then((response) => {
         if (!!response.status && response.status == 400) {
           console.log("Bad request");
@@ -197,14 +201,17 @@ export default function Content({
 
     // Make the delete request
     console.log("Fetch delete participant", payload);
-    fetch("https://localhost:44398/api/MiniConvention/participant", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: getLoggedInUserToken(),
-      },
-      body: JSON.stringify(payload),
-    })
+    fetch(
+      "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/participant",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getLoggedInUserToken(),
+        },
+        body: JSON.stringify(payload),
+      }
+    )
       .then((response) => {
         if (!!response.status && response.status == 400) {
           console.log("Bad request");
@@ -271,14 +278,18 @@ export default function Content({
 
     // Make the delete request
     console.log("Fetch delete " + endpoint, payload);
-    fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: getLoggedInUserToken(),
-      },
-      body: JSON.stringify(payload),
-    })
+    fetch(
+      "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/" +
+        endpoint,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getLoggedInUserToken(),
+        },
+        body: JSON.stringify(payload),
+      }
+    )
       .then((response) => {
         if (!!response.status && response.status == 400) {
           console.log("Bad request");
@@ -298,14 +309,18 @@ export default function Content({
     // Make the request
     console.log("Fetch update " + endpoint, payload);
 
-    fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: getLoggedInUserToken(),
-      },
-      body: JSON.stringify(payload),
-    })
+    fetch(
+      "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/" +
+        endpoint,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: getLoggedInUserToken(),
+        },
+        body: JSON.stringify(payload),
+      }
+    )
       .then((response) => {
         if (!!response.status && response.status == 400) {
           console.log("Bad request");
@@ -432,7 +447,7 @@ export default function Content({
 
     if (pathname == "/") {
       fetch(
-        "https://localhost:44398/api/MiniConvention/adminSchoolsPage",
+        "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/adminSchoolsPage",
         getLoggedInUserHeaders()
       )
         .then((response) => response.json())
@@ -442,7 +457,7 @@ export default function Content({
         });
     } else if (pathname == "/adminEvents") {
       fetch(
-        "https://localhost:44398/api/MiniConvention/adminEventsPage",
+        "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/adminEventsPage",
         getLoggedInUserHeaders()
       )
         .then((response) => response.json())
@@ -457,7 +472,7 @@ export default function Content({
       }
 
       fetch(
-        "https://localhost:44398/api/MiniConvention/schoolStudentsPage/" +
+        "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/schoolStudentsPage/" +
           queryStringSchoolID,
         getLoggedInUserHeaders()
       )
@@ -474,7 +489,7 @@ export default function Content({
       }
 
       fetch(
-        "https://localhost:44398/api/MiniConvention/schoolEventsPage/" +
+        "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/schoolEventsPage/" +
           queryStringSchoolID,
         getLoggedInUserHeaders()
       )

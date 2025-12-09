@@ -12,15 +12,15 @@ export default function AdminLinks({ schoolData, loggedInUser, pathname }) {
       <div id="adminLinksContainer">
         <NavLink
           name={"Escuelas"}
-          href={"/adminSchools"}
+          href={"/adminEscuelas"}
           iconSrc={"/images/school.png"}
           currentPage={pathname == "/"}
         />
         <NavLink
           name={"Eventos"}
-          href={"/adminEvents"}
+          href={"/adminEventos"}
           iconSrc={"/images/event.png"}
-          currentPage={pathname == "/adminEvents"}
+          currentPage={pathname == "/adminEventos"}
         />
       </div>
       {!schoolName ? null : (
@@ -44,14 +44,14 @@ export default function AdminLinks({ schoolData, loggedInUser, pathname }) {
           <div id="schoolLinks">
             <NavLink
               name={"Alumnos"}
-              href={"/schoolStudents?school=" + schoolID}
+              href={"/alumnos?school=" + schoolID}
               iconSrc={"/images/account.png"}
               currentPage={pathname == "/schoolStudents"}
             />
             {schoolData.numStudents > 0 ? (
               <NavLink
                 name={"Eventos - Registro"}
-                href={"/schoolEvents?school=" + schoolID}
+                href={"/eventos?school=" + schoolID}
                 iconSrc={"/images/event.png"}
                 currentPage={pathname == "/schoolEvents"}
               />

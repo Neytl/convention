@@ -11,7 +11,7 @@ export default function PageButton({ pathName }) {
             id="pageButton"
             className="pageButton"
             onClick={() => {
-              window.open("printSchools", "_blank");
+              window.open("imprimirEscuelas", "_blank");
             }}
           >
             <Image src={"/images/print.png"} alt="" width={20} height={20} />
@@ -26,7 +26,7 @@ export default function PageButton({ pathName }) {
             id="pageButton"
             className="pageButton"
             onClick={() => {
-              window.open("printEvents", "_blank");
+              window.open("imprimirEventos", "_blank");
             }}
           >
             <Image src={"/images/print.png"} alt="" width={20} height={20} />

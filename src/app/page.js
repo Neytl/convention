@@ -101,13 +101,16 @@ const login = (event) => {
     return;
   }
 
-  fetch("https://localhost:44398/api/Login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  }).then((response) => {
+  fetch(
+    "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/Login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }
+  ).then((response) => {
     if (response.ok) {
       // Success! Valid Login
       response.json().then((userEntity) => {
@@ -117,10 +120,9 @@ const login = (event) => {
 
         // Go to the corresponding page
         if (userEntity.adminAccess) {
-          window.location.href = "./adminSchools";
+          window.location.href = "./adminEscuelas";
         } else {
-          window.location.href =
-            "./schoolStudents?school=" + userEntity.schoolID;
+          window.location.href = "./alumnos?school=" + userEntity.schoolID;
         }
       });
     } else if (response.status === 401) {
