@@ -4,6 +4,7 @@ import TableEntryButton from "./TableEntryButton";
 import "convention/app/css/table.css";
 import { openTableButtonPopup } from "../popupComponents/Popup";
 import ParticipantIcon from "./ParticipantIcon";
+import nextConfig from "convention/../next.config.mjs";
 
 export default function TableEntry({
   entryIconSrc,
@@ -187,10 +188,10 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
     navigator.clipboard.writeText(text);
 
     // Show to the user
-    image.srcset = "/images/checkmark.png";
+    image.srcset = nextConfig.basePath + "/images/checkmark.png";
 
     setTimeout(() => {
-      image.srcset = "/images/copy.png";
+      image.srcset = nextConfig.basePath + "/images/copy.png";
       image.classList.remove("checked");
     }, 1000);
   };

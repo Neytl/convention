@@ -1,6 +1,7 @@
 import SimpleImage from "convention/components/generalComponents/SimpleImage";
 import "convention/app/css/table.css";
 import { clearStudentPopup } from "../popupComponents/AddStudentPopup";
+import nextConfig from "convention/../next.config.mjs";
 
 export default function PageButton({ pathName }) {
   switch (pathName) {
@@ -52,7 +53,7 @@ export default function PageButton({ pathName }) {
               document.getElementById("popupTitle").innerHTML =
                 "Registrar Alumno";
               document.getElementById("popupHeaderIcon").srcset =
-                "/images/account.png";
+                nextConfig.basePath + "/images/account.png";
               clearStudentPopup();
 
               // Show the new popup
@@ -87,7 +88,7 @@ export default function PageButton({ pathName }) {
               document.getElementById("popupTitle").innerHTML =
                 "Editar Eventos";
               document.getElementById("popupHeaderIcon").srcset =
-                "/images/event.png";
+                nextConfig.basePath + "/images/event.png";
 
               // Show the new popup
               document

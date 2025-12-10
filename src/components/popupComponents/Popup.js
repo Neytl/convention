@@ -12,6 +12,7 @@ import SimpleImage from "convention/components/generalComponents/SimpleImage";
 import EditSchoolEventPopup from "./EditSchoolEventPopup";
 import { setUpEditSchoolEventPopup } from "./EditSchoolEventPopup";
 import AddSchoolEventPopup from "./AddSchoolEventPopup";
+import nextConfig from "convention/../next.config.mjs";
 
 export default function Popup({ events, pathname }) {
   // Load in the correct popups
@@ -174,36 +175,43 @@ export const openTableButtonPopup = (
   switch (popupName) {
     case "admin_schools_popup":
       document.getElementById("popupTitle").innerHTML = "Registrar Escuela";
-      document.getElementById("popupHeaderIcon").srcset = "/images/school.png";
+      document.getElementById("popupHeaderIcon").srcset =
+        nextConfig.basePath + "/images/school.png";
       clearSchoolPopup();
       break;
     case "edit_admin_schools_popup":
       document.getElementById("popupTitle").innerHTML = "Editar Escuela";
-      document.getElementById("popupHeaderIcon").srcset = "/images/school.png";
+      document.getElementById("popupHeaderIcon").srcset =
+        nextConfig.basePath + "/images/school.png";
       break;
     case "admin_events_popup":
       document.getElementById("popupTitle").innerHTML = "Registrar Evento";
-      document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
+      document.getElementById("popupHeaderIcon").srcset =
+        nextConfig.basePath + "/images/event.png";
       clearEventPopup();
       break;
     case "edit_admin_events_popup":
       document.getElementById("popupTitle").innerHTML = "Editar Evento";
-      document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
+      document.getElementById("popupHeaderIcon").srcset =
+        nextConfig.basePath + "/images/event.png";
       break;
     case "school_students_popup":
       document.getElementById("popupTitle").innerHTML = "Registrar Alumno";
-      document.getElementById("popupHeaderIcon").srcset = "/images/account.png";
+      document.getElementById("popupHeaderIcon").srcset =
+        nextConfig.basePath + "/images/account.png";
       clearStudentPopup();
       break;
     case "edit_school_students_popup":
       document.getElementById("popupTitle").innerHTML = "Editar Alumno";
-      document.getElementById("popupHeaderIcon").srcset = "/images/account.png";
+      document.getElementById("popupHeaderIcon").srcset =
+        nextConfig.basePath + "/images/account.png";
       break;
     case "school_event_popup":
     case "school_team_event_popup":
       popupName = "school_event_popup";
       document.getElementById("popupTitle").innerHTML = tableName;
-      document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
+      document.getElementById("popupHeaderIcon").srcset =
+        nextConfig.basePath + "/images/event.png";
       setUpEditSchoolEventPopup(
         structuredClone(tableData),
         {
