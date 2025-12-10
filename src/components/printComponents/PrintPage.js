@@ -8,20 +8,22 @@ import {
   notAuthorized,
 } from "../pageComponents/Content";
 import PrintButton from "./PrintButton";
+import { getCurrentPage } from "convention/app/library";
+import { goHome } from "convention/app/library";
 
 export default function PrintPage() {
   const [pageData, setPageData] = useState(null);
 
   useEffect(() => {
     if (!localStorage.getItem("loggedInUser")) {
-      window.location.href = "/";
+      goHome();
       return;
     }
 
     console.log("loading...");
-    let pathName = window.location.pathname;
+    let pathName = getCurrentPage();
 
-    if (window.location.pathname == "/printSchools") {
+    if (pathName == "/imprimirEscuelas") {
       fetch(
         "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/schoolsTables",
         getLoggedInUserHeaders()
@@ -37,7 +39,7 @@ export default function PrintPage() {
 
           setPageData(pageData);
         });
-    } else if (window.location.pathname == "/printSchool") {
+    } else if (pathName == "/imprimirEscuela") {
       let queryStringSchoolID = new URLSearchParams(window.location.search).get(
         "school"
       );
@@ -59,7 +61,7 @@ export default function PrintPage() {
           console.log(pageData);
           setPageData(pageData);
         });
-    } else if (window.location.pathname == "/printEvents") {
+    } else if (pathName == "/imprimirEventos") {
       fetch(
         "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/eventsTables",
         getLoggedInUserHeaders()
@@ -75,7 +77,7 @@ export default function PrintPage() {
 
           setPageData(pageData);
         });
-    } else if (window.location.pathname == "/printEvent") {
+    } else if (pathName == "/imprimirEvento") {
       let queryStringSchoolID = new URLSearchParams(window.location.search).get(
         "event"
       );
@@ -102,7 +104,7 @@ export default function PrintPage() {
   if (!pageData) return <div>{"..."}</div>;
 
   // Show the corresponding tables to print
-  if (pageData.pathName == "/printSchools") {
+  if (pageData.pathName == "/imprimirEscuelas") {
     let tables = [];
     pageData.tables.forEach((tableData) => {
       tables.push(
@@ -116,14 +118,14 @@ export default function PrintPage() {
         <PrintButton />
       </div>
     );
-  } else if (pageData.pathName == "/printSchool") {
+  } else if (pageData.pathName == "/imprimirEscuela") {
     return (
       <div id="pageContainer">
         <SchoolPrintTable tableData={pageData.table} />
         <PrintButton />
       </div>
     );
-  } else if (window.location.pathname == "/printEvents") {
+  } else if (pageData.pathName == "/imprimirEventos") {
     let tables = [];
     let sectionTables = [];
     let currentCategory = "";
@@ -195,7 +197,7 @@ export default function PrintPage() {
         <PrintButton />
       </div>
     );
-  } else if (window.location.pathname == "/printEvent") {
+  } else if (pageData.pathName == "/imprimirEvento") {
     return (
       <div id="pageContainer">
         <EventPrintTable tableData={pageData.table} />

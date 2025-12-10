@@ -4,6 +4,7 @@ import "convention/app/css/popup.css";
 
 import TinyImage from "convention/components/popupComponents/TinyImage";
 import SimpleImage from "convention/components/generalComponents/SimpleImage";
+import { goToPage } from "./library";
 
 export default function LoginPage() {
   return (
@@ -119,9 +120,9 @@ const login = (event) => {
 
         // Go to the corresponding page
         if (userEntity.adminAccess) {
-          window.location.href = "./adminEscuelas";
+          goToPage("/adminEscuelas");
         } else {
-          window.location.href = "./alumnos?school=" + userEntity.schoolID;
+          goToPage("/alumnos?school=" + userEntity.schoolID);
         }
       });
     } else if (response.status === 401) {

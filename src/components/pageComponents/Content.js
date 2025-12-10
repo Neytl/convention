@@ -6,7 +6,7 @@ import Popup from "convention/components/popupComponents/Popup";
 import PageButton from "convention/components/pageComponents/PageButton";
 
 import { useState, useEffect } from "react";
-import { unauthorized } from "next/navigation";
+import { goHome } from "convention/app/library";
 
 export default function Content({
   setPageSchoolData,
@@ -413,7 +413,7 @@ export default function Content({
   useEffect(() => {
     if (!!viewData.stats) return;
     if (!localStorage.getItem("loggedInUser")) {
-      window.location.href = "/";
+      goHome();
       return;
     }
 
@@ -467,7 +467,7 @@ export default function Content({
         });
     } else if (pathname == "/schoolStudents") {
       if (!canLoggedInUserAccessSchool(queryStringSchoolID)) {
-        window.location.href = "/";
+        goHome();
         return;
       }
 
@@ -484,7 +484,7 @@ export default function Content({
         });
     } else {
       if (!canLoggedInUserAccessSchool(queryStringSchoolID)) {
-        window.location.href = "/";
+        goHome();
         return;
       }
 
@@ -575,7 +575,7 @@ const canLoggedInUserAccessSchool = (schoolID) => {
 };
 export const notAuthorized = (response) => {
   if (!!response.title) {
-    window.location.href = "/";
+    goHome();
     return true;
   }
   return false;

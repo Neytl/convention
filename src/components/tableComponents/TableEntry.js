@@ -5,6 +5,7 @@ import "convention/app/css/table.css";
 import { openTableButtonPopup } from "../popupComponents/Popup";
 import ParticipantIcon from "./ParticipantIcon";
 import nextConfig from "convention/../next.config.mjs";
+import { goToPage } from "convention/app/library";
 
 export default function TableEntry({
   entryIconSrc,
@@ -170,11 +171,11 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
   };
 
   const viewStudents = function () {
-    window.location.href = "./alumnos?school=" + data.schoolID;
+    goToPage("/alumnos?school=" + data.schoolID);
   };
 
   const viewEvents = function () {
-    window.location.href = "./eventos?school=" + data.schoolID;
+    goToPage("/eventos?school=" + data.schoolID);
   };
 
   const copyText = () => {

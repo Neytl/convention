@@ -13,6 +13,7 @@ export default function SimpleImage({
 }) {
   src = basePath + src;
   if (!alt) alt = "";
+  // if (!width || !height) console.log("here");
 
   return (
     <Image

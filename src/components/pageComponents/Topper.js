@@ -1,6 +1,7 @@
 import SimpleImage from "convention/components/generalComponents/SimpleImage";
 import "convention/app/css/nav.css";
 import { useEffect, useState } from "react";
+import { goHome } from "convention/app/library";
 
 export default function Topper() {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -10,7 +11,7 @@ export default function Topper() {
     let userString = localStorage.getItem("loggedInUser");
 
     if (!userString) {
-      window.location.href = "/";
+      goHome();
       return;
     }
 
@@ -54,5 +55,5 @@ export default function Topper() {
 
 const logout = () => {
   localStorage.removeItem("loggedInUser");
-  window.location.href = "/";
+  goHome();
 };
