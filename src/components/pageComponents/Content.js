@@ -83,8 +83,29 @@ export default function Content({
         if (!data) return;
         if (notAuthorized(data)) return;
         let updatedData = structuredClone(viewData);
-        updatedData.tables[0].tableData.unshift(data);
         updatedData.stats[0].value++;
+
+        if (endpoint == "student") {
+          // Put student in correct age group
+          let students = updatedData.tables[0].tableData;
+          let added = false;
+
+          for (let i = 0; i < students.length; i++) {
+            if (
+              students[i].ageGroup == data.ageGroup ||
+              parseInt(students[i].age) > parseInt(data.age)
+            ) {
+              students.splice(i, 0, data);
+              added = true;
+              break;
+            }
+          }
+
+          if (!added) students.push(data);
+        } else {
+          updatedData.tables[0].tableData.unshift(data);
+        }
+
         setViewData(updatedData);
       });
 

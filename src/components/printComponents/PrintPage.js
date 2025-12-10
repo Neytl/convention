@@ -139,7 +139,7 @@ export default function PrintPage() {
         totalHeight += parseInt(sectionTable.key.split("$")[0]);
       });
 
-      totalHeight -= 2;
+      totalHeight -= 4; // Offset to help with balance
       let runningHeight = 0;
       let columnOne = [];
       let columnTwo = [];
