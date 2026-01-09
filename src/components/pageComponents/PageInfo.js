@@ -1,7 +1,7 @@
 import "convention/app/css/globals.css";
 
 const oneDay = 24 * 60 * 60 * 1000;
-const registrationCloseDate = new Date(2026, 2 - 1, 1);
+const registrationCloseDate = new Date(2026, 2 - 1, 6);
 const maximumEvents = 7;
 
 export default function PageInfo({ pathname, pageData }) {
