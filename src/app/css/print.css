@@ -12,7 +12,9 @@
   }
 
   .tableEntry,
-  .eventTeamEntry {
+  .eventTeamEntry,
+  .eventPrintHeader,
+  .tableHeader {
     break-inside: avoid;
   }
 

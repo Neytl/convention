@@ -38,6 +38,7 @@ export default function TeamEventPrintTable({ tableData }) {
 
   // Add age/school information to teams
   teamData.forEach((team) => {
+    team.teamID = team.teamMembers[0].teamID;
     team.schoolName = team.teamMembers[0].schoolName;
     team.teamNumber = team.teamMembers[0].teamNumber;
     team.ageGroup = team.teamMembers[0].ageGroup;
@@ -58,24 +59,36 @@ export default function TeamEventPrintTable({ tableData }) {
 
   // Update the team numbers
   let teamNumbers = {};
+  let currentTeamNumber = 0;
+  let currentAgeGroup = "";
 
   teamData.forEach((team) => {
-    let storedTeamNumber = teamNumbers[team.schoolName];
-    if (!storedTeamNumber) {
-      // Team not found - add school
-      teamNumbers[team.schoolName] = 1;
-      team.teamNumber = 1;
-    } else {
-      // Team found - update the number
-      storedTeamNumber++;
-      teamNumbers[team.schoolName] = storedTeamNumber;
-      team.teamNumber = storedTeamNumber;
+    // Team numbers unique to each age group
+    if (team.ageGroup != currentAgeGroup) {
+      currentAgeGroup = team.ageGroup;
+      currentTeamNumber = 1;
     }
+
+    team.teamNumber = currentTeamNumber;
+    currentTeamNumber++;
+
+    // // Team numbers unique to each school
+    // let storedTeamNumber = teamNumbers[team.schoolName];
+    // if (!storedTeamNumber) {
+    //   // Team not found - add school
+    //   teamNumbers[team.schoolName] = 1;
+    //   team.teamNumber = 1;
+    // } else {
+    //   // Team found - update the number
+    //   storedTeamNumber++;
+    //   teamNumbers[team.schoolName] = storedTeamNumber;
+    //   team.teamNumber = storedTeamNumber;
+    // }
   });
 
   // Build the table entries
   let tableEntries = [];
-  let currentAgeGroup = "";
+  currentAgeGroup = "";
 
   teamData.forEach((team) => {
     let currentTeamEntries = [];
@@ -110,7 +123,8 @@ export default function TeamEventPrintTable({ tableData }) {
         team.schoolName,
         team.teamNumber,
         currentTeamEntries,
-        team.isMixedAgeGroup
+        team.isMixedAgeGroup,
+        team.teamID
       )
     );
   });
@@ -137,11 +151,12 @@ function buildTeamElement(
   currentSchool,
   currentTeamNumber,
   currentTeamEntries,
-  isMixedAgeGroup
+  isMixedAgeGroup,
+  teamID
 ) {
   return (
     <div
-      key={currentSchool + "-" + currentTeamNumber}
+      key={teamID}
       className={
         !!isMixedAgeGroup ? "eventTeamEntry mixedAges" : "eventTeamEntry"
       }

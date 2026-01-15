@@ -5,15 +5,31 @@ const registrationCloseDate = new Date(2026, 2 - 1, 6);
 const maximumEvents = 7;
 
 export default function PageInfo({ pathname, pageData }) {
-  const daysLeft = Math.round(
-    Math.abs((registrationCloseDate - Date.now()) / oneDay)
-  );
+  // Create a message for amount of time left
+  let message = "La inscripción cierra en ";
+  const exactDaysLeft = (registrationCloseDate - Date.now()) / oneDay;
+  const roundedDaysLeft = Math.round(exactDaysLeft);
 
+  if (exactDaysLeft < 0) {
+    message = "La inscripción está cerrada.";
+  } else if (roundedDaysLeft > 1) {
+    message += roundedDaysLeft + " días.";
+  } else if (roundedDaysLeft == 1) {
+    message += "1 día.";
+  } else {
+    const hoursLeft = Math.round(exactDaysLeft * 24);
+
+    if (hoursLeft == 1) {
+      message += "1 hora.";
+    } else {
+      message += hoursLeft + " horas.";
+    }
+  }
+
+  // Build the component
   return (
     <div id="pageInfo">
-      <div id="timeLeft">
-        {"La inscripción cierra en " + daysLeft + " días."}
-      </div>
+      <div id="timeLeft">{message}</div>
       <div id="pageSpecificInfo">{getPageInfo(pathname, pageData)}</div>
     </div>
   );
