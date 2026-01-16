@@ -301,26 +301,50 @@ function getTableTopper(
     tableName = "Eventos";
   }
 
+  let tableButton;
+
+  if (tableType == "school_students") {
+    // School students - print registration
+    tableButton = (
+      <div
+        className="tableButton"
+        onClick={() => {
+          let schoolID = JSON.parse(
+            localStorage.getItem("pageSchoolData")
+          ).schoolID;
+
+          window.open("./imprimirEscuela?school=" + schoolID, "_blank");
+        }}
+      >
+        {/* <SimpleImage src={"images/print.png"} width={20} height={20} /> */}
+        <span>Imprimir Registro</span>
+      </div>
+    );
+  } else {
+    // Everything else - open popup to edit table
+    tableButton = (
+      <div
+        className="tableButton"
+        onClick={() => {
+          openTableButtonPopup(
+            tableType + "_popup",
+            tableName,
+            tableData,
+            tableObject,
+            null,
+            pageTables
+          );
+        }}
+      >
+        <span>{getTableButtonText(tableType)}</span>
+      </div>
+    );
+  }
+
   return (
     <div className="tableTopper">
       <span>{tableName}</span>
-      {tableType == "school_students" ? null : (
-        <div
-          className="tableButton"
-          onClick={() => {
-            openTableButtonPopup(
-              tableType + "_popup",
-              tableName,
-              tableData,
-              tableObject,
-              null,
-              pageTables
-            );
-          }}
-        >
-          <span>{getTableButtonText(tableType)}</span>
-        </div>
-      )}
+      {tableButton}
     </div>
   );
 }

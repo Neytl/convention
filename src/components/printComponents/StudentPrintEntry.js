@@ -2,7 +2,7 @@ import "convention/app/css/print.css";
 import SimpleImage from "convention/components/generalComponents/SimpleImage";
 
 export default function StudentPrintEntry({ studentData }) {
-  let events = <span>None</span>;
+  let events = <span>—</span>;
 
   if (studentData.events.length > 0) {
     let eventsList = studentData.events
