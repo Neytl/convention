@@ -36,7 +36,7 @@ export default function Topper() {
         />
         <span>{loggedInUser.username}</span>
         <div id="logoutButton" onClick={logout}>
-          <span>Cerrar Session</span>
+          <span>Cerrar Sesión</span>
         </div>
       </div>
       <div id="tag">

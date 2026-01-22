@@ -1,8 +1,19 @@
 import "convention/app/css/globals.css";
 
-const oneDay = 24 * 60 * 60 * 1000;
-const registrationCloseDate = new Date(2026, 2 - 1, 6);
+// Registration Close Date
+const registrationCloseYear = 2026;
+const registrationCloseMonth = 2;
+const registrationCloseDay = 13;
+
 const maximumEvents = 7;
+
+// Do no touch
+const oneDay = 24 * 60 * 60 * 1000;
+const registrationCloseDate = new Date(
+  registrationCloseYear,
+  registrationCloseMonth - 1,
+  registrationCloseDay,
+);
 
 export default function PageInfo({ pathname, pageData }) {
   // Create a message for amount of time left
@@ -50,7 +61,7 @@ function getPageInfo(pathname, pageData) {
       }
 
       let isAdmin = JSON.parse(
-        localStorage.getItem("loggedInUser")
+        localStorage.getItem("loggedInUser"),
       ).adminAccess;
 
       return (
