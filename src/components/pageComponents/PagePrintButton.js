@@ -2,7 +2,9 @@ import SimpleImage from "convention/components/generalComponents/SimpleImage";
 import "convention/app/css/table.css";
 
 export default function PagePrintButton({ pathName }) {
-  let schoolID = JSON.parse(localStorage.getItem("pageSchoolData")).schoolID;
+  let schoolInfo = JSON.parse(localStorage.getItem("pageSchoolData"));
+  let schoolID;
+  if (!!schoolInfo) schoolID = schoolInfo.schoolID;
 
   switch (pathName) {
     case "/":
