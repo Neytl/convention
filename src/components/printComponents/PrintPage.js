@@ -26,7 +26,7 @@ export default function PrintPage() {
     if (pathName == "/imprimirEscuelas") {
       fetch(
         "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/schoolsTables",
-        getLoggedInUserHeaders()
+        getLoggedInUserHeaders(),
       )
         .then((response) => response.json())
         .then((data) => {
@@ -41,13 +41,13 @@ export default function PrintPage() {
         });
     } else if (pathName == "/imprimirEscuela") {
       let queryStringSchoolID = new URLSearchParams(window.location.search).get(
-        "school"
+        "school",
       );
 
       fetch(
         "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/schoolTable/" +
           queryStringSchoolID,
-        getLoggedInUserHeaders()
+        getLoggedInUserHeaders(),
       )
         .then((response) => response.json())
         .then((data) => {
@@ -62,30 +62,53 @@ export default function PrintPage() {
           setPageData(pageData);
         });
     } else if (pathName == "/imprimirEventos") {
-      fetch(
-        "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/eventsTables",
-        getLoggedInUserHeaders()
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (notAuthorized(data)) return;
+      let queryStringSchoolID = new URLSearchParams(window.location.search).get(
+        "school",
+      );
 
-          let pageData = {
-            pathName: pathName,
-            tables: data,
-          };
+      if (!queryStringSchoolID) {
+        fetch(
+          "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/eventsTables",
+          getLoggedInUserHeaders(),
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            if (notAuthorized(data)) return;
 
-          setPageData(pageData);
-        });
+            let pageData = {
+              pathName: pathName,
+              tables: data,
+            };
+
+            setPageData(pageData);
+          });
+      } else {
+        fetch(
+          "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/schoolEventsTables/" +
+            queryStringSchoolID,
+          getLoggedInUserHeaders(),
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            if (notAuthorized(data)) return;
+
+            let pageData = {
+              pathName: pathName,
+              tables: data,
+            };
+
+            setPageData(pageData);
+          });
+      }
     } else if (pathName == "/imprimirEvento") {
       let queryStringSchoolID = new URLSearchParams(window.location.search).get(
-        "event"
+        "event",
       );
 
       fetch(
         "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/eventTable/" +
           queryStringSchoolID,
-        getLoggedInUserHeaders()
+        getLoggedInUserHeaders(),
       )
         .then((response) => response.json())
         .then((data) => {
@@ -108,7 +131,10 @@ export default function PrintPage() {
     let tables = [];
     pageData.tables.forEach((tableData) => {
       tables.push(
-        <SchoolPrintTable tableData={tableData} key={tableData.tableSchoolID} />
+        <SchoolPrintTable
+          tableData={tableData}
+          key={tableData.tableSchoolID}
+        />,
       );
     });
 
@@ -129,6 +155,9 @@ export default function PrintPage() {
     let tables = [];
     let sectionTables = [];
     let currentCategory = "";
+    let schoolSpecific = new URLSearchParams(window.location.search).has(
+      "school",
+    );
 
     const buildSectionColumns = (sectionTables) => {
       if (sectionTables.length == 0) return;
@@ -139,17 +168,37 @@ export default function PrintPage() {
         totalHeight += parseInt(sectionTable.key.split("$")[0]);
       });
 
-      totalHeight -= 4; // Offset to help with balance
+      // totalHeight += 1; // +1 to prioritize elements on the left side
+      let idealSplit = totalHeight / 2;
       let runningHeight = 0;
       let columnOne = [];
       let columnTwo = [];
       let split = false;
+
       sectionTables.forEach((sectionTable) => {
+        // Decide when to split
+        if (!split) {
+          if (runningHeight > idealSplit) {
+            split = true;
+          } else {
+            let currentElementHeight = parseInt(sectionTable.key.split("$")[0]);
+            let currentDistance = idealSplit - runningHeight;
+
+            if (
+              currentDistance < currentElementHeight &&
+              currentDistance <
+                runningHeight + currentElementHeight - idealSplit
+            ) {
+              split = true;
+            } else {
+              runningHeight += currentElementHeight;
+            }
+          }
+        }
+
         if (split) {
           columnTwo.push(sectionTable);
         } else {
-          runningHeight += parseInt(sectionTable.key.split("$")[0]);
-          if (runningHeight > totalHeight / 2) split = true;
           columnOne.push(sectionTable);
         }
       });
@@ -176,7 +225,7 @@ export default function PrintPage() {
         tables.push(
           <div className="eventCategoryPrint Header" key={currentCategory}>
             {currentCategory}
-          </div>
+          </div>,
         );
       }
 
@@ -185,7 +234,8 @@ export default function PrintPage() {
         <EventPrintTable
           tableData={tableData}
           key={height + "$" + tableData.tableEventID}
-        />
+          schoolSpecific={schoolSpecific}
+        />,
       );
     });
 

@@ -6,6 +6,7 @@ import nextConfig from "convention/../next.config.mjs";
 export default function PageButton({ pathName }) {
   switch (pathName) {
     case "/":
+      return null;
       return (
         <div id="pageButtonContainer">
           <div
@@ -21,6 +22,7 @@ export default function PageButton({ pathName }) {
         </div>
       );
     case "/adminEvents":
+      return null;
       return (
         <div id="pageButtonContainer">
           <div
@@ -46,7 +48,7 @@ export default function PageButton({ pathName }) {
               document
                 .getElementById("popupContent")
                 .childNodes.forEach((element) =>
-                  element.classList.add("hidden")
+                  element.classList.add("hidden"),
                 );
 
               // Set up the new popup
@@ -81,7 +83,7 @@ export default function PageButton({ pathName }) {
               document
                 .getElementById("popupContent")
                 .childNodes.forEach((element) =>
-                  element.classList.add("hidden")
+                  element.classList.add("hidden"),
                 );
 
               // Set up the new popup

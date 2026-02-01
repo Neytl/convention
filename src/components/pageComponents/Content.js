@@ -4,6 +4,7 @@ import Table from "convention/components/tableComponents/Table";
 import PageInfo from "convention/components/pageComponents/PageInfo";
 import Popup from "convention/components/popupComponents/Popup";
 import PageButton from "convention/components/pageComponents/PageButton";
+import PagePrintButton from "convention/components/pageComponents/PagePrintButton";
 
 import { useState, useEffect } from "react";
 import { goHome } from "convention/app/library";
@@ -25,7 +26,7 @@ export default function Content({
 
   const closeTableEntries = () => {
     let tableEntries = document.getElementById(
-      viewData.tables[0].tableName + "TableEntries"
+      viewData.tables[0].tableName + "TableEntries",
     );
     if (!tableEntries) return;
     Array.from(tableEntries.children).forEach((element) => {
@@ -45,14 +46,14 @@ export default function Content({
       // Add a student - update number of students
       if (endpoint == "student") {
         let storedPageSchoolData = JSON.parse(
-          localStorage.getItem("pageSchoolData")
+          localStorage.getItem("pageSchoolData"),
         );
 
         storedPageSchoolData.numStudents++;
         setPageSchoolData(storedPageSchoolData);
         localStorage.setItem(
           "pageSchoolData",
-          JSON.stringify(storedPageSchoolData)
+          JSON.stringify(storedPageSchoolData),
         );
       }
     }
@@ -70,7 +71,7 @@ export default function Content({
           Authorization: getLoggedInUserToken(),
         },
         body: JSON.stringify(payload),
-      }
+      },
     )
       .then((response) => {
         if (!!response.status && response.status == 400) {
@@ -148,7 +149,7 @@ export default function Content({
     } else if (pathname == "/schoolStudents") {
       // Update the entry height
       let elementToHide = document.getElementById(
-        payload.studentID + payload.eventID
+        payload.studentID + payload.eventID,
       );
 
       if (elementToHide.parentNode.children.length == 1)
@@ -184,7 +185,7 @@ export default function Content({
     } else if (pathname == "/adminEvents") {
       // Update the entry height
       let elementToHide = document.getElementById(
-        payload.studentID + payload.eventID
+        payload.studentID + payload.eventID,
       );
 
       if (elementToHide.parentNode.children.length == 1)
@@ -232,7 +233,7 @@ export default function Content({
           Authorization: getLoggedInUserToken(),
         },
         body: JSON.stringify(payload),
-      }
+      },
     )
       .then((response) => {
         if (!!response.status && response.status == 400) {
@@ -277,19 +278,19 @@ export default function Content({
     // Remove a student - update number of students
     if (endpoint == "student") {
       let storedPageSchoolData = JSON.parse(
-        localStorage.getItem("pageSchoolData")
+        localStorage.getItem("pageSchoolData"),
       );
 
       storedPageSchoolData.numStudents--;
       setPageSchoolData(storedPageSchoolData);
       localStorage.setItem(
         "pageSchoolData",
-        JSON.stringify(storedPageSchoolData)
+        JSON.stringify(storedPageSchoolData),
       );
     } else if (endpoint == "school") {
       // When deleting the current school - remove it from storage
       let storedPageSchoolData = JSON.parse(
-        localStorage.getItem("pageSchoolData")
+        localStorage.getItem("pageSchoolData"),
       );
 
       if (payload.schoolID == storedPageSchoolData.schoolID) {
@@ -310,7 +311,7 @@ export default function Content({
           Authorization: getLoggedInUserToken(),
         },
         body: JSON.stringify(payload),
-      }
+      },
     )
       .then((response) => {
         if (!!response.status && response.status == 400) {
@@ -341,7 +342,7 @@ export default function Content({
           Authorization: getLoggedInUserToken(),
         },
         body: JSON.stringify(payload),
-      }
+      },
     )
       .then((response) => {
         if (!!response.status && response.status == 400) {
@@ -445,11 +446,11 @@ export default function Content({
     }
 
     let queryStringSchoolID = new URLSearchParams(window.location.search).get(
-      "school"
+      "school",
     );
     setSchoolID(queryStringSchoolID);
     let storedPageSchoolData = JSON.parse(
-      localStorage.getItem("pageSchoolData")
+      localStorage.getItem("pageSchoolData"),
     );
     let foundPageSchoolData =
       !!storedPageSchoolData &&
@@ -472,7 +473,7 @@ export default function Content({
       fetch(
         // "https://localhost:44398/api/MiniConvention/adminSchoolsPage",
         "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/adminSchoolsPage",
-        getLoggedInUserHeaders()
+        getLoggedInUserHeaders(),
       )
         .then((response) => response.json())
         .then((data) => {
@@ -483,7 +484,7 @@ export default function Content({
       fetch(
         // "https://localhost:44398/api/MiniConvention/adminEventsPage",
         "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/adminEventsPage",
-        getLoggedInUserHeaders()
+        getLoggedInUserHeaders(),
       )
         .then((response) => response.json())
         .then((data) => {
@@ -499,7 +500,7 @@ export default function Content({
       fetch(
         "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/schoolStudentsPage/" +
           queryStringSchoolID,
-        getLoggedInUserHeaders()
+        getLoggedInUserHeaders(),
       )
         .then((response) => response.json())
         .then((data) => {
@@ -516,7 +517,7 @@ export default function Content({
       fetch(
         "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/schoolEventsPage/" +
           queryStringSchoolID,
-        getLoggedInUserHeaders()
+        getLoggedInUserHeaders(),
       )
         .then((response) => response.json())
         .then((data) => {
@@ -550,7 +551,7 @@ export default function Content({
       tablesContent.push(
         <div key={currentCategory} className="eventCategoryHeader">
           {currentCategory}
-        </div>
+        </div>,
       );
     }
 
@@ -565,13 +566,14 @@ export default function Content({
         deleteDataEntry={deleteDataEntry}
         tableObject={table}
         pageTables={viewData.tables}
-      />
+      />,
     );
   });
 
   return (
     <div id="content">
       <Popup events={popupEvents} pathname={pathname} />
+      <PagePrintButton pathName={pathname} />
       <PageInfo pathname={pathname} pageData={pageSchoolData} />
       <Stats statsData={viewData.stats} />
       <div

@@ -43,7 +43,7 @@ export default function TeamEventPrintTable({ tableData }) {
     team.teamNumber = team.teamMembers[0].teamNumber;
     team.ageGroup = team.teamMembers[0].ageGroup;
     team.isMixedAgeGroup = team.teamMembers.some(
-      (teamMember) => teamMember.ageGroup != team.ageGroup
+      (teamMember) => teamMember.ageGroup != team.ageGroup,
     );
 
     if (team.isMixedAgeGroup) {
@@ -102,7 +102,7 @@ export default function TeamEventPrintTable({ tableData }) {
           className={"tableEntryHeader ageGroupTableHeader " + currentAgeGroup}
         >
           {currentAgeGroup}
-        </div>
+        </div>,
       );
     }
 
@@ -110,10 +110,10 @@ export default function TeamEventPrintTable({ tableData }) {
     team.teamMembers.forEach((teamMember) => {
       currentTeamEntries.push(
         <div key={teamMember.studentID} className="teamEventParticipant">
-          <SimpleImage src={"/images/account.png"} width={30} height={30} />
+          <SimpleImage src={"/images/account.png"} width={25} height={25} />
           <div>{teamMember.fullName}</div>
           <div className="studentAge">{"(" + teamMember.age + ")"}</div>
-        </div>
+        </div>,
       );
     });
 
@@ -124,8 +124,8 @@ export default function TeamEventPrintTable({ tableData }) {
         team.teamNumber,
         currentTeamEntries,
         team.isMixedAgeGroup,
-        team.teamID
-      )
+        team.teamID,
+      ),
     );
   });
 
@@ -138,7 +138,7 @@ export default function TeamEventPrintTable({ tableData }) {
       </div>
       <div className="teamEventPrintTable">
         <div className="tableHeader">
-          <span>Escuela</span>
+          <span>Equipo</span>
           <span>Nombre</span>
         </div>
         <div>{tableEntries}</div>
@@ -152,7 +152,7 @@ function buildTeamElement(
   currentTeamNumber,
   currentTeamEntries,
   isMixedAgeGroup,
-  teamID
+  teamID,
 ) {
   return (
     <div

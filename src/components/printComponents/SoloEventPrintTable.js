@@ -2,7 +2,7 @@ import "convention/app/css/print.css";
 import SoloEventPrintEntry from "./SoloEventPrintEntry";
 import SimpleImage from "convention/components/generalComponents/SimpleImage";
 
-export default function SoloEventPrintTable({ tableData }) {
+export default function SoloEventPrintTable({ tableData, schoolSpecific }) {
   // Build the table entries
   let tableEntries = [];
   let currentAgeGroup = "";
@@ -16,7 +16,7 @@ export default function SoloEventPrintTable({ tableData }) {
           className={"tableEntryHeader ageGroupTableHeader " + currentAgeGroup}
         >
           {currentAgeGroup}
-        </div>
+        </div>,
       );
     }
 
@@ -24,7 +24,8 @@ export default function SoloEventPrintTable({ tableData }) {
       <SoloEventPrintEntry
         studentData={studentData}
         key={studentData.studentID}
-      />
+        schoolSpecific={schoolSpecific}
+      />,
     );
   });
 
@@ -38,7 +39,7 @@ export default function SoloEventPrintTable({ tableData }) {
       <div className="soloEventPrintTable">
         <div className="tableHeader">
           <span>Nombre</span>
-          <span>Escuela</span>
+          {schoolSpecific ? null : <span>Escuela</span>}
         </div>
         <div>{tableEntries}</div>
       </div>

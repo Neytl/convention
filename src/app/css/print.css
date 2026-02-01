@@ -11,9 +11,11 @@
     page-break-before: always;
   }
 
+  .tableEntryHeader,
   .tableEntry,
   .eventTeamEntry,
   .eventPrintHeader,
+  .eventTeamEntry,
   .tableHeader {
     break-inside: avoid;
   }
@@ -80,7 +82,7 @@
 .schoolPrintTable .tableHeader,
 .schoolPrintTable .tableEntryData {
   display: grid;
-  grid-template-columns: 12em 4em 1fr;
+  grid-template-columns: 12em 3em 1fr;
 }
 
 /* Solo Event Printouts */
@@ -100,10 +102,15 @@
 }
 
 .soloEventPrintTable .tableEntry {
-  height: 60px;
+  /* height: 60px; */
+  height: 52px;
 }
 
 .soloEventPrintTable .tableEntryData {
+  padding: 0.3em 1em;
+}
+
+.eventsPrintPage .soloEventPrintTable .tableEntryData {
   padding: 0.5em 1em;
 }
 
@@ -151,6 +158,7 @@
   gap: 0.3em;
   background-color: #d5d9eb;
   padding: 0.5em 1em;
+  min-height: 38px;
 }
 .teamEventParticipant:nth-child(odd) {
   background-color: #e6e6fa;
@@ -166,7 +174,7 @@
 .eventTeamEntry:last-child .eventTeamHeader {
   border-radius: 0 0 0 0.3em;
 }
-.eventTeamEntry:last-child .teamEventParticipant {
+.eventTeamEntry:last-child .teamEventParticipant:last-child {
   border-radius: 0 0 0.3em 0;
 }
 
@@ -183,6 +191,10 @@
   grid-template-columns: 3fr 2fr;
 }
 
+.eventsPrintPage .soloEventPrintTable .tableEntryData.schoolSpecific {
+  grid-template-columns: 1fr;
+}
+
 .printEventsColumns {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -195,5 +207,10 @@
 }
 
 .eventsPrintPage .tableEntryData {
-  height: 46px;
+  /* height: 46px; */
+  height: 38px;
+}
+
+.teamEventParticipant:first-child:last-child {
+  height: -webkit-fill-available;
 }

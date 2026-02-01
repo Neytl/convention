@@ -56,7 +56,7 @@ export default function Table({
     let fillInRemainingEntries = function (
       entriesList,
       entriesLeft,
-      teamNumberToOpen
+      teamNumberToOpen,
     ) {
       for (let i = entriesLeft; i > 0; i--) {
         entriesList.push(
@@ -73,7 +73,7 @@ export default function Table({
                   newTableData,
                   tableObject,
                   teamNumberToOpen,
-                  pageTables
+                  pageTables,
                 );
               }}
             >
@@ -86,7 +86,7 @@ export default function Table({
                 <SimpleImage src={"/images/add.png"} width={15} height={15} />
               </div>
             </div>
-          </div>
+          </div>,
         );
       }
     };
@@ -117,7 +117,7 @@ export default function Table({
     teams.forEach((team) => {
       team.ageGroup = team.teamMembers[0].ageGroup;
       team.isMixedAgeGroup = team.teamMembers.some(
-        (teamMember) => teamMember.ageGroup != team.ageGroup
+        (teamMember) => teamMember.ageGroup != team.ageGroup,
       );
 
       if (team.isMixedAgeGroup) {
@@ -154,7 +154,7 @@ export default function Table({
           <div>{"Equipo " + teamData.teamNumber}</div>
           <div></div>
           <div>{teamData.ageGroup}</div>
-        </div>
+        </div>,
       );
 
       // Team members
@@ -166,7 +166,7 @@ export default function Table({
             data={participantData}
             tableType={tableType}
             deleteDataEntry={deleteDataEntry}
-          />
+          />,
         );
       });
 
@@ -198,7 +198,7 @@ export default function Table({
             }
           >
             {currentAgeGroup}
-          </div>
+          </div>,
         );
       }
 
@@ -210,7 +210,7 @@ export default function Table({
           tableType={tableType}
           rowIndex={rowIndex++}
           deleteDataEntry={deleteDataEntry}
-        />
+        />,
       );
     });
   } else {
@@ -248,7 +248,7 @@ export default function Table({
         tableName,
         newTableData,
         tableObject,
-        pageTables
+        pageTables,
       )}
       <div className="table" id={tableID}>
         <div className="tableHeader">{tableHeader}</div>
@@ -293,7 +293,7 @@ function getTableTopper(
   tableName,
   tableData,
   tableObject,
-  pageTables
+  pageTables,
 ) {
   if (tableType == "admin_schools") {
     tableName = "Escuelas";
@@ -304,22 +304,24 @@ function getTableTopper(
   let tableButton;
 
   if (tableType == "school_students") {
-    // School students - print registration
-    tableButton = (
-      <div
-        className="tableButton"
-        onClick={() => {
-          let schoolID = JSON.parse(
-            localStorage.getItem("pageSchoolData")
-          ).schoolID;
+    tableButton = null;
 
-          window.open("./imprimirEscuela?school=" + schoolID, "_blank");
-        }}
-      >
-        {/* <SimpleImage src={"images/print.png"} width={20} height={20} /> */}
-        <span>Imprimir Registro</span>
-      </div>
-    );
+    // School students - print registration
+    // tableButton = (
+    //   <div
+    //     className="tableButton"
+    //     onClick={() => {
+    //       let schoolID = JSON.parse(
+    //         localStorage.getItem("pageSchoolData")
+    //       ).schoolID;
+
+    //       window.open("./imprimirEscuela?school=" + schoolID, "_blank");
+    //     }}
+    //   >
+    //     {/* <SimpleImage src={"images/print.png"} width={20} height={20} /> */}
+    //     <span>Imprimir Registro</span>
+    //   </div>
+    // );
   } else {
     // Everything else - open popup to edit table
     tableButton = (
@@ -332,7 +334,7 @@ function getTableTopper(
             tableData,
             tableObject,
             null,
-            pageTables
+            pageTables,
           );
         }}
       >
