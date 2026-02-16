@@ -189,6 +189,35 @@ input:checked + .slider:before {
   transform: translateX(20.8px);
 }
 
+#addEventTypeButtons {
+  display: flex;
+  gap: 0.5em;
+  padding-left: 0.4em;
+}
+.padLeft {
+  padding-left: 0.4em;
+}
+
+#addEventTypeButtons > span {
+  background-color: #e6e6fa;
+  border-radius: 0.5em;
+  display: flex;
+  justify-content: center;
+  width: 6em;
+  padding: 0.5em 1em;
+  white-space: pre;
+  cursor: pointer;
+}
+#addEventTypeButtons > span:hover {
+  outline: 3px solid #7381a4;
+}
+
+#addEventTypeButtons > span.selected {
+  background-color: #c9d5dc;
+  outline: 3px solid #7381a4;
+  cursor: default;
+}
+
 /* Update School Event Popup */
 
 #participantsConatiner {
@@ -229,7 +258,7 @@ input:checked + .slider:before {
   outline: 3px solid #7381a4;
 }
 
-/* Add Events Popup */
+/* Add School Events Popup */
 #eventsListConatiner {
   gap: 0;
   max-height: 30em;

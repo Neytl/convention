@@ -44,6 +44,52 @@ export default function AddEventPopup({ postNewData }) {
             data-tab="A1"
           />
         </div>
+        {/* Event Type */}
+        {/* <strong className="padLeft">
+          <label htmlFor="editEventHasMinSize">Grupos?</label>
+        </strong>
+        <div id="addEventTypeButtons">
+          <span id="soloEvent" className="selected">
+            Solo
+          </span>
+          <span id="groupEvent">Equipos</span>
+          <span id="schoolEvent">Grupo Escolar</span>
+        </div> */}
+        {/* Min Group/Team Size */}
+        {/* <div id="teamSizeRow" className="hidden">
+          <div id="editEventMinSizeButton">
+            <div className="popupInputLabel">
+              <label htmlFor="editEventHasMinSize">Mínimo?</label>
+            </div>
+            <label className="sliderContainer" htmlFor="editEventHasMinSize">
+              <input
+                onChange={onToggleCheckbox}
+                type="checkbox"
+                id="editEventHasMinSize"
+              />
+              <div
+                className="slider"
+                onKeyDown={onPopupInput}
+                data-tab="B2"
+                tabIndex={-1}
+              ></div>
+            </label>
+          </div>
+          <div id="editMinSizeContainer">
+            <div className="popupInputLabel">
+              <label htmlFor="eventTeamSize">Participantes:</label>
+            </div>
+            <input
+              type="number"
+              id="editEventTeamSize"
+              defaultValue={4}
+              min={2}
+              max={30}
+              onKeyDown={onPopupInput}
+              data-tab="B3"
+            />
+          </div>
+        </div> */}
         {/* Team Size */}
         <div id="teamSizeRow">
           <div id="eventHasTeamsButton">

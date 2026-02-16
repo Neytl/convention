@@ -3,7 +3,7 @@ import "convention/app/css/globals.css";
 // Registration Close Date
 const registrationCloseYear = 2026;
 const registrationCloseMonth = 2;
-const registrationCloseDay = 13;
+const registrationCloseDay = 19;
 
 const maximumEvents = 7;
 
