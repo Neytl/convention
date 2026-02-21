@@ -153,7 +153,7 @@ function lookupTableEntryDropdown(tableType, data, deleteDataEntry) {
       return generateSchoolStudentsEntryDropdown(
         tableType,
         data,
-        deleteDataEntry
+        deleteDataEntry,
       );
   }
 }
@@ -175,7 +175,7 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
       confirm(
         "¿Estás seguro de que quieres eliminar la escuela '" +
           data.schoolName +
-          "' del registro?"
+          "' del registro?",
       )
     ) {
       deleteDataEntry("school", {
@@ -288,7 +288,7 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
         .getElementById("editTeamSizeContainer")
         .classList.remove("hidden");
       document.getElementById("editEventTeamSize").value = parseInt(
-        data.maxTeamSize
+        data.maxTeamSize,
       );
     } else {
       document.getElementById("editEventHasTeams").checked = false;
@@ -303,7 +303,7 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
       confirm(
         "¿Estás seguro de que quieres eliminar el evento '" +
           data.eventName +
-          "' del registro?"
+          "' del registro?",
       )
     ) {
       deleteDataEntry("event", {
@@ -317,7 +317,7 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
       confirm(
         "¿Estás seguro de que quieres eliminar '" +
           participantToDelete.fullName +
-          "' de este evento?"
+          "' de este evento?",
       )
     ) {
       deleteDataEntry("participant", {
@@ -330,61 +330,61 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
   let eventParticipantsElements = [];
   let index = 0;
 
-  // Sort the participants by - age group > school > name
-  data.participants.forEach((participant) => {
-    if (participant.ageGroup == "Corderitos") participant.sortPriority = 1;
-    else if (participant.ageGroup == "Ovejitas") participant.sortPriority = 2;
-    else participant.sortPriority = 3;
-    participant.sortPriority +=
-      "-" + participant.schoolName + participant.fullName;
-  });
+  // // Sort the participants by - age group > school > name
+  // data.participants.forEach((participant) => {
+  //   if (participant.ageGroup == "Corderitos") participant.sortPriority = 1;
+  //   else if (participant.ageGroup == "Ovejitas") participant.sortPriority = 2;
+  //   else participant.sortPriority = 3;
+  //   participant.sortPriority +=
+  //     "-" + participant.schoolName + participant.fullName;
+  // });
 
-  data.participants.sort((a, b) =>
-    a.sortPriority.localeCompare(b.sortPriority)
-  );
+  // data.participants.sort((a, b) =>
+  //   a.sortPriority.localeCompare(b.sortPriority)
+  // );
 
-  // Display the participants
-  let currentAgeGroup = "";
-  data.participants.forEach((participant) => {
-    index++;
+  // // Display the participants
+  // let currentAgeGroup = "";
+  // data.participants.forEach((participant) => {
+  //   index++;
 
-    if (participant.ageGroup != currentAgeGroup) {
-      currentAgeGroup = participant.ageGroup;
-      eventParticipantsElements.push(
-        <div
-          className={
-            "ageGroupHeader adminEventAgeGroupHeader " + currentAgeGroup
-          }
-          key={currentAgeGroup}
-        >
-          {currentAgeGroup}
-        </div>
-      );
-    }
+  //   if (participant.ageGroup != currentAgeGroup) {
+  //     currentAgeGroup = participant.ageGroup;
+  //     eventParticipantsElements.push(
+  //       <div
+  //         className={
+  //           "ageGroupHeader adminEventAgeGroupHeader " + currentAgeGroup
+  //         }
+  //         key={currentAgeGroup}
+  //       >
+  //         {currentAgeGroup}
+  //       </div>
+  //     );
+  //   }
 
-    eventParticipantsElements.push(
-      <div
-        key={participant.studentID}
-        id={participant.studentID + data.eventID}
-        className="participantDisplay"
-      >
-        <ParticipantIcon
-          index={index}
-          schoolName={participant.schoolName}
-          fullName={participant.fullName}
-          age={participant.age}
-        />
-        <div
-          className="deleteParticipantButton"
-          onClick={() => {
-            deleteParticipant(participant);
-          }}
-        >
-          <SimpleImage src="/images/delete.png" width="20" height="20" />
-        </div>
-      </div>
-    );
-  });
+  //   eventParticipantsElements.push(
+  //     <div
+  //       key={participant.studentID}
+  //       id={participant.studentID + data.eventID}
+  //       className="participantDisplay"
+  //     >
+  //       <ParticipantIcon
+  //         index={index}
+  //         schoolName={participant.schoolName}
+  //         fullName={participant.fullName}
+  //         age={participant.age}
+  //       />
+  //       <div
+  //         className="deleteParticipantButton"
+  //         onClick={() => {
+  //           deleteParticipant(participant);
+  //         }}
+  //       >
+  //         <SimpleImage src="/images/delete.png" width="20" height="20" />
+  //       </div>
+  //     </div>
+  //   );
+  // });
 
   return (
     <div className="tableEntryDropdown">
@@ -422,7 +422,7 @@ function generateSchoolStudentsEntryDropdown(tableType, data, deleteDataEntry) {
     input.dataset.studentID = data.studentID;
     document.getElementById("editLastName").value = data.lastNames;
     document.getElementById("editBirthdate").value = new Date(
-      data.birthdate
+      data.birthdate,
     ).toLocaleDateString("es-MX");
   };
 
@@ -431,7 +431,7 @@ function generateSchoolStudentsEntryDropdown(tableType, data, deleteDataEntry) {
       confirm(
         "¿Estás seguro de que quieres eliminar el alumno '" +
           data.fullName +
-          "' del registro?"
+          "' del registro?",
       )
     ) {
       deleteDataEntry("student", {
@@ -447,7 +447,7 @@ function generateSchoolStudentsEntryDropdown(tableType, data, deleteDataEntry) {
           data.fullName +
           "' del evento '" +
           eventToDelete.eventName +
-          "'?"
+          "'?",
       )
     ) {
       deleteDataEntry("participant", {
@@ -484,7 +484,7 @@ function generateSchoolStudentsEntryDropdown(tableType, data, deleteDataEntry) {
         >
           <SimpleImage src="/images/delete.png" width="20" height="20" />
         </div>
-      </div>
+      </div>,
     );
   });
 
