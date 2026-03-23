@@ -130,71 +130,9 @@
 }
 
 /* Admin Events Popup */
-#teamSizeRow,
-#editTeamSizeContainer {
-  display: flex;
-  gap: 0.5em;
-  align-items: center;
-  justify-content: space-between;
-  height: 2em;
-}
-
-#teamSizeRow > div,
-#editTeamSizeContainer > div {
-  display: flex;
-  align-items: center;
-  gap: 0.3em;
-}
-
-.sliderContainer {
-  display: inline-block;
-  height: 27.2px;
-  position: relative;
-  width: 48px;
-}
-
-.sliderContainer input {
-  display: none;
-}
-
-.slider {
-  background-color: #ccc;
-  bottom: 0;
-  cursor: pointer;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: 0.4s;
-  border-radius: 27.2px;
-}
-
-.slider:before {
-  background-color: #fff;
-  bottom: 3.2px;
-  content: "";
-  height: 20.8px;
-  left: 3.2px;
-  position: absolute;
-  transition: 0.4s;
-  width: 20.8px;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #66bb6a;
-}
-
-input:checked + .slider:before {
-  transform: translateX(20.8px);
-}
-
 .eventTypeButtons {
   display: flex;
   gap: 0.5em;
-  padding-left: 0.4em;
-}
-.padLeft {
   padding-left: 0.4em;
 }
 
