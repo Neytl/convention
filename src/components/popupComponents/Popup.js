@@ -20,36 +20,39 @@ export default function Popup({ events, pathname }) {
 
   if (pathname == "/") {
     popups.push(
-      <AddSchoolPopup key={"AddSchoolPopup"} postNewData={events.postNewData} />
+      <AddSchoolPopup
+        key={"AddSchoolPopup"}
+        postNewData={events.postNewData}
+      />,
     );
     popups.push(
       <EditSchoolPopup
         key={"EditSchoolPopup"}
         updateDataEntry={events.updateDataEntry}
-      />
+      />,
     );
   } else if (pathname == "/adminEvents") {
     popups.push(
-      <AddEventPopup key={"AddEventPopup"} postNewData={events.postNewData} />
+      <AddEventPopup key={"AddEventPopup"} postNewData={events.postNewData} />,
     );
     popups.push(
       <EditAdminEventPopup
         key={"EditAdminEventPopup"}
         updateDataEntry={events.updateDataEntry}
-      />
+      />,
     );
   } else if (pathname == "/schoolStudents") {
     popups.push(
       <AddStudentPopup
         key={"AddStudentPopup"}
         postNewData={events.postNewData}
-      />
+      />,
     );
     popups.push(
       <EditStudentPopup
         key={"AddScEditStudentPopuphoolPopup"}
         updateDataEntry={events.updateDataEntry}
-      />
+      />,
     );
   } else if (pathname == "/schoolEvents") {
     popups.push(
@@ -57,13 +60,13 @@ export default function Popup({ events, pathname }) {
         key={"EditSchoolEventPopup"}
         schoolData={events.schoolData}
         updateEventParticipants={events.updateEventParticipants}
-      />
+      />,
     );
     popups.push(
       <AddSchoolEventPopup
         key={"AddSchoolEventPopup"}
         pageTables={events.pageTables}
-      />
+      />,
     );
   }
 
@@ -131,20 +134,13 @@ export const onPopupInput = (event) => {
       newTarget = document.querySelector('[data-tab="' + currentLetter + '1"]');
       newTarget.focus();
     } else {
-      // Tab to next element
+      // Tab to the next available element
       let currentIndex = parseInt(currentTab[1]);
-      let newIndex = currentIndex + 1 + "";
-      newTarget = document.querySelector(
-        '[data-tab="' + currentLetter + newIndex + '"]'
-      );
 
-      newTarget.focus();
-
-      // Unable to focus - tab next
-      if (newTarget != document.activeElement) {
-        let newIndex = currentIndex + 2 + "";
+      while (newTarget != document.activeElement) {
+        currentIndex++;
         newTarget = document.querySelector(
-          '[data-tab="' + currentLetter + newIndex + '"]'
+          '[data-tab="' + currentLetter + currentIndex + '"]',
         );
 
         newTarget.focus();
@@ -159,7 +155,7 @@ export const openTableButtonPopup = (
   tableData,
   tableObject,
   teamToOpen,
-  pageTables
+  pageTables,
 ) => {
   // Show the correct popup
   document
@@ -221,7 +217,7 @@ export const openTableButtonPopup = (
           minTeamSize: tableObject.minTeamSize,
         },
         teamToOpen,
-        pageTables
+        pageTables,
       );
       break;
     default:

@@ -1,30 +1,100 @@
 import { onPopupInput } from "./Popup";
 
 export default function EditAdminEventPopup({ updateDataEntry }) {
-  let onToggleCheckbox = function (event) {
-    if (event.target.checked) {
-      document
-        .getElementById("editTeamSizeContainer")
-        .classList.remove("hidden");
-    } else {
-      document.getElementById("editTeamSizeContainer").classList.add("hidden");
+  const onSelectEditEventType = (eventType) => {
+    document.getElementById("soloEventEdit").classList.remove("selected");
+    document.getElementById("groupEventEdit").classList.remove("selected");
+    document.getElementById("schoolEventEdit").classList.remove("selected");
+    document.getElementById(eventType + "EventEdit").classList.add("selected");
+
+    switch (eventType) {
+      case "solo":
+        document
+          .getElementById("editMinTeamSizeContainer")
+          .classList.add("hidden");
+        document
+          .getElementById("editMaxTeamSizeContainer")
+          .classList.add("hidden");
+        return;
+      case "group":
+        document
+          .getElementById("editMinTeamSizeContainer")
+          .classList.remove("hidden");
+        document
+          .getElementById("editMaxTeamSizeContainer")
+          .classList.remove("hidden");
+        return;
+      case "school":
+        document
+          .getElementById("editMinTeamSizeContainer")
+          .classList.remove("hidden");
+        document
+          .getElementById("editMaxTeamSizeContainer")
+          .classList.add("hidden");
+        return;
     }
   };
 
   const updateEvent = () => {
+    let error = false;
+
+    // Build the new event data payload
     let payload = {
-      eventID: document.getElementById("editEventName").dataset.eventID,
       eventName: document.getElementById("editEventName").value,
-      isTeamEvent: document.getElementById("editEventHasTeams").checked,
-      maxTeamSize: document.getElementById("editEventTeamSize").value,
       category: document.getElementById("editEventCategory").value,
+      eventID: document.getElementById("editEventName").dataset.eventID,
     };
+
+    if (
+      document.getElementById("soloEventEdit").classList.contains("selected")
+    ) {
+      // Solo event
+      payload.isTeamEvent = false;
+      payload.isSchoolEvent = false;
+      payload.minTeamSize = "1";
+      payload.maxTeamSize = "1";
+    } else if (
+      document.getElementById("groupEventEdit").classList.contains("selected")
+    ) {
+      // Group event
+      payload.isTeamEvent = true;
+      payload.isSchoolEvent = false;
+      payload.minTeamSize = document.getElementById(
+        "editEventMinTeamSize",
+      ).value;
+      payload.maxTeamSize = document.getElementById(
+        "editEventMaxTeamSize",
+      ).value;
+      if (!payload.minTeamSize) {
+        document.getElementById("editEventMinTeamSize").classList.add("error");
+        error = true;
+      }
+      if (!payload.maxTeamSize) {
+        document.getElementById("editEventMaxTeamSize").classList.add("error");
+        error = true;
+      }
+    } else {
+      // School event
+      payload.isTeamEvent = false;
+      payload.isSchoolEvent = true;
+      payload.minTeamSize = document.getElementById(
+        "editEventMinTeamSize",
+      ).value;
+      payload.maxTeamSize = "1";
+      if (!payload.minTeamSize) {
+        document.getElementById("editEventMinTeamSize").classList.add("error");
+        error = true;
+      }
+    }
 
     // Incomplete data
     if (!payload.eventName) {
       document.getElementById("editEventName").classList.add("error");
+      error = true;
       return;
     }
+
+    if (error) return;
 
     // Make the request
     updateDataEntry("event", "eventID", payload);
@@ -47,41 +117,6 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
             data-tab="B1"
           />
         </div>
-        {/* Team Size */}
-        <div id="teamSizeRow">
-          <div id="editEventHasTeamsButton">
-            <div className="popupInputLabel">
-              <label htmlFor="eventHasTeams">Equipos?</label>
-            </div>
-            <label className="sliderContainer" htmlFor="editEventHasTeams">
-              <input
-                onChange={onToggleCheckbox}
-                type="checkbox"
-                id="editEventHasTeams"
-              />
-              <div
-                className="slider"
-                onKeyDown={onPopupInput}
-                data-tab="B2"
-                tabIndex={-1}
-              ></div>
-            </label>
-          </div>
-          <div id="editTeamSizeContainer">
-            <div className="popupInputLabel">
-              <label htmlFor="eventTeamSize">Tamaño:</label>
-            </div>
-            <input
-              type="number"
-              id="editEventTeamSize"
-              defaultValue={4}
-              min={2}
-              max={30}
-              onKeyDown={onPopupInput}
-              data-tab="B3"
-            />
-          </div>
-        </div>
         {/* Category */}
         <div>
           <div className="popupInputLabel">
@@ -92,13 +127,70 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
             defaultValue={"Deportes"}
             className="popupSelect"
             onKeyDown={onPopupInput}
-            data-tab="B4"
+            data-tab="B2"
           >
             <option>Deportes</option>
             <option>Música</option>
             <option>Exhibiciones</option>
             <option>Concursos Académicos</option>
           </select>
+        </div>
+        {/* Event Type */}
+        <div className="eventTypeButtons">
+          <span
+            id="soloEventEdit"
+            className="selected"
+            onClick={() => onSelectEditEventType("solo")}
+          >
+            Evento Solo
+          </span>
+          <span
+            id="groupEventEdit"
+            onClick={() => onSelectEditEventType("group")}
+          >
+            Equipos
+          </span>
+          <span
+            id="schoolEventEdit"
+            onClick={() => onSelectEditEventType("school")}
+          >
+            Grupo Escolar
+          </span>
+        </div>
+        {/* Team Size */}
+        <div id="editMinTeamSizeContainer">
+          <div className="popupInputLabel">
+            <label htmlFor="editEventMinTeamSize">
+              Tamaño de Equipo Mínimo:
+            </label>
+          </div>
+          <input
+            type="number"
+            id="editEventMinTeamSize"
+            defaultValue={4}
+            min={2}
+            max={30}
+            onKeyDown={onPopupInput}
+            onInput={clearError}
+            data-tab="B3"
+          />
+        </div>
+        <div id="editMaxTeamSizeContainer">
+          <div className="popupInputLabel">
+            <label htmlFor="editEventMaxTeamSize">
+              Tamaño de Equipo Máximo:
+            </label>
+          </div>
+          <input
+            type="number"
+            id="editEventMaxTeamSize"
+            defaultValue={4}
+            min={2}
+            max={100}
+            onKeyDown={onPopupInput}
+            onInput={clearError}
+            data-tab="B4"
+          />
         </div>
       </form>
 
@@ -120,10 +212,9 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
 }
 
 export const clearEventPopup = () => {
-  document.getElementById("eventName").value = "";
-  document.getElementById("eventTeamSize").value = 4;
-  document.getElementById("eventHasTeams").checked = false;
-  document.getElementById("teamSizeContainer").classList.add("hidden");
+  document.getElementById("editEventName").value = "";
+  document.getElementById("editEventMinTeamSize").value = 4;
+  document.getElementById("editEventMaxTeamSize").value = 4;
 };
 
 function clearError(event) {

@@ -281,21 +281,50 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
     input.value = data.eventName;
     input.dataset.eventID = data.eventID;
 
+    document.getElementById("editEventCategory").value = data.category;
+
+    // Event team size info
+    document.getElementById("soloEventEdit").classList.remove("selected");
+    document.getElementById("groupEventEdit").classList.remove("selected");
+    document.getElementById("schoolEventEdit").classList.remove("selected");
+
     if (data.isTeamEvent) {
-      // Teams
-      document.getElementById("editEventHasTeams").checked = true;
+      // Team event
+      document.getElementById("groupEventEdit").classList.add("selected");
       document
-        .getElementById("editTeamSizeContainer")
+        .getElementById("editMinTeamSizeContainer")
         .classList.remove("hidden");
-      document.getElementById("editEventTeamSize").value = parseInt(
+      document.getElementById("editEventMinTeamSize").value = parseInt(
+        data.minTeamSize,
+      );
+      document
+        .getElementById("editMaxTeamSizeContainer")
+        .classList.remove("hidden");
+      document.getElementById("editEventMaxTeamSize").value = parseInt(
         data.maxTeamSize,
       );
+    } else if (data.isSchoolEvent) {
+      // School event
+      document.getElementById("schoolEventEdit").classList.add("selected");
+      document
+        .getElementById("editMinTeamSizeContainer")
+        .classList.remove("hidden");
+      document.getElementById("editEventMinTeamSize").value = parseInt(
+        data.minTeamSize,
+      );
+      document
+        .getElementById("editMaxTeamSizeContainer")
+        .classList.add("hidden");
     } else {
-      document.getElementById("editEventHasTeams").checked = false;
-      document.getElementById("editTeamSizeContainer").classList.add("hidden");
+      // Solo event
+      document
+        .getElementById("editMinTeamSizeContainer")
+        .classList.add("hidden");
+      document
+        .getElementById("editMaxTeamSizeContainer")
+        .classList.add("hidden");
+      document.getElementById("soloEventEdit").classList.add("selected");
     }
-
-    document.getElementById("editEventCategory").value = data.category;
   };
 
   const deleteEvent = function (event) {

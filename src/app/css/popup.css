@@ -189,7 +189,7 @@ input:checked + .slider:before {
   transform: translateX(20.8px);
 }
 
-#addEventTypeButtons {
+.eventTypeButtons {
   display: flex;
   gap: 0.5em;
   padding-left: 0.4em;
@@ -198,7 +198,7 @@ input:checked + .slider:before {
   padding-left: 0.4em;
 }
 
-#addEventTypeButtons > span {
+.eventTypeButtons > span {
   background-color: #e6e6fa;
   border-radius: 0.5em;
   display: flex;
@@ -208,11 +208,11 @@ input:checked + .slider:before {
   white-space: pre;
   cursor: pointer;
 }
-#addEventTypeButtons > span:hover {
+.eventTypeButtons > span:hover {
   outline: 3px solid #7381a4;
 }
 
-#addEventTypeButtons > span.selected {
+.eventTypeButtons > span.selected {
   background-color: #c9d5dc;
   outline: 3px solid #7381a4;
   cursor: default;

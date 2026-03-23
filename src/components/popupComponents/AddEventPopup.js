@@ -1,27 +1,84 @@
 import { onPopupInput } from "./Popup";
 
 export default function AddEventPopup({ postNewData }) {
-  const onToggleCheckbox = (event) => {
-    if (event.target.checked) {
-      document.getElementById("teamSizeContainer").classList.remove("hidden");
-    } else {
-      document.getElementById("teamSizeContainer").classList.add("hidden");
+  const onSelectEventType = (eventType) => {
+    document.getElementById("soloEvent").classList.remove("selected");
+    document.getElementById("groupEvent").classList.remove("selected");
+    document.getElementById("schoolEvent").classList.remove("selected");
+    document.getElementById(eventType + "Event").classList.add("selected");
+
+    switch (eventType) {
+      case "solo":
+        document.getElementById("minTeamSizeContainer").classList.add("hidden");
+        document.getElementById("maxTeamSizeContainer").classList.add("hidden");
+        return;
+      case "group":
+        document
+          .getElementById("minTeamSizeContainer")
+          .classList.remove("hidden");
+        document
+          .getElementById("maxTeamSizeContainer")
+          .classList.remove("hidden");
+        return;
+      case "school":
+        document
+          .getElementById("minTeamSizeContainer")
+          .classList.remove("hidden");
+        document.getElementById("maxTeamSizeContainer").classList.add("hidden");
+        return;
     }
   };
 
   const addNewEvent = () => {
+    let error = false;
+
+    // Build the new event data payload
     let payload = {
       eventName: document.getElementById("eventName").value,
-      isTeamEvent: document.getElementById("eventHasTeams").checked,
-      maxTeamSize: document.getElementById("eventTeamSize").value,
       category: document.getElementById("eventCategory").value,
     };
+
+    if (document.getElementById("soloEvent").classList.contains("selected")) {
+      // Solo event
+      payload.isTeamEvent = false;
+      payload.isSchoolEvent = false;
+      payload.minTeamSize = "1";
+      payload.maxTeamSize = "1";
+    } else if (
+      document.getElementById("groupEvent").classList.contains("selected")
+    ) {
+      // Group event
+      payload.isTeamEvent = true;
+      payload.isSchoolEvent = false;
+      payload.minTeamSize = document.getElementById("eventMinTeamSize").value;
+      payload.maxTeamSize = document.getElementById("eventMaxTeamSize").value;
+      if (!payload.minTeamSize) {
+        document.getElementById("eventMinTeamSize").classList.add("error");
+        error = true;
+      }
+      if (!payload.maxTeamSize) {
+        document.getElementById("eventMaxTeamSize").classList.add("error");
+        error = true;
+      }
+    } else {
+      // School event
+      payload.isTeamEvent = false;
+      payload.isSchoolEvent = true;
+      payload.minTeamSize = document.getElementById("eventMinTeamSize").value;
+      payload.maxTeamSize = "1";
+      if (!payload.minTeamSize) {
+        document.getElementById("eventMinTeamSize").classList.add("error");
+        error = true;
+      }
+    }
 
     // Incomplete data
     if (!payload.eventName) {
       document.getElementById("eventName").classList.add("error");
-      return;
+      error = true;
     }
+
+    if (error) return;
 
     // Make the request
     postNewData("event", payload);
@@ -44,87 +101,6 @@ export default function AddEventPopup({ postNewData }) {
             data-tab="A1"
           />
         </div>
-        {/* Event Type */}
-        {/* <strong className="padLeft">
-          <label htmlFor="editEventHasMinSize">Grupos?</label>
-        </strong>
-        <div id="addEventTypeButtons">
-          <span id="soloEvent" className="selected">
-            Solo
-          </span>
-          <span id="groupEvent">Equipos</span>
-          <span id="schoolEvent">Grupo Escolar</span>
-        </div> */}
-        {/* Min Group/Team Size */}
-        {/* <div id="teamSizeRow" className="hidden">
-          <div id="editEventMinSizeButton">
-            <div className="popupInputLabel">
-              <label htmlFor="editEventHasMinSize">Mínimo?</label>
-            </div>
-            <label className="sliderContainer" htmlFor="editEventHasMinSize">
-              <input
-                onChange={onToggleCheckbox}
-                type="checkbox"
-                id="editEventHasMinSize"
-              />
-              <div
-                className="slider"
-                onKeyDown={onPopupInput}
-                data-tab="B2"
-                tabIndex={-1}
-              ></div>
-            </label>
-          </div>
-          <div id="editMinSizeContainer">
-            <div className="popupInputLabel">
-              <label htmlFor="eventTeamSize">Participantes:</label>
-            </div>
-            <input
-              type="number"
-              id="editEventTeamSize"
-              defaultValue={4}
-              min={2}
-              max={30}
-              onKeyDown={onPopupInput}
-              data-tab="B3"
-            />
-          </div>
-        </div> */}
-        {/* Team Size */}
-        <div id="teamSizeRow">
-          <div id="eventHasTeamsButton">
-            <div className="popupInputLabel">
-              <label htmlFor="eventHasTeams">Equipos?</label>
-            </div>
-            <label className="sliderContainer" htmlFor="eventHasTeams">
-              <input
-                onChange={onToggleCheckbox}
-                type="checkbox"
-                id="eventHasTeams"
-              />
-              <div
-                className="slider"
-                onKeyDown={onPopupInput}
-                data-tab="A2"
-                tabIndex={-1}
-              ></div>
-            </label>
-          </div>
-          <div id="teamSizeContainer">
-            <div className="popupInputLabel">
-              <label htmlFor="eventTeamSize">Tamaño:</label>
-            </div>
-            <input
-              type="number"
-              id="eventTeamSize"
-              defaultValue={4}
-              min={2}
-              max={30}
-              onKeyDown={onPopupInput}
-              data-tab="A3"
-            />
-          </div>
-        </div>
         {/* Category */}
         <div>
           <div className="popupInputLabel">
@@ -135,13 +111,60 @@ export default function AddEventPopup({ postNewData }) {
             defaultValue={"Deportes"}
             className="popupSelect"
             onKeyDown={onPopupInput}
-            data-tab="A4"
+            data-tab="A2"
           >
             <option>Deportes</option>
             <option>Música</option>
             <option>Exhibiciones</option>
             <option>Concursos Académicos</option>
           </select>
+        </div>
+        {/* Event Type */}
+        <div className="eventTypeButtons">
+          <span
+            id="soloEvent"
+            className="selected"
+            onClick={() => onSelectEventType("solo")}
+          >
+            Evento Solo
+          </span>
+          <span id="groupEvent" onClick={() => onSelectEventType("group")}>
+            Equipos
+          </span>
+          <span id="schoolEvent" onClick={() => onSelectEventType("school")}>
+            Grupo Escolar
+          </span>
+        </div>
+        {/* Team Size */}
+        <div id="minTeamSizeContainer">
+          <div className="popupInputLabel">
+            <label htmlFor="eventMinTeamSize">Tamaño de Equipo Mínimo:</label>
+          </div>
+          <input
+            type="number"
+            id="eventMinTeamSize"
+            defaultValue={4}
+            min={2}
+            max={30}
+            onKeyDown={onPopupInput}
+            onInput={clearError}
+            data-tab="A3"
+          />
+        </div>
+        <div id="maxTeamSizeContainer">
+          <div className="popupInputLabel">
+            <label htmlFor="eventMaxTeamSize">Tamaño de Equipo Máximo:</label>
+          </div>
+          <input
+            type="number"
+            id="eventMaxTeamSize"
+            defaultValue={4}
+            min={2}
+            max={100}
+            onKeyDown={onPopupInput}
+            onInput={clearError}
+            data-tab="A4"
+          />
         </div>
       </form>
 
@@ -164,9 +187,8 @@ export default function AddEventPopup({ postNewData }) {
 
 export const clearEventPopup = () => {
   document.getElementById("eventName").value = "";
-  document.getElementById("eventTeamSize").value = 4;
-  document.getElementById("eventHasTeams").checked = false;
-  document.getElementById("teamSizeContainer").classList.add("hidden");
+  document.getElementById("eventMinTeamSize").value = 4;
+  document.getElementById("eventMaxTeamSize").value = 4;
 };
 
 function clearError(event) {
